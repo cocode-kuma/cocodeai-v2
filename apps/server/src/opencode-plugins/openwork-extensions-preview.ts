@@ -111,26 +111,26 @@ const sessionMessagesEnvelopeSchema = z.object({
 }).passthrough();
 
 const OPENWORK_UI_CONTROL_INSTRUCTION =
-  `IMPORTANT: You are running inside the OpenWork desktop app. When the user asks you to open settings, navigate the app, add providers, or control the OpenWork UI in any way, ALWAYS use the openwork_ui_* tools — NOT the browser_* tools. The browser tools are for external websites only. The openwork_ui_* tools control the app directly and are instant (one tool call).
+  `IMPORTANT: You are running inside the CocodeAI desktop app. When the user asks you to open settings, navigate the app, add providers, or control the CocodeAI UI in any way, ALWAYS use the openwork_ui_* tools — NOT the browser_* tools. The browser tools are for external websites only. The openwork_ui_* tools control the app directly and are instant (one tool call).
 
 To open settings: openwork_ui_execute_action with actionId "settings.panel.open" and args {panel:"general"} (or "ai", "extensions", "permissions", "skills", "appearance", etc.)
 To add a provider: openwork_ui_execute_action with actionId "settings.provider.add" and optional args {providerId:"anthropic"}
 To see what the user sees: openwork_ui_snapshot
 To list all available actions: openwork_ui_list_actions
-To ask what OpenWork can do: openwork_ui_execute_action with actionId "help.capabilities"`;
+To ask what CocodeAI can do: openwork_ui_execute_action with actionId "help.capabilities"`;
 
 const OPENWORK_SESSION_MEMORY_INSTRUCTION =
   `## Cross-session memory
-When the user asks what they said, what happened, or what was decided in another OpenWork chat/session, treat it as a session-history lookup, not hidden model memory.
+When the user asks what they said, what happened, or what was decided in another CocodeAI chat/session, treat it as a session-history lookup, not hidden model memory.
 Use openwork_session_search first to search session titles and message transcripts across workspaces. If there is one clear match, use openwork_session_read with the returned sessionId/workspaceId to retrieve transcript context without navigating the UI.
 Answer only from the returned search/read results. If multiple sessions match, ask a short clarifying question. If the returned transcript is limited or missing the older context needed, say so instead of guessing.`;
 
 const OPENWORK_BROWSER_INSTRUCTION =
-  `Do NOT use browser_navigate, browser_click, or browser_snapshot to interact with the OpenWork app itself. Those are for browsing external websites.
+  `Do NOT use browser_navigate, browser_click, or browser_snapshot to interact with the CocodeAI app itself. Those are for browsing external websites.
 
 ## Built-in Browser (external websites)
-For web browsing tasks, ALWAYS start with openwork_browser_open_url. It creates/selects a built-in OpenWork browser tab and returns browser_url plus target_id. Use that exact browser_url and target_id for every later browser_snapshot, browser_click, browser_fill, browser_eval, and browser_screenshot call.
-Do not call browser_navigate without a target_id returned by openwork_browser_open_url. Do not use browser_* tools on the OpenWork app target (avoid targets with title "OpenWork" or URLs containing ":5173/#/").`;
+For web browsing tasks, ALWAYS start with openwork_browser_open_url. It creates/selects a built-in CocodeAI browser tab and returns browser_url plus target_id. Use that exact browser_url and target_id for every later browser_snapshot, browser_click, browser_fill, browser_eval, and browser_screenshot call.
+Do not call browser_navigate without a target_id returned by openwork_browser_open_url. Do not use browser_* tools on the CocodeAI app target (avoid targets with title "CocodeAI" or URLs containing ":5173/#/").`;
 
 // ── UI control bridge discovery ──
 

@@ -153,13 +153,13 @@ export const BUILT_IN_OPENWORK_EXTENSION_MANIFESTS: OpenWorkExtensionManifest[] 
   {
     schemaVersion: 1,
     id: "openwork-browser",
-    name: "OpenWork Browser",
+    name: "CocodeAI 浏览器",
     description: "Automate the built-in browser panel that stays visible inside OpenWork.",
     source: { format: "openwork-builtin", origin: "builtin", trusted: true },
     icon: { src: "/openwork-mark.svg" },
-    composer: { prompt: "Use the OpenWork Browser extension to " },
+    composer: { prompt: "Use the CocodeAI Browser extension to " },
     setup: {
-      instructions: "OpenWork Browser is ready by default in desktop workspaces.",
+      instructions: "CocodeAI Browser is ready by default in desktop workspaces.",
     },
     resources: [
       {
@@ -172,7 +172,7 @@ export const BUILT_IN_OPENWORK_EXTENSION_MANIFESTS: OpenWorkExtensionManifest[] 
     contributions: [
       { type: "settings-panel", ref: "openwork.browser.settings", location: "settings-detail" },
       { type: "session-side-panel", ref: "openwork.browser.panel", location: "session-right-pane" },
-      { type: "composer-prompt", prompt: "Use the OpenWork Browser extension to ", location: "composer" },
+      { type: "composer-prompt", prompt: "Use the CocodeAI Browser extension to ", location: "composer" },
     ],
     enablement: [
       { type: "toggle-enabled", ref: "openwork-browser", label: "Enabled" },

@@ -15,19 +15,10 @@ import {
 import { isDesktopRuntime } from "../../app/utils";
 import { createClient, unwrap } from "../../app/lib/opencode";
 import { useLocal } from "../kernel/local-provider";
-import { usePlatform } from "../kernel/platform";
 import { WelcomePage } from "../domains/onboarding/welcome-page";
 import { ProviderSelectionStep } from "../domains/onboarding/provider-selection-step";
-import { AttributionStep, type AttributionSource } from "../domains/onboarding/attribution-step";
 import { CreateWorkspaceModal } from "../domains/workspace/create-workspace-modal";
 import type { CreateWorkspaceOptions } from "../domains/workspace/types";
-import {
-  getOpenWorkModelsActionUrl,
-  hideOpenWorkModelsPromo,
-  useOpenWorkModelsPromoEligibility,
-  markOpenWorkModelsStartupPromoShown,
-} from "../domains/cloud/openwork-models-promo";
-import { useDenAuth } from "../domains/cloud/den-auth-provider";
 import { resolveOpenworkConnection } from "./openwork-connection";
 import { captureAnalyticsEvent } from "../../app/lib/analytics";
 import { buildOpenworkWorkspaceBaseUrl, createOpenworkServerClient } from "../../app/lib/openwork-server";
@@ -54,8 +45,6 @@ type WelcomeState = {
   remoteBusy: boolean;
   remoteError: string | null;
   providerStep: boolean;
-  attributionStep: boolean;
-  pendingRoute: string | null;
   pendingWorkspaceId: string | null;
   pendingSessionId: string | null;
 };
@@ -70,7 +59,7 @@ type WelcomeAction =
   | { type: "remote:error"; error: string }
   | { type: "remote:finish" }
   | { type: "provider-step"; workspaceId: string; sessionId: string | null }
-  | { type: "attribution-step"; route: string };
+  | { type: "provider-step:done" };
 
 const initialWelcomeState: WelcomeState = {
   modalOpen: false,
@@ -79,8 +68,6 @@ const initialWelcomeState: WelcomeState = {
   remoteBusy: false,
   remoteError: null,
   providerStep: false,
-  attributionStep: false,
-  pendingRoute: null,
   pendingWorkspaceId: null,
   pendingSessionId: null,
 };
@@ -105,8 +92,8 @@ function welcomeReducer(state: WelcomeState, action: WelcomeAction): WelcomeStat
       return { ...state, remoteBusy: false };
     case "provider-step":
       return { ...state, providerStep: true, pendingWorkspaceId: action.workspaceId, pendingSessionId: action.sessionId };
-    case "attribution-step":
-      return { ...state, providerStep: false, attributionStep: true, pendingRoute: action.route };
+    case "provider-step:done":
+      return { ...state, providerStep: false };
   }
 }
 
@@ -121,11 +108,8 @@ function welcomeReducer(state: WelcomeState, action: WelcomeAction): WelcomeStat
 export function WelcomeRoute() {
   const navigate = useNavigate();
   const local = useLocal();
-  const platform = usePlatform();
-  const denAuth = useDenAuth();
   const [state, dispatch] = useReducer(welcomeReducer, initialWelcomeState);
   const [manualFolder, setManualFolder] = useState("");
-  const showOpenWorkModelsPromo = useOpenWorkModelsPromoEligibility();
 
   // If user already completed onboarding, redirect away immediately.
   useEffect(() => {
@@ -319,30 +303,11 @@ export function WelcomeRoute() {
     await handleCreateWorkspace("starter", folder);
   }, [handleCreateWorkspace, manualFolder]);
 
-  const finishOnboarding = useCallback(() => {
+  const finishOnboarding = useCallback((route?: string) => {
     markOnboardingComplete();
-    navigate(state.pendingRoute ?? "/session", { replace: true });
+    navigate(route ?? "/session", { replace: true });
     if (state.pendingSessionId) focusPromptSoon();
-  }, [markOnboardingComplete, navigate, state.pendingRoute, state.pendingSessionId]);
-
-  const handleAttributionSubmit = useCallback(
-    (source: AttributionSource, aiPrompt?: string) => {
-      const prompt = aiPrompt?.trim().slice(0, 500) ?? "";
-      captureAnalyticsEvent("attribution_survey_submitted", {
-        source,
-        // User-volunteered survey answer (not session content); see survey UI.
-        ai_prompt: prompt || null,
-        ai_prompt_length: prompt.length,
-      });
-      finishOnboarding();
-    },
-    [finishOnboarding],
-  );
-
-  const handleAttributionSkip = useCallback(() => {
-    captureAnalyticsEvent("attribution_survey_skipped");
-    finishOnboarding();
-  }, [finishOnboarding]);
+  }, [markOnboardingComplete, navigate, state.pendingSessionId]);
 
   return (
     <>
@@ -379,37 +344,20 @@ export function WelcomeRoute() {
       />
       {state.providerStep ? (
         <ProviderSelectionStep
-          showOpenWorkModels={showOpenWorkModelsPromo}
-          onOpenWorkModels={() => {
-            // Land on the OpenWork Models value-prop page when already
-            // signed in to Den; otherwise start sign-up. Previously this
-            // always opened a bare sign-up page — payment before value.
-            platform.openLink(getOpenWorkModelsActionUrl(denAuth.isSignedIn, "sign-up"));
-            const route = state.pendingWorkspaceId
-              ? workspaceSessionRoute(state.pendingWorkspaceId, state.pendingSessionId)
-              : "/session";
-            dispatch({ type: "attribution-step", route });
-          }}
           onBringYourOwn={() => {
-            markOpenWorkModelsStartupPromoShown();
-            hideOpenWorkModelsPromo();
+            dispatch({ type: "provider-step:done" });
             const route = state.pendingWorkspaceId
               ? workspaceSessionRoute(state.pendingWorkspaceId, state.pendingSessionId)
               : "/session";
-            dispatch({ type: "attribution-step", route: `${route}?onboarding=1` });
+            finishOnboarding(`${route}?onboarding=1`);
           }}
           onSkip={() => {
+            dispatch({ type: "provider-step:done" });
             const route = state.pendingWorkspaceId
               ? workspaceSessionRoute(state.pendingWorkspaceId, state.pendingSessionId)
               : "/session";
-            dispatch({ type: "attribution-step", route });
+            finishOnboarding(route);
           }}
-        />
-      ) : null}
-      {state.attributionStep ? (
-        <AttributionStep
-          onSubmit={handleAttributionSubmit}
-          onSkip={handleAttributionSkip}
         />
       ) : null}
     </>

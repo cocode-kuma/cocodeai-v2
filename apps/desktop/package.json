@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@cocodeai/types": "workspace:*",
-    "electron": "^35.0.0",
+    "electron": "35.7.5",
     "electron-builder": "^26.15.3",
     "electron-devtools-installer": "^4.0.0"
   },
