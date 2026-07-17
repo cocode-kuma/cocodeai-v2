@@ -1,0 +1,30 @@
+{
+  "name": "cocodeai-ui-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for CocodeAI UI control — exposes snapshot, actions, and execute as MCP tools",
+  "author": "CocodeAI <support@cocodeai.com>",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "cocodeai-ui-mcp": "index.mjs"
+  },
+  "files": [
+    "index.mjs"
+  ],
+  "scripts": {
+    "check": "node --check index.mjs",
+    "test": "node --check index.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cocodeai/cocodeai.git",
+    "directory": "packages/cocodeai-ui-mcp"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^3.25.76"
+  }
+}
