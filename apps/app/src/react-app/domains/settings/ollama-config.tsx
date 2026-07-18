@@ -528,7 +528,7 @@ function PullModelDialog(props: PullModelDialogProps) {
         <FieldSet className="w-full">
           <FieldGroup>
             <Field>
-              <FieldLabel htmlFor="ollama-model-pull">Model to pull</FieldLabel>
+              <FieldLabel htmlFor="ollama-model-pull">要拉取的模型</FieldLabel>
               <Input
                 id="ollama-model-pull"
                 type="text"

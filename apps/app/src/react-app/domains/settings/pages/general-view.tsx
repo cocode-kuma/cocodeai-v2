@@ -35,20 +35,20 @@ type SettingsCardDefinition = { tab: SettingsTab; icon: typeof Sparkles } & (
 );
 
 const workspaceCards: SettingsCardDefinition[] = [
-  { tab: "preferences", icon: Cog, title: "Preferences", desc: "Default model, reasoning, and compaction." },
-  { tab: "permissions", icon: FolderLock, title: "Permissions", desc: "Authorized folders and file access." },
+  { tab: "preferences", icon: Cog, title: "偏好设置", desc: "默认模型、推理和压缩设置。" },
+  { tab: "permissions", icon: FolderLock, title: "权限", desc: "授权文件夹和文件访问。" },
   { tab: "extensions", icon: Puzzle, titleKey: "settings.tab_extensions", descKey: "settings.tab_description_extensions" },
-  { tab: "advanced", icon: Wrench, title: "Advanced", desc: "Runtime, engine, and developer options." },
+  { tab: "advanced", icon: Wrench, title: "高级", desc: "运行时、引擎和开发者选项。" },
 ];
 
 const globalCards: SettingsCardDefinition[] = [
-  { tab: "ai", icon: Sparkles, title: "AI Providers", desc: "Connect services that provide AI models." },
-  { tab: "cloud-account", icon: Cloud, title: "Cloud", desc: "CocodeAI Cloud account and organization." },
+  { tab: "ai", icon: Sparkles, title: "AI 提供商", desc: "连接提供 AI 模型的服务。" },
+  { tab: "cloud-account", icon: Cloud, title: "云端", desc: "CocodeAI Cloud 账号和组织。" },
   { tab: "connect", icon: Cable, titleKey: "settings.tab_connect", descKey: "settings.tab_description_connect" },
-  { tab: "appearance", icon: Paintbrush, title: "Appearance", desc: "Theme, font size, and display." },
-  { tab: "environment", icon: Terminal, title: "Environment", desc: "Environment variables and paths." },
-  { tab: "updates", icon: RefreshCcw, title: "Updates", desc: "App version and update channel." },
-  { tab: "recovery", icon: ShieldCheck, title: "Recovery", desc: "Reset onboarding and clear data." },
+  { tab: "appearance", icon: Paintbrush, title: "外观", desc: "主题、字体大小和显示设置。" },
+  { tab: "environment", icon: Terminal, title: "环境变量", desc: "环境变量和路径。" },
+  { tab: "updates", icon: RefreshCcw, title: "更新", desc: "应用版本和更新渠道。" },
+  { tab: "recovery", icon: ShieldCheck, title: "恢复", desc: "重置引导和清除数据。" },
 ];
 
 function cardTitle(card: SettingsCardDefinition) {

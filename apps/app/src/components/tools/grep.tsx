@@ -13,15 +13,15 @@ function getGrepToolTitle(part: GrepToolPart): string | null {
 
   if (part.state === "output-error") {
     return pattern
-      ? `Search attempted ${truncateText(pattern, 44)}`
-      : "Search attempted"
+      ? `尝试搜索 ${truncateText(pattern, 44)}`
+      : "尝试搜索"
   }
 
   if (part.state !== "output-available") {
     return null
   }
 
-  return pattern ? `Searched ${truncateText(pattern, 44)}` : "Searched code"
+  return pattern ? `已搜索 ${truncateText(pattern, 44)}` : "已搜索代码"
 }
 
 function getGrepToolDetail(part: GrepToolPart): string | undefined {

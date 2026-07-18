@@ -1509,7 +1509,7 @@ export function ReactSessionComposer(props: ComposerProps) {
                                       <div className="flex items-center justify-between gap-3">
                                         <div className="truncate text-xs font-semibold text-gray-11">{entry.name}</div>
                                         {entry.defaultEnabled ? (
-                                          <span className="shrink-0 rounded-full bg-green-3 px-2 py-0.5 text-[10px] font-medium text-green-11">Enabled</span>
+                                          <span className="shrink-0 rounded-full bg-green-3 px-2 py-0.5 text-[10px] font-medium text-green-11">已启用</span>
                                         ) : null}
                                       </div>
                                       <div className="truncate text-xs text-gray-10">{entry.description}</div>
@@ -1518,7 +1518,7 @@ export function ReactSessionComposer(props: ComposerProps) {
                                 ))}
                               </div>
                             ) : (
-                              <div className="px-3 py-2 text-xs text-gray-10">No extensions enabled. Open Extensions to enable them.</div>
+                              <div className="px-3 py-2 text-xs text-gray-10">未启用任何扩展。打开扩展页面以启用。</div>
                             )
                           ) : null}
                           {activePlugin ? (
@@ -1544,7 +1544,7 @@ export function ReactSessionComposer(props: ComposerProps) {
                                 ))}
                               </div>
                             ) : (
-                              <div className="px-3 py-2 text-xs text-gray-10">No plugin files imported yet.</div>
+                              <div className="px-3 py-2 text-xs text-gray-10">暂未导入任何插件文件。</div>
                             )
                           ) : toolMenuSection.startsWith("plugin:") ? (
                             <div className="px-3 py-2 text-xs text-gray-10">
@@ -1632,7 +1632,7 @@ export function ReactSessionComposer(props: ComposerProps) {
                   disabled={props.busy}
                 />
                 {props.modelUnavailable ? (
-                  <span className="text-xs font-medium text-red-10">Model no longer available</span>
+                  <span className="text-xs font-medium text-red-10">模型不再可用</span>
                 ) : null}
 
                 <ModelBehaviorSelect
@@ -1736,10 +1736,10 @@ export function ReactSessionComposer(props: ComposerProps) {
                         ? "bg-gray-4 text-gray-10"
                         : "bg-[var(--dls-accent)] text-[var(--dls-accent-fg)] hover:bg-[var(--dls-accent-hover)]"
                     }`}
-                    title={props.submissionPreparing ? "Preparing connected service tools…" : t("composer.run_task")}
+                    title={props.submissionPreparing ? "正在准备连接的服务工具…" : t("composer.run_task")}
                   >
                     {props.submissionPreparing ? <LoaderCircle size={15} className="animate-spin" /> : <ArrowUp size={15} />}
-                    <span>{props.submissionPreparing ? "Preparing connected service tools…" : t("composer.run_task")}</span>
+                    <span>{props.submissionPreparing ? "正在准备连接的服务工具…" : t("composer.run_task")}</span>
                   </button>
                 )}
               </div>

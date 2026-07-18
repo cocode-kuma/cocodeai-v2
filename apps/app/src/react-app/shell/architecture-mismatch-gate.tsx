@@ -134,26 +134,26 @@ export function ArchitectureMismatchGate({ children }: ArchitectureMismatchGateP
                   onClick={openDownload}
                   className="inline-flex items-center justify-center rounded-full bg-white px-5 py-3 text-sm font-semibold text-black transition hover:bg-emerald-100"
                 >
-                  Download correct version
+                  下载正确版本
                 </button>
                 <button
                   type="button"
                   onClick={openRelease}
                   className="inline-flex items-center justify-center rounded-full border border-white/14 px-5 py-3 text-sm font-semibold text-white/85 transition hover:bg-white/10"
                 >
-                  Open release page
+                  打开发布页面
                 </button>
               </div>
             </div>
 
             <aside className="border-t border-white/10 bg-gradient-to-br from-emerald-300/12 via-sky-300/8 to-transparent p-8 sm:p-10 lg:border-l lg:border-t-0 lg:p-12">
               <div className="space-y-5 rounded-[28px] border border-white/10 bg-black/25 p-6 text-sm leading-6 text-white/68">
-                <div className="text-lg font-semibold text-white">Why OpenWork stopped here</div>
+                <div className="text-lg font-semibold text-white">CocodeAI 为何在此停止</div>
                 <p>
-                  OpenWork blocks startup when the installed app architecture does not match the machine architecture. This prevents runtime sidecars, browser tooling, and update downloads from continuing on the wrong build.
+                  CocodeAI 在已安装应用架构与机器架构不匹配时会阻止启动。这可以防止运行时 sidecar、浏览器工具和更新下载在错误构建上继续运行。
                 </p>
                 <p>
-                  After installing the correct {info.systemArchLabel} build, quit this copy and launch OpenWork again. Your workspaces and settings are kept in the same app data folder.
+                  安装正确的 {info.systemArchLabel} 构建后，退出此副本并重新启动 CocodeAI。你的工作区和设置保留在相同的应用数据文件夹中。
                 </p>
                 <div className="rounded-2xl bg-white/[0.06] p-4 font-mono text-xs text-white/55">
                   v{info.version} · {platformLabel(info.platform)} · {info.systemArch}

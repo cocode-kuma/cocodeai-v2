@@ -239,11 +239,11 @@ function ExecutionDetails(props: { execution: OpencodeExecutionSnapshot }) {
           <pre className={miniPreClass}>{formatExecutionCommand(props.execution)}</pre>
         </div>
         <div>
-          <div className="mb-1 text-[10px] font-medium uppercase tracking-wider text-dls-secondary">Working directory</div>
+          <div className="mb-1 text-[10px] font-medium uppercase tracking-wider text-dls-secondary">工作目录</div>
           <pre className={miniPreClass}>{props.execution.cwd}</pre>
         </div>
         <div>
-          <div className="mb-1 text-[10px] font-medium uppercase tracking-wider text-dls-secondary">Injected environment</div>
+          <div className="mb-1 text-[10px] font-medium uppercase tracking-wider text-dls-secondary">注入的环境变量</div>
           <div className="max-h-64 overflow-auto rounded-lg border border-dls-border bg-dls-sidebar/30">
             {props.execution.env.length > 0 ? props.execution.env.map((entry) => (
               <div key={entry.name} className="grid gap-2 border-b border-dls-border/50 p-2 last:border-b-0 md:grid-cols-[180px_minmax(0,1fr)]">
@@ -251,7 +251,7 @@ function ExecutionDetails(props: { execution: OpencodeExecutionSnapshot }) {
                 <pre className="whitespace-pre-wrap break-words font-mono text-[11px] text-dls-secondary">{entry.value}</pre>
               </div>
             )) : (
-              <div className="p-2 text-[11px] text-dls-secondary">No injected environment captured.</div>
+              <div className="p-2 text-[11px] text-dls-secondary">未捕获到注入的环境变量。</div>
             )}
           </div>
         </div>
@@ -497,8 +497,8 @@ export function DebugView(props: DebugViewProps) {
         </details>
         <div className={subCardClass}>
           <div>
-            <div className="text-sm font-semibold tracking-[-0.1px] text-dls-text">Bootstrap config</div>
-            <div className="text-[12px] text-dls-secondary">Desktop bootstrap paths, parsed config, and normalized values.</div>
+            <div className="text-sm font-semibold tracking-[-0.1px] text-dls-text">启动配置</div>
+            <div className="text-[12px] text-dls-secondary">桌面启动路径、已解析的配置和标准化值。</div>
           </div>
           <pre className={monoPreClass}>{props.bootstrapConfigDebugJson}</pre>
         </div>
@@ -1039,49 +1039,49 @@ export function DebugView(props: DebugViewProps) {
               onClick={() => void props.onResolveElectronAlphaArtifact()}
               disabled={props.electronMigrationBusy}
             >
-              {props.electronMigrationBusy ? "Resolving…" : "Resolve latest Electron alpha"}
+              {props.electronMigrationBusy ? "解析中…" : "解析最新 Electron Alpha"}
             </Button>
             {props.electronMigrationArtifactLabel ? (
               <div className="min-w-0 flex-1 truncate text-[11px] text-dls-secondary">
                 {props.electronMigrationArtifactLabel}
               </div>
             ) : (
-              <div className="text-[11px] text-dls-secondary">Uses latest-mac.yml from the rolling alpha release.</div>
+              <div className="text-[11px] text-dls-secondary">使用滚动 Alpha 版本中的 latest-mac.yml。</div>
             )}
           </div>
 
           <details className="rounded-xl border border-dls-border bg-dls-sidebar/30 p-3">
             <summary className="cursor-pointer select-none text-[11px] font-medium uppercase tracking-wider text-dls-secondary">
-              Advanced manual artifact override
+              高级手动产出物覆盖
             </summary>
             <div className="mt-3 grid gap-3 md:grid-cols-[minmax(0,1fr)_220px]">
               <label className="space-y-1 text-[12px] text-dls-secondary">
-                <span>Electron artifact URL</span>
+                <span>Electron 产出物 URL</span>
                 <input
                   type="url"
                   value={props.electronMigrationUrl}
                   onChange={(event) => props.onSetElectronMigrationUrl(event.currentTarget.value)}
-                  placeholder="Paste a trusted Electron .zip/.exe/AppImage URL"
+                  placeholder="粘贴可信的 Electron .zip/.exe/AppImage URL"
                   className="h-10 w-full rounded-xl border border-dls-border bg-dls-surface px-3 font-mono text-[11px] text-dls-text outline-none transition-colors placeholder:text-dls-secondary focus:border-dls-accent"
                 />
               </label>
               <label className="space-y-1 text-[12px] text-dls-secondary">
-                <span>sha512 from latest-mac.yml</span>
+                <span>来自 latest-mac.yml 的 sha512</span>
                 <input
                   type="text"
                   value={props.electronMigrationSha512}
                   onChange={(event) => props.onSetElectronMigrationSha512(event.currentTarget.value)}
-                  placeholder="recommended"
+                  placeholder="推荐"
                   className="h-10 w-full rounded-xl border border-dls-border bg-dls-surface px-3 font-mono text-[11px] text-dls-text outline-none transition-colors placeholder:text-dls-secondary focus:border-dls-accent"
                 />
               </label>
               <label className="space-y-1 text-[12px] text-dls-secondary md:col-span-2">
-                <span>sha256 override (legacy optional)</span>
+                <span>sha256 覆盖（旧版可选）</span>
                 <input
                   type="text"
                   value={props.electronMigrationSha256}
                   onChange={(event) => props.onSetElectronMigrationSha256(event.currentTarget.value)}
-                  placeholder="Only needed when the artifact provider gives sha256 instead of latest-mac.yml sha512"
+                  placeholder="仅在产出物提供方给出 sha256 而非 latest-mac.yml sha512 时需要"
                   className="h-10 w-full rounded-xl border border-dls-border bg-dls-surface px-3 font-mono text-[11px] text-dls-text outline-none transition-colors placeholder:text-dls-secondary focus:border-dls-accent"
                 />
               </label>
@@ -1094,16 +1094,16 @@ export function DebugView(props: DebugViewProps) {
               onClick={() => void props.onPrepareElectronMigrationSnapshot()}
               disabled={props.electronMigrationBusy}
             >
-              {props.electronMigrationBusy ? "Preparing…" : "Prepare migration data"}
+              {props.electronMigrationBusy ? "准备中…" : "准备迁移数据"}
             </Button>
             <Button
               variant="outline"
               size="sm"
               onClick={() => void props.onInstallElectronPreviewFromTauri()}
               disabled={props.electronMigrationBusy || !props.electronMigrationUrl.trim()}
-              title="Requires a trusted artifact URL. macOS keeps CocodeAI.app.migrate-bak for rollback."
+              title="需要可信的产出物 URL。macOS 保留 CocodeAI.app.migrate-bak 用于回滚。"
             >
-              Start install handoff…
+              开始安装切换…
             </Button>
             <Button
               variant="outline"
@@ -1111,7 +1111,7 @@ export function DebugView(props: DebugViewProps) {
               onClick={() => void props.onRevealElectronMigrationBackup()}
               disabled={props.electronMigrationBusy}
             >
-              Open backup in Finder
+              在 Finder 中打开备份
             </Button>
             <div className="text-[11px] text-dls-secondary">
               Release page: <span className="font-mono">{props.electronPreviewReleaseUrl}</span>
@@ -1162,7 +1162,7 @@ export function DebugView(props: DebugViewProps) {
               onClick={() => void props.onCheckElectronAlphaUpdates()}
               disabled={props.electronAlphaUpdaterBusy}
             >
-              {props.electronAlphaUpdaterBusy ? "Checking…" : "Check selected feed"}
+              {props.electronAlphaUpdaterBusy ? "检查中…" : "检查选定的 Feed"}
             </Button>
           </div>
 

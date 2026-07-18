@@ -255,7 +255,7 @@ function AgentAccessCard(props: {
       });
       updateHealth(result.health);
     } catch (nextError) {
-      setError(nextError instanceof Error ? nextError.message : "Could not test agent access.");
+      setError(nextError instanceof Error ? nextError.message : "无法测试代理访问权限。");
     } finally {
       setBusy(null);
     }
@@ -277,10 +277,10 @@ function AgentAccessCard(props: {
       });
       updateHealth(result.health);
       if (!result.health && result.skippedReason === "mint_failed") {
-        setError("Could not refresh Cloud authentication. Sign in again, then retry.");
+        setError("无法刷新 Cloud 身份验证。请重新登录后再试。");
       }
     } catch (nextError) {
-      setError(nextError instanceof Error ? nextError.message : "Could not repair agent access.");
+      setError(nextError instanceof Error ? nextError.message : "无法修复代理访问权限。");
     } finally {
       setBusy(null);
     }
@@ -323,7 +323,7 @@ function AgentAccessCard(props: {
       <SettingsInset className="flex flex-col gap-3 bg-dls-surface sm:flex-row sm:items-center sm:justify-between" data-testid="agent-access-card">
         <div className="space-y-2">
           <div className="flex flex-wrap items-center gap-2">
-            <div className="text-base font-semibold text-dls-text">Agent access ready</div>
+            <div className="text-base font-semibold text-dls-text">代理访问就绪</div>
             <SettingsStatusBadge label={summary.statusLabel} tone={summary.tone} />
           </div>
           <div className="text-sm text-dls-secondary">
@@ -334,7 +334,7 @@ function AgentAccessCard(props: {
           </div>
         </div>
         <Button variant="outline" size="sm" disabled={!canRun || busy !== null} onClick={() => void testNow()}>
-          {busy === "test" ? "Testing…" : "Test again"}
+          {busy === "test" ? "测试中…" : "重新测试"}
         </Button>
       </SettingsInset>
     );
@@ -344,7 +344,7 @@ function AgentAccessCard(props: {
     <SettingsInset className="space-y-4 bg-dls-surface" data-testid="agent-access-card">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="space-y-1">
-          <div className="text-base font-semibold text-dls-text">Agent access to connected services</div>
+          <div className="text-base font-semibold text-dls-text">已连接服务的代理访问</div>
           <div className="max-w-[62ch] text-sm text-dls-secondary">
             Lets agents use the exact CocodeAI Cloud tools for this active workspace and organization.
           </div>
@@ -354,27 +354,27 @@ function AgentAccessCard(props: {
 
       <div className="grid gap-2 text-sm text-dls-secondary sm:grid-cols-2">
         <div>
-          <div className="text-xs font-semibold uppercase tracking-[0.14em] text-dls-secondary">First issue</div>
+          <div className="text-xs font-semibold uppercase tracking-[0.14em] text-dls-secondary">首要问题</div>
           <div className="mt-1 text-dls-text">{summary.stageLabel}</div>
         </div>
         <div>
-          <div className="text-xs font-semibold uppercase tracking-[0.14em] text-dls-secondary">Recommended action</div>
+          <div className="text-xs font-semibold uppercase tracking-[0.14em] text-dls-secondary">建议操作</div>
           <div className="mt-1 text-dls-text">{summary.recommendedAction}</div>
         </div>
       </div>
 
       {health?.usable ? (
         <div className="space-y-2 rounded-xl border border-green-6/30 bg-green-2 p-3 text-sm text-green-11">
-          <div className="font-medium">Cloud tools verified for this workspace</div>
+          <div className="font-medium">已验证此工作区的 Cloud 工具</div>
           <div className="flex flex-wrap gap-2 font-mono text-xs">
             {readyTools.map((tool) => <span key={tool} className="rounded-md bg-green-3 px-2 py-1">{tool}</span>)}
           </div>
           <div className="text-xs">
             {health.usableByCurrentModel === null
-              ? "Current model access was not checked."
+              ? "未检查当前模型访问权限。"
               : health.usableByCurrentModel
-                ? "Current model can use these Cloud tools."
-                : "Current model cannot use these Cloud tools."}
+                ? "当前模型可以使用这些 Cloud 工具。"
+                : "当前模型无法使用这些 Cloud 工具。"}
           </div>
         </div>
       ) : null}
@@ -383,10 +383,10 @@ function AgentAccessCard(props: {
 
       <div className="flex flex-wrap gap-2">
         <Button variant="outline" size="sm" disabled={!canRun || busy !== null} onClick={() => void testNow()}>
-          {busy === "test" ? "Testing…" : "Test now"}
+          {busy === "test" ? "测试中…" : "立即测试"}
         </Button>
         <Button size="sm" disabled={!canRun || busy !== null} onClick={() => void repairAndTest()}>
-          {busy === "repair" ? "Repairing…" : "Repair and test"}
+          {busy === "repair" ? "修复中…" : "修复并测试"}
         </Button>
       </div>
     </SettingsInset>

@@ -11,7 +11,7 @@ export type WebUnavailableSurfaceProps = {
 };
 
 const MESSAGE =
-  "This feature is currently unavailable in CocodeAI Web, check CocodeAI Desktop for full functionality.";
+  "此功能在 CocodeAI Web 中暂不可用，请使用 CocodeAI 桌面端获取完整功能。";
 
 export function WebUnavailableSurface(props: WebUnavailableSurfaceProps) {
   const innerProps = props.unavailable
@@ -37,12 +37,12 @@ export function WebUnavailableSurface(props: WebUnavailableSurfaceProps) {
           <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
             <span>{MESSAGE}</span>
             <a
-              href="https://cocodeai.com"
+              href="#"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-1 underline underline-offset-2 hover:no-underline"
             >
-              <span>Download CocodeAI Desktop</span>
+              <span>下载 CocodeAI 桌面端</span>
               <ArrowUpRight size={props.compact ? 12 : 14} />
             </a>
           </div>

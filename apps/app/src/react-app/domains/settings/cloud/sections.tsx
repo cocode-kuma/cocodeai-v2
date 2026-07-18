@@ -232,7 +232,7 @@ function MarketplacePluginListItem({
           ))}
         </SettingsListTitle>
         <SettingsListItemDescription>
-          {row.plugin.description || "No description provided."}
+          {row.plugin.description || "暂无描述。"}
         </SettingsListItemDescription>
         {row.imported?.files.length ? (
           <div className="mt-1 truncate text-xs text-muted-foreground">
@@ -523,7 +523,7 @@ export function MarketplacePluginsSection({
 
       {!busy && marketplaces.length === 0 ? (
         <SettingsListEmptyState>
-          {hasActiveOrg ? "No marketplaces are available yet." : "Choose an organization to view marketplaces."}
+          {hasActiveOrg ? "暂无可用市场。" : "请选择组织以查看市场。"}
         </SettingsListEmptyState>
       ) : null}
 

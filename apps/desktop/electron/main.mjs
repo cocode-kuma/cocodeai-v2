@@ -94,9 +94,9 @@ if (process.env.COCODEAI_ELECTRON_USE_MOCK_KEYCHAIN === "1") {
   // system keychain normally.
   app.commandLine.appendSwitch("use-mock-keychain");
 }
-const RELEASE_DOWNLOAD_BASE_URL = "https://github.com/cocodeai/cocodeai/releases/latest/download";
-const RELEASE_PAGE_URL = "https://github.com/cocodeai/cocodeai/releases/latest";
-const DOCS_PAGE_URL = "https://cocodeai.com/docs";
+const RELEASE_DOWNLOAD_BASE_URL = "";
+const RELEASE_PAGE_URL = "";
+const DOCS_PAGE_URL = "";
 const applicationMenu = createApplicationMenu({
   appName: APP_NAME,
   docsUrl: DOCS_PAGE_URL,
@@ -858,7 +858,7 @@ if (extraLaunchArgs) {
   }
 }
 configureFakeMediaForTests(app, envFlagEnabled("COCODEAI_ELECTRON_FAKE_MEDIA"));
-const DEFAULT_DEN_BASE_URL = "https://app.cocodeai.com";
+const DEFAULT_DEN_BASE_URL = "";
 const DEFAULT_LOCAL_BASE_URL = "http://127.0.0.1:4096";
 const FORCE_DESKTOP_REQUIRE_SIGNIN = envFlagEnabled("COCODEAI_FORCE_SIGNIN");
 const DEFAULT_DESKTOP_REQUIRE_SIGNIN = FORCE_DESKTOP_REQUIRE_SIGNIN;
@@ -1214,8 +1214,8 @@ async function bootRuntimeForSelectedWorkspace() {
     workspacePath: bootWorkspaceRoot,
     name: bootWorkspace.name ?? bootWorkspace.displayName ?? null,
   }).catch(() => undefined);
-  const cocodeaiServer = assertCocodeaiServerReady(await runtimeManager.cocodeaiServerInfo());
-  return { ok: true, skipped: false, engine, cocodeaiServer, workspaceId: bootWorkspace.id ?? null };
+  const cocodeaiServer = assertCocodeaiServerReady(await runtimeManager.openworkServerInfo());
+  return { ok: true, skipped: false, engine, openworkServer: cocodeaiServer, workspaceId: bootWorkspace.id ?? null };
 }
 
 function ensureRuntimeBootstrap() {

@@ -2,7 +2,7 @@ import type { SessionCloudMcpMaintenanceState } from "./use-session-mcp-maintena
 
 export type OpenWorkConnectStatus = {
   state: "checking" | "ready" | "needs_attention";
-  label: "Checking" | "Ready" | "Needs attention";
+  label: string;
   description: string;
 };
 
@@ -27,15 +27,15 @@ export function resolveOpenWorkConnectStatus(
   if (maintenance?.status === "failed" || maintenance?.status === "skipped") {
     return {
       state: "needs_attention",
-      label: "Needs attention",
+      label: "需要注意",
       description: maintenance.issue?.message
-        ?? "CocodeAI Connect could not verify connected service tools. Run diagnostics for details.",
+        ?? "CocodeAI Connect 无法验证已连接的服务工具。请运行诊断以获取详细信息。",
     };
   }
 
   return {
     state: "checking",
-    label: "Checking",
+    label: "正在检查",
     description: maintenance?.status === "retrying"
       ? `Restoring connected service tools (${maintenance.attempt}/${maintenance.maxAttempts}).`
       : "Checking connected service tools in the background.",

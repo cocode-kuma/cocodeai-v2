@@ -30,26 +30,6 @@ export function AboutView() {
             <span className="text-dls-text-secondary">开发团队</span>
             <span className="font-medium text-dls-text-primary">酷码工作室</span>
           </div>
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-dls-text-secondary">官方网站</span>
-            <a
-              href="https://cocodeai.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-medium text-dls-accent hover:underline"
-            >
-              cocodeai.com
-            </a>
-          </div>
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-dls-text-secondary">反馈邮箱</span>
-            <a
-              href="mailto:support@cocodeai.com"
-              className="font-medium text-dls-accent hover:underline"
-            >
-              support@cocodeai.com
-            </a>
-          </div>
         </div>
 
         {/* Copyright */}

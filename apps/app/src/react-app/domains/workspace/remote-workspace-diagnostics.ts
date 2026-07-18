@@ -104,7 +104,7 @@ function rejectedTokenMessage(target: RemoteWorkspaceConnectionTarget) {
 }
 
 function remoteSupportMessage(message: string) {
-  return `${message} Upgrade the CocodeAI host and try again. If this continues, contact support@cocodeai.com.`;
+  return `${message} 请升级 CocodeAI 主机后重试。如果问题持续，请联系技术支持。`;
 }
 
 export function redactRemoteDiagnosticText(value: string): string {

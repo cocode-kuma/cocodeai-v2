@@ -302,13 +302,13 @@ function BrowserPanelContent({
                     size="icon-sm"
                     onClick={back}
                     disabled={!tab.canGoBack}
-                    aria-label="Go back"
+                    aria-label="返回"
                   >
                     <ArrowLeft />
                   </Button>
                 )}
               />
-              <TooltipContent>Back</TooltipContent>
+              <TooltipContent>返回</TooltipContent>
             </Tooltip>
             <Tooltip>
               <TooltipTrigger
@@ -318,13 +318,13 @@ function BrowserPanelContent({
                     size="icon-sm"
                     onClick={forward}
                     disabled={!tab.canGoForward}
-                    aria-label="Go forward"
+                    aria-label="前进"
                   >
                     <ArrowRight />
                   </Button>
                 )}
               />
-              <TooltipContent>Forward</TooltipContent>
+              <TooltipContent>前进</TooltipContent>
             </Tooltip>
             <Tooltip>
               <TooltipTrigger
@@ -333,13 +333,13 @@ function BrowserPanelContent({
                     variant="ghost"
                     size="icon-sm"
                     onClick={reload}
-                    aria-label="Reload page"
+                    aria-label="刷新页面"
                   >
                     {tab.status === "loading" ? <Loader2 className="animate-spin" /> : <RotateCw />}
                   </Button>
                 )}
               />
-              <TooltipContent>Reload</TooltipContent>
+              <TooltipContent>刷新</TooltipContent>
             </Tooltip>
             <InputGroup className="mx-1 h-7 flex-1 rounded-md">
               <InputGroupInput
@@ -356,7 +356,7 @@ function BrowserPanelContent({
                 onBlur={() => {
                   urlFocusedRef.current = false;
                 }}
-                placeholder="Enter URL..."
+                placeholder="输入网址…"
                 spellCheck={false}
                 autoComplete="off"
               />
@@ -374,8 +374,8 @@ function BrowserPanelContent({
           variant="ghost"
           size="icon-sm"
           onClick={onClose}
-          title="Close panel"
-          aria-label="Close panel"
+          title="关闭面板"
+          aria-label="关闭面板"
         >
           <X />
         </Button>
@@ -406,8 +406,8 @@ export function SidePanel({
 
     return {
       id: "eval.artifact_tabs.seed_overflow",
-      label: "Seed artifact tab overflow eval data",
-      description: "Create many markdown artifacts and open them in the right-side artifact tab strip.",
+      label: "填充产出物标签页溢出评估数据",
+      description: "创建多个 markdown 产出物并在右侧产出物标签页中打开。",
       sideEffect: "mutation",
       disabled: !client || !workspaceId,
       args: [
@@ -562,13 +562,13 @@ export function SidePanel({
                       variant="ghost"
                       size="icon-sm"
                       onClick={() => createTab()}
-                      aria-label="New tab"
+                      aria-label="新标签页"
                     >
                       <Plus />
                     </Button>
                   )}
                 />
-                <TooltipContent>New tab</TooltipContent>
+                <TooltipContent>新标签页</TooltipContent>
               </Tooltip>
             ) : null}
           </div>
@@ -599,7 +599,7 @@ export function SidePanel({
 function PanelEmpty() {
   return (
     <div className="flex h-full items-center justify-center p-4 text-center">
-      <p className="text-sm text-muted-foreground">Open an artifact or browser tab to get started.</p>
+      <p className="text-sm text-muted-foreground">打开产出物或浏览器标签页以开始使用。</p>
     </div>
   );
 }

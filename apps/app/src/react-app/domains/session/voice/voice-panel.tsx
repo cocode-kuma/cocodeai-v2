@@ -42,17 +42,17 @@ type VoicePanelProps = {
   onClose: () => void;
 };
 
-const DEFAULT_TEXT_COMMAND = "Summarize the current OpenWork session and put the next step in the composer.";
+const DEFAULT_TEXT_COMMAND = "总结当前 OpenWork 会话并将下一步放入编辑器。";
 const VOICE_SUGGESTIONS = [
-  "Read the latest message in this session",
-  "Put a concise next step in the composer",
-  "Open extension settings",
-  "Send the current composer prompt",
+  "读取此会话中的最新消息",
+  "将简洁的下一步放入编辑器",
+  "打开扩展设置",
+  "发送当前编辑器中的提示",
 ];
 const TOOL_LABELS: Record<string, string> = {
-  openwork_snapshot: "Checking OpenWork",
-  openwork_list_actions: "Listing controls",
-  openwork_execute_action: "Running UI action",
+  openwork_snapshot: "正在检查 OpenWork",
+  openwork_list_actions: "正在列出控件",
+  openwork_execute_action: "正在运行 UI 操作",
 };
 
 const initialVoiceRuntimeSnapshot: VoiceRuntimeSnapshot = {
@@ -134,7 +134,7 @@ function safeJson(value: unknown) {
 }
 
 function humanToolLabel(toolName?: string) {
-  if (!toolName) return "OpenWork action";
+  if (!toolName) return "OpenWork 操作";
   return TOOL_LABELS[toolName] ?? toolName.replace(/_/g, " ");
 }
 
@@ -233,7 +233,7 @@ function waitForDataChannelOpen(channel: RTCDataChannel) {
 }
 
 function describeAudioTrack(track: MediaStreamTrack | undefined) {
-  if (!track) return "No microphone track is attached.";
+  if (!track) return "未连接麦克风。";
   const muted = track.muted ? "muted by the system" : "not muted by the system";
   const enabled = track.enabled ? "enabled" : "disabled";
   return `Microphone track is ${track.readyState}, ${enabled}, and ${muted}.`;
@@ -328,7 +328,7 @@ function VoiceTimelineRow(props: {
   if (entry.role === "assistant") {
     return (
       <article className="mr-8 rounded-2xl border border-border bg-card px-3 py-2 text-sm leading-relaxed text-card-foreground shadow-sm">
-        {entry.error ? <div className="mb-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-destructive">Error</div> : null}
+        {entry.error ? <div className="mb-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-destructive">错误</div> : null}
         <div className="whitespace-pre-wrap break-words">{entry.text}</div>
       </article>
     );
@@ -350,7 +350,7 @@ function VoiceTimelineRow(props: {
       )}
       <span className="min-w-0 flex-1">
         <span className="font-medium text-foreground/80">
-          {entry.toolName ? humanToolLabel(entry.toolName) : entry.error ? "Voice error" : "Voice note"}
+          {entry.toolName ? humanToolLabel(entry.toolName) : entry.error ? "语音错误" : "语音笔记"}
         </span>
         <span className="ml-2 text-[10px] opacity-70">{relativeTime(entry.at)}</span>
         {copy ? <span className="mt-1 block whitespace-pre-wrap break-words">{copy}</span> : null}
@@ -377,7 +377,7 @@ export function VoicePanel(props: VoicePanelProps) {
         {
           id: `voice-${Date.now()}-${current.entries.length}`,
           role,
-          text: trimmed || options.toolName || "Tool call",
+          text: trimmed || options.toolName || "工具调用",
           toolName: options.toolName,
           error: options.error,
           at: Date.now(),
@@ -769,7 +769,7 @@ export function VoicePanel(props: VoicePanelProps) {
 
   const statusAction = useMemo<OpenworkControlAction>(() => ({
     id: "voice.status",
-    label: "Read Voice Mode status",
+    label: "读取语音模式状态",
     description: "Return the Voice Mode runtime state for tests and agents.",
     sideEffect: "none",
     execute: () => ({ status, statusText, connected, micMuted, micDiagnostics, realtimeDiagnostics, latestUserTranscript, assistantPreview }),
@@ -790,11 +790,11 @@ export function VoicePanel(props: VoicePanelProps) {
               )}
             />
             <Radio className="text-primary" />
-            Voice Mode
+            语音模式
           </div>
-          <div className="truncate text-xs text-muted-foreground">Realtime voice over OpenWork UI MCP controls</div>
+          <div className="truncate text-xs text-muted-foreground">通过 OpenWork UI MCP 控件进行实时语音</div>
         </div>
-        <Button variant="ghost" size="icon-sm" onClick={props.onClose} aria-label="Close Voice Mode">
+        <Button variant="ghost" size="icon-sm" onClick={props.onClose} aria-label="关闭语音模式">
           <X />
         </Button>
       </div>
@@ -834,11 +834,11 @@ export function VoicePanel(props: VoicePanelProps) {
             </Button>
             <Button variant="outline" onClick={stopVoice} disabled={!connected}>
               <Square data-icon="inline-start" />
-              Stop
+              停止
             </Button>
             <Button variant="outline" onClick={toggleMic} disabled={!connected} className="col-span-2">
               {micMuted ? <Mic2 data-icon="inline-start" /> : <MicOff data-icon="inline-start" />}
-              {micMuted ? "Unmute microphone" : "Mute microphone"}
+              {micMuted ? "取消静音" : "静音"}
             </Button>
           </div>
 
@@ -869,7 +869,7 @@ export function VoicePanel(props: VoicePanelProps) {
                   />
                 </div>
                 <div className="flex flex-col gap-2 px-3 pb-3 pt-4">
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">Rendering response</div>
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">正在渲染响应</div>
                   <div className="whitespace-pre-wrap break-words text-sm leading-relaxed text-card-foreground" aria-live="polite">
                     {assistantPreview}
                   </div>
@@ -923,7 +923,7 @@ export function VoicePanel(props: VoicePanelProps) {
                   rows={3}
                 />
                 <InputGroupAddon align="block-end" className="justify-between border-t border-border">
-                  <span className="text-xs text-muted-foreground">Enter to send, Shift+Enter for newline</span>
+                  <span className="text-xs text-muted-foreground">Enter 发送，Shift+Enter 换行</span>
                   <InputGroupButton
                     variant="outline"
                     onClick={() => {
@@ -942,7 +942,7 @@ export function VoicePanel(props: VoicePanelProps) {
           </Card>
 
           <div className="flex flex-col gap-2">
-            <div className="text-xs font-medium uppercase tracking-[0.15em] text-muted-foreground">Timeline</div>
+            <div className="text-xs font-medium uppercase tracking-[0.15em] text-muted-foreground">时间线</div>
             {entries.length ? entries.map((entry) => (
               <VoiceTimelineRow
                 key={entry.id}

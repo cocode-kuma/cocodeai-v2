@@ -50,58 +50,58 @@ function hostnameOf(url: string | undefined): string | undefined {
 export function getToolActivityLabel(part: AnyToolPart): string {
   if (isBashToolPart(part)) {
     const description = part.input?.description?.trim()
-    return description ? truncateText(description, 64) : "Running a command"
+    return description ? truncateText(description, 64) : "正在运行命令"
   }
   if (isReadToolPart(part)) {
-    return `Reading ${parseFilename(part.input?.filePath)}`
+    return `正在读取 ${parseFilename(part.input?.filePath)}`
   }
   if (isEditToolPart(part)) {
-    return `Editing ${parseFilename(part.input?.filePath)}`
+    return `正在编辑 ${parseFilename(part.input?.filePath)}`
   }
   if (isWriteToolPart(part)) {
-    return `Writing ${parseFilename(part.input?.filePath)}`
+    return `正在写入 ${parseFilename(part.input?.filePath)}`
   }
   if (isApplyPatchToolPart(part)) {
-    return "Applying changes"
+    return "正在应用更改"
   }
   if (isGrepToolPart(part) || isGlobToolPart(part)) {
     const pattern = part.input?.pattern?.trim()
     return pattern
-      ? `Searching for ${truncateText(pattern, 44)}`
-      : "Searching files"
+      ? `正在搜索 ${truncateText(pattern, 44)}`
+      : "正在搜索文件"
   }
   if (isLspToolPart(part)) {
-    return `Inspecting ${parseFilename(part.input?.filePath)}`
+    return `正在检查 ${parseFilename(part.input?.filePath)}`
   }
   if (isSkillToolPart(part)) {
     const name = part.input?.name?.trim()
-    return name ? `Loading ${name} skill` : "Loading a skill"
+    return name ? `正在加载 ${name} 技能` : "正在加载技能"
   }
   if (isTodoWriteToolPart(part)) {
-    return "Updating the plan"
+    return "正在更新计划"
   }
   if (isWebFetchToolPart(part)) {
     const host = hostnameOf(part.input?.url)
-    return host ? `Reading ${host}` : "Fetching a page"
+    return host ? `正在读取 ${host}` : "正在抓取页面"
   }
   if (isWebSearchToolPart(part)) {
     const query = part.input?.query?.trim()
     return query
-      ? `Searching the web for ${truncateText(query, 44)}`
-      : "Searching the web"
+      ? `正在搜索网页 ${truncateText(query, 44)}`
+      : "正在搜索网页"
   }
   if (isQuestionToolPart(part)) {
-    return "Asking a question"
+    return "正在提问"
   }
   if (isEnvVarRequestToolPart(part)) {
     const key = part.input?.key?.trim()
-    return key ? `Requesting ${key}` : "Requesting an environment variable"
+    return key ? `正在请求 ${key}` : "正在请求环境变量"
   }
   if (isTaskToolPart(part)) {
     const description = part.input?.description?.trim()
     return description
       ? `Agent: ${truncateText(description, 56)}`
-      : "Running an agent"
+      : "正在运行代理"
   }
   if (part.type === "dynamic-tool") {
     return `Running ${part.toolName.replace(/[_-]+/g, " ")}`

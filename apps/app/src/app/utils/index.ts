@@ -444,7 +444,7 @@ export function redactTokenLikeText(value: string): string {
 
 export function getWorkspaceTaskLoadErrorDisplay(workspace: WorkspaceInfo, error?: string | null) {
   const raw = redactTokenLikeText(error?.trim() ?? "");
-  const fallbackTitle = raw || "Failed to load tasks";
+  const fallbackTitle = raw || "加载任务失败";
   if (!raw || !isSandboxWorkspace(workspace)) {
     return {
       tone: "error" as const,
@@ -463,16 +463,16 @@ export function getWorkspaceTaskLoadErrorDisplay(workspace: WorkspaceInfo, error
   if (!hasDockerHint && !(localHost && hasNetworkHint)) {
     return {
       tone: "error" as const,
-      label: "Error",
-      message: "Failed to load tasks",
+      label: "错误",
+      message: "加载任务失败",
       title: fallbackTitle,
     };
   }
 
-  const message = "Sandbox is offline. Start Docker Desktop, then test connection.";
+  const message = "沙箱离线。请启动 Docker Desktop，然后测试连接。";
   return {
     tone: "offline" as const,
-    label: "Offline",
+    label: "离线",
     message,
     title: `${message}\n\n${raw}`,
   };
@@ -763,45 +763,45 @@ function buildToolTitle(state: any, toolName: string): string {
 
   if (lower === "read") {
     const target = file("filePath", "path", "file");
-    return target ? `Reviewed ${target}` : "Reviewed file";
+    return target ? `已审查 ${target}` : "已审查文件";
   }
 
   if (lower === "edit") {
     const target = file("filePath", "path", "file");
-    return target ? `Updated ${target}` : "Updated file";
+    return target ? `已更新 ${target}` : "已更新文件";
   }
 
   if (lower === "write") {
     const target = file("filePath", "path", "file");
-    return target ? `Write ${target}` : "Write file";
+    return target ? `已写入 ${target}` : "已写入文件";
   }
 
   if (lower === "apply_patch") {
-    return "Apply patch";
+    return "应用补丁";
   }
 
   if (lower === "list" || lower === "list_files") {
     const target = file("path");
-    return target ? `Reviewed ${target}` : "Reviewed files";
+    return target ? `已审查 ${target}` : "已审查文件";
   }
 
   if (lower === "grep" || lower === "glob" || lower === "search") {
     const pattern = pick("pattern", "query");
-    return pattern ? `Searched ${truncateStepText(pattern, 44)}` : "Searched code";
+    return pattern ? `已搜索 ${truncateStepText(pattern, 44)}` : "已搜索代码";
   }
 
   if (lower === "bash") {
     const description = pick("description");
     if (description) return truncateStepText(description, 56);
     const command = pick("command", "cmd");
-    if (command) return truncateStepText(`Run ${command}`, 56);
-    return "Run command";
+    if (command) return truncateStepText(`运行 ${command}`, 56);
+    return "运行命令";
   }
 
   if (lower === "task") {
     const agent = formatAgentLabel(pick("subagent_type"));
-    if (agent) return `${agent} task`;
-    return "Task";
+    if (agent) return `${agent} 任务`;
+    return "任务";
   }
 
   if (lower === "question") {
@@ -811,27 +811,27 @@ function buildToolTitle(state: any, toolName: string): string {
       const record = first as Record<string, unknown>;
       const header = normalizeStepText(record.header);
       const question = normalizeStepText(record.question);
-      return truncateStepText(header || question || "Asked a question", 56);
+      return truncateStepText(header || question || "已提问", 56);
     }
-    return "Asked a question";
+    return "已提问";
   }
 
   if (lower === "todowrite") {
-    return "Update todo list";
+    return "更新待办列表";
   }
 
   if (lower === "todoread") {
-    return "Read todo list";
+    return "读取待办列表";
   }
 
   if (lower === "webfetch") {
     const url = pick("url");
-    return url ? `Checked ${truncateStepText(url, 44)}` : "Checked web page";
+    return url ? `已检查 ${truncateStepText(url, 44)}` : "已检查网页";
   }
 
   if (lower === "skill") {
     const name = pick("name");
-    return name ? `Load skill ${name}` : "Load skill";
+    return name ? `加载技能 ${name}` : "加载技能";
   }
 
   const stateTitle = normalizeStepText(state?.title);
@@ -842,7 +842,7 @@ function buildToolTitle(state: any, toolName: string): string {
   const fallback = normalizeStepText(toolName)
     .replace(/[_-]+/g, " ")
     .replace(/\s+/g, " ");
-  return fallback || "Tool";
+  return fallback || "工具";
 }
 
 /** Build a concise detail line for a tool call — avoids dumping raw output */
@@ -965,7 +965,7 @@ function buildToolDetail(state: any, toolName: string): string | undefined {
         // "Success. Updated the following files: M foo.ts" -> "foo.ts"
         const match = first.match(/:\s*[MADR]\s+(.+)/);
         if (match) return extractFilename(match[1].trim());
-        return "Done";
+        return "完成";
       }
       return first.length > 80 ? `${first.slice(0, 77)}...` : first;
     }
@@ -1082,7 +1082,7 @@ export function summarizeStep(part: Part): { title: string; detail?: string; isS
   if (part.type === "step-start" || part.type === "step-finish") {
     const reason = (part as any).reason;
     return {
-      title: part.type === "step-start" ? "Step started" : "Step finished",
+      title: part.type === "step-start" ? "步骤开始" : "步骤结束",
       detail: reason ? String(reason) : undefined,
       toolCategory: "tool",
     };

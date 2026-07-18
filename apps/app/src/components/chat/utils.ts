@@ -40,7 +40,7 @@ export function getFileTitle(part: Pick<FileUIPart, "filename" | "url">) {
   }
 
   if (part.url.startsWith("data:")) {
-    return "Attached file"
+    return "附件文件"
   }
 
   return part.url || "File"

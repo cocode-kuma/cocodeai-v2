@@ -132,7 +132,7 @@ export function getSettingsTabLabel(tab: SettingsTab) {
     case "debug":
       return t("settings.tab_debug");
     case "general":
-      return "Settings";
+      return "设置";
     default:
       return t("settings.tab_general");
   }

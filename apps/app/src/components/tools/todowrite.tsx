@@ -13,14 +13,14 @@ function getTodoWriteToolTitle(part: TodoWriteToolPart): string | null {
   const count = part.input?.todos?.length ?? 0
 
   if (part.state === "output-error") {
-    return "Update todo list attempted"
+    return "尝试更新待办列表"
   }
 
   if (part.state !== "output-available") {
     return null
   }
 
-  return count > 0 ? `Update todo list (${count})` : "Update todo list"
+  return count > 0 ? `更新待办列表 (${count})` : "更新待办列表"
 }
 
 export function TodoWriteTool({ part }: TodoWriteToolProps) {

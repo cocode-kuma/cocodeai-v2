@@ -24,10 +24,10 @@ type BusyAction = "status" | "connect" | "disconnect" | "set-active" | "test" | 
 type OptionalFeature = "gmailRead" | "driveFull" | "calendarWrite" | "chat";
 
 const OPTIONAL_FEATURES: { id: OptionalFeature; label: string; description: string }[] = [
-  { id: "gmailRead", label: "Read Gmail", description: "Read your Gmail messages and threads." },
-  { id: "driveFull", label: "Full Google Drive access", description: "Search, read, and edit all files in your Drive, not just files created through CocodeAI." },
-  { id: "calendarWrite", label: "Create calendar events", description: "Create events on your Google Calendar." },
-  { id: "chat", label: "Google Chat", description: "List spaces, read messages, and send messages in Google Chat." },
+  { id: "gmailRead", label: "读取 Gmail", description: "读取您的 Gmail 邮件和会话。" },
+  { id: "driveFull", label: "完整 Google Drive 访问", description: "搜索、读取和编辑您 Drive 中的所有文件，而不仅限于通过 CocodeAI 创建的文件。" },
+  { id: "calendarWrite", label: "创建日历事件", description: "在您的 Google 日历上创建事件。" },
+  { id: "chat", label: "Google Chat", description: "列出空间、阅读消息并在 Google Chat 中发送消息。" },
 ];
 type GoogleWorkspaceCommand = () => Promise<unknown>;
 const DESKTOP_ACTION_TIMEOUT_MS = 6 * 60 * 1000;
@@ -130,7 +130,7 @@ function GoogleWorkspaceConfig({ openworkServerClient, hostOpenworkServerClient,
       setStatus(result);
       onExtensionConnectionChange?.("google-workspace", result.connected);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to read Google Workspace status.");
+      setError(err instanceof Error ? err.message : "读取 Google Workspace 状态失败。");
     } finally {
       setBusyAction(null);
     }
@@ -189,7 +189,7 @@ function GoogleWorkspaceConfig({ openworkServerClient, hostOpenworkServerClient,
       }
       await loadStatus({ clearError: false });
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to save Google OAuth settings.");
+      setError(err instanceof Error ? err.message : "保存 Google OAuth 设置失败。");
     } finally {
       setBusyAction(null);
     }
@@ -198,7 +198,7 @@ function GoogleWorkspaceConfig({ openworkServerClient, hostOpenworkServerClient,
   const saveGoogleClientSecret = async () => {
     const value = clientSecret.trim();
     if (!value) {
-      setError("Enter the client secret from your Google OAuth desktop client.");
+      setError("请输入你的 Google OAuth 桌面客户端的客户端密钥。");
       return;
     }
     await saveOauthEnv([{ key: "GOOGLE_WORKSPACE_OAUTH_CLIENT_SECRET", value }], () => setClientSecret(""));
@@ -208,11 +208,11 @@ function GoogleWorkspaceConfig({ openworkServerClient, hostOpenworkServerClient,
     const id = customClientId.trim();
     const secret = customClientSecret.trim();
     if (!id || !secret) {
-      setError("Enter both the client ID and client secret from your own Google OAuth desktop client.");
+      setError("请同时输入你自己的 Google OAuth 桌面客户端的客户端 ID 和客户端密钥。");
       return;
     }
     if (id === OPENWORK_BUILTIN_GOOGLE_CLIENT_ID) {
-      setError("That is the built-in CocodeAI client ID, which cannot unlock Gmail read access. Create your own OAuth client in Google Cloud Console (APIs & Services > Credentials > Create OAuth client ID > Desktop app) and paste its client ID here.");
+      setError("这是内置的 CocodeAI 客户端 ID，无法解锁 Gmail 读取权限。请在 Google Cloud Console（API 和服务 > 凭据 > 创建 OAuth 客户端 ID > 桌面应用）中创建你自己的 OAuth 客户端，并将其客户端 ID 粘贴到此处。");
       return;
     }
     await saveOauthEnv(
@@ -234,26 +234,26 @@ function GoogleWorkspaceConfig({ openworkServerClient, hostOpenworkServerClient,
       {!serverAvailable ? (
         <Alert variant="warning">
           <ShieldCheck />
-          <AlertTitle>CocodeAI server required</AlertTitle>
-          <AlertDescription>Start CocodeAI server to connect Google Workspace.</AlertDescription>
+          <AlertTitle>需要 CocodeAI 服务器</AlertTitle>
+          <AlertDescription>启动 CocodeAI 服务器以连接 Google Workspace。</AlertDescription>
         </Alert>
       ) : null}
 
       {status?.connected ? (
         <Alert>
           <CheckCircle2 />
-          <AlertTitle>Connected to Google Workspace</AlertTitle>
+          <AlertTitle>已连接到 Google Workspace</AlertTitle>
           <AlertDescription>
-            {connectedAccounts.length === 1 && connectedAccounts[0]?.email ? `Signed in as ${connectedAccounts[0].email}.` : `${connectedAccounts.length} Google accounts connected.`}
+            {connectedAccounts.length === 1 && connectedAccounts[0]?.email ? `已登录为 ${connectedAccounts[0].email}。` : `已连接 ${connectedAccounts.length} 个 Google 账号。`}
             {status.testStatus ? ` ${status.testStatus}` : ""}
           </AlertDescription>
         </Alert>
       ) : (
         <Alert variant="warning">
           <ShieldCheck />
-          <AlertTitle>Connect Google Workspace</AlertTitle>
+          <AlertTitle>连接 Google Workspace</AlertTitle>
           <AlertDescription>
-            Let CocodeAI use your calendar, selected Drive files, and Gmail drafts when you ask it to.
+            让 CocodeAI 在你需要时使用日历、选定的 Drive 文件和 Gmail 草稿。
           </AlertDescription>
         </Alert>
       )}
@@ -261,17 +261,17 @@ function GoogleWorkspaceConfig({ openworkServerClient, hostOpenworkServerClient,
       {status && !status.configured ? (
         <Alert variant="warning">
           <XCircle />
-          <AlertTitle>Google OAuth client not configured</AlertTitle>
-          <AlertDescription>Add your Google OAuth desktop client secret to connect Google Workspace.</AlertDescription>
+          <AlertTitle>Google OAuth 客户端未配置</AlertTitle>
+          <AlertDescription>添加你的 Google OAuth 桌面客户端密钥以连接 Google Workspace。</AlertDescription>
         </Alert>
       ) : null}
 
       {status && !status.configured ? (
         <Card variant="outline" size="sm">
           <CardHeader>
-            <CardTitle>Set up Google OAuth</CardTitle>
+            <CardTitle>设置 Google OAuth</CardTitle>
             <CardDescription>
-              Use a Google Cloud OAuth desktop client. CocodeAI already includes the desktop client ID; paste the matching client secret here.
+              使用 Google Cloud OAuth 桌面客户端。CocodeAI 已包含桌面客户端 ID；请将匹配的客户端密钥粘贴到此处。
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
@@ -314,33 +314,33 @@ function GoogleWorkspaceConfig({ openworkServerClient, hostOpenworkServerClient,
       {status?.smokeTest ? (
         <Alert>
           <CheckCircle2 />
-          <AlertTitle>Scope smoke test complete</AlertTitle>
-          <AlertDescription>Calendar, Drive, and Gmail draft access were verified.</AlertDescription>
+          <AlertTitle>范围冒烟测试完成</AlertTitle>
+          <AlertDescription>日历、Drive 和 Gmail 草稿访问权限已验证。</AlertDescription>
         </Alert>
       ) : null}
 
       <Card variant="outline" size="sm">
         <CardHeader>
-          <CardTitle>What CocodeAI can do</CardTitle>
+          <CardTitle>CocodeAI 能做什么</CardTitle>
           <CardDescription>
-            Connect Google Workspace so CocodeAI can help with meeting prep, selected files, and draft emails.
+            连接 Google Workspace，让 CocodeAI 帮助准备会议、处理选定文件和草稿邮件。
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-3 sm:grid-cols-3">
           <div className="rounded-2xl border border-border bg-card p-3">
             <CalendarDays className="mb-2 size-4 text-blue-11" />
-            <div className="text-sm font-medium text-card-foreground">Calendar read</div>
-            <div className="mt-1 text-xs leading-relaxed text-muted-foreground">List upcoming events and provide meeting context.</div>
+            <div className="text-sm font-medium text-card-foreground">读取日历</div>
+            <div className="mt-1 text-xs leading-relaxed text-muted-foreground">列出即将发生的事件并提供会议上下文。</div>
           </div>
           <div className="rounded-2xl border border-border bg-card p-3">
             <MailPlus className="mb-2 size-4 text-red-11" />
-            <div className="text-sm font-medium text-card-foreground">Gmail drafts</div>
-            <div className="mt-1 text-xs leading-relaxed text-muted-foreground">Create draft emails only. No send tool in Phase 1.</div>
+            <div className="text-sm font-medium text-card-foreground">Gmail 草稿</div>
+            <div className="mt-1 text-xs leading-relaxed text-muted-foreground">仅创建草稿邮件。第一阶段不提供发送工具。</div>
           </div>
           <div className="rounded-2xl border border-border bg-card p-3">
             <FileText className="mb-2 size-4 text-green-11" />
-            <div className="text-sm font-medium text-card-foreground">Selected Drive files</div>
-            <div className="mt-1 text-xs leading-relaxed text-muted-foreground">Read files explicitly selected or created through CocodeAI.</div>
+            <div className="text-sm font-medium text-card-foreground">选定的 Drive 文件</div>
+            <div className="mt-1 text-xs leading-relaxed text-muted-foreground">读取通过 CocodeAI 显式选择或创建的文件。</div>
           </div>
         </CardContent>
       </Card>
@@ -351,8 +351,8 @@ function GoogleWorkspaceConfig({ openworkServerClient, hostOpenworkServerClient,
             {connectedAccounts.map((account) => (
               <div key={account.accountId ?? account.email ?? account.sub ?? "google-account"} className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border bg-card p-3">
                 <div className="min-w-0">
-                  <div className="truncate text-sm font-medium text-card-foreground">{account.email ?? account.name ?? "Google account"}</div>
-                  <div className="text-xs text-muted-foreground">{account.accountId === status?.activeAccountId ? "Default for extension actions" : "Connected"}</div>
+                  <div className="truncate text-sm font-medium text-card-foreground">{account.email ?? account.name ?? "Google 账号"}</div>
+                  <div className="text-xs text-muted-foreground">{account.accountId === status?.activeAccountId ? "扩展操作的默认账号" : "已连接"}</div>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {account.accountId && account.accountId !== status?.activeAccountId ? (
@@ -377,12 +377,12 @@ function GoogleWorkspaceConfig({ openworkServerClient, hostOpenworkServerClient,
           <div className="flex flex-wrap gap-2">
             <Button disabled={Boolean(busyAction) || !canConnect} onClick={() => void runDesktopAction("connect", connectGoogleWorkspace)}>
               {busyAction === "connect" ? <Loader2 className="size-4 animate-spin" /> : null}
-              {status?.connected ? "Add another Google account" : "Connect with Google"}
+              {status?.connected ? "添加另一个 Google 账号" : "连接 Google"}
             </Button>
             {connectedAccounts.length > 1 ? (
               <Button variant="destructive" disabled={Boolean(busyAction)} onClick={() => void runDesktopAction("disconnect", () => openworkServerClient?.googleWorkspaceDisconnect() ?? Promise.resolve(null))}>
                 {busyAction === "disconnect" ? <Loader2 className="size-4 animate-spin" /> : null}
-                Disconnect all
+                全部断开连接
               </Button>
             ) : null}
             <Button variant="outline" disabled={Boolean(busyAction) || !canTest} onClick={() => void runDesktopAction("test", () => openworkServerClient?.googleWorkspaceTestConnection() ?? Promise.resolve(null))}>
@@ -437,8 +437,8 @@ function GoogleWorkspaceConfig({ openworkServerClient, hostOpenworkServerClient,
             <div className="space-y-3">
               <p className="text-xs leading-relaxed text-muted-foreground">
                 {status?.customClient
-                  ? "Allow or deny each extra permission below. They are requested the next time you connect a Google account. Already connected? Disconnect and connect again to change them."
-                  : "Add your own Google OAuth client above to enable these options."}
+                  ? "允许或拒绝下面的每个额外权限。它们将在你下次连接 Google 账号时被请求。已连接？请断开并重新连接以更改。"
+                  : "在上面添加你自己的 Google OAuth 客户端以启用这些选项。"}
               </p>
               {OPTIONAL_FEATURES.map((feature) => (
                 <label key={feature.id} className="flex items-start gap-2.5">

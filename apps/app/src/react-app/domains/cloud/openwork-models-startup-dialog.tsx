@@ -40,9 +40,9 @@ export function OpenWorkModelsStartupDialog(props: OpenWorkModelsStartupDialogPr
           <div className="mb-2 flex size-11 items-center justify-center rounded-2xl border border-blue-6 bg-blue-2 text-blue-11">
             <ProviderIcon providerId={OPENWORK_MODELS_PROVIDER_ID} providerName={OPENWORK_MODELS_PROVIDER_NAME} size={22} />
           </div>
-          <DialogTitle>Use CocodeAI Models without API keys</DialogTitle>
+          <DialogTitle>无需 API 密钥即可使用 CocodeAI 模型</DialogTitle>
           <DialogDescription>
-            CocodeAI Models gives your workspace hosted frontier models managed by CocodeAI Cloud. You can still use your own providers whenever you prefer.
+            CocodeAI 模型为您的工作区提供由 CocodeAI Cloud 管理的托管前沿模型。您仍然可以随时使用自己的提供商。
           </DialogDescription>
         </DialogHeader>
 
@@ -59,25 +59,25 @@ export function OpenWorkModelsStartupDialog(props: OpenWorkModelsStartupDialogPr
           <div className="grid gap-2 text-xs text-dls-secondary sm:grid-cols-2">
             <div className="flex gap-2 rounded-xl bg-dls-hover/50 p-3">
               <Sparkles className="mt-0.5 size-3.5 shrink-0 text-blue-11" />
-              <span>Managed model access for CocodeAI tasks and shared workflows.</span>
+              <span>为 CocodeAI 任务和共享工作流提供托管模型访问。</span>
             </div>
             <div className="flex gap-2 rounded-xl bg-dls-hover/50 p-3">
               <KeyRound className="mt-0.5 size-3.5 shrink-0 text-blue-11" />
-              <span>No Anthropic, OpenAI, or Google API key setup required.</span>
+              <span>无需设置 Anthropic、OpenAI 或 Google API 密钥。</span>
             </div>
           </div>
 
           <p className="text-xs text-dls-secondary">
-            Pricing is handled through CocodeAI Cloud. Continue without it to use OpenCode Zen or your own provider keys.
+            定价通过 CocodeAI Cloud 处理。跳过即可继续使用 OpenCode Zen 或自己的提供商密钥。
           </p>
         </div>
 
         <DialogFooter className="gap-2 sm:justify-between">
           <Button variant="ghost" onClick={props.onContinueWithout}>
-            Continue without CocodeAI Models
+            不使用 CocodeAI Models 继续
           </Button>
           <Button onClick={props.onSubscribe}>
-            {props.isSignedIn ? "Subscribe" : "Sign in to subscribe"}
+            {props.isSignedIn ? "订阅" : "登录以订阅"}
             <ArrowRight className="ml-1.5 size-3.5" />
           </Button>
         </DialogFooter>

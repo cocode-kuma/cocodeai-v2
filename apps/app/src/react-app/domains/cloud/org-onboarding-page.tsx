@@ -196,7 +196,7 @@ function usePreparedBootstrap() {
   return useMemo<PreparedBootstrapSummary | null>(() => {
     if (!bootstrap.prepared?.skillTitle) return null;
     return {
-      orgName: bootstrap.prepared.orgName || "Your workspace",
+      orgName: bootstrap.prepared.orgName || "你的工作区",
       claimLinks: bootstrap.claimLinks ?? [],
     };
   }, [bootstrap]);
@@ -213,7 +213,7 @@ function PreparedWorkspacePage({ prepared }: { prepared: PreparedBootstrapSummar
   const submitSignInCode = useCallback(async () => {
     const grant = signInCode.trim();
     if (grant.length < 12 || signInBusy) {
-      if (grant.length < 12) setSignInError("Paste a valid one-time sign-in code.");
+      if (grant.length < 12) setSignInError("请粘贴有效的一次性登录验证码。");
       return;
     }
 
@@ -272,16 +272,16 @@ function PreparedWorkspacePage({ prepared }: { prepared: PreparedBootstrapSummar
                   setSignInError(null);
                 }}
               >
-                {showSignInCode ? "Hide sign-in code" : "Paste sign-in code"}
+                {showSignInCode ? "隐藏登录码" : "粘贴登录码"}
               </Button>
 
               {showSignInCode ? (
                 <div className="grid gap-3 rounded-2xl border border-dls-border bg-dls-surface p-4">
                   <Input
-                    aria-label="One-time sign-in code"
+                    aria-label="一次性登录码"
                     value={signInCode}
                     onChange={(event) => setSignInCode(event.currentTarget.value)}
-                    placeholder="Paste the code from your browser"
+                    placeholder="粘贴浏览器中的验证码"
                     disabled={signInBusy}
                   />
                   <Button
@@ -289,7 +289,7 @@ function PreparedWorkspacePage({ prepared }: { prepared: PreparedBootstrapSummar
                     onClick={() => void submitSignInCode()}
                     disabled={signInBusy || !signInCode.trim()}
                   >
-                    {signInBusy ? "Signing in..." : "Sign in to this workspace"}
+                    {signInBusy ? "登录中…" : "登录到此工作区"}
                   </Button>
                 </div>
               ) : null}
@@ -411,7 +411,7 @@ export function OrgOnboardingPage() {
             <Alert variant="destructive">
               <CircleAlert />
               <AlertDescription>
-                {error instanceof Error ? error.message : "Unable to load organizations."}
+                {error instanceof Error ? error.message : "无法加载组织列表。"}
               </AlertDescription>
             </Alert>
           </PageHeader>
@@ -538,19 +538,19 @@ export function ResourceSelectionPage() {
 
       let updateReady = false;
       let warning = desktopConfig.brandIconUrl && !iconResult.ok
-        ? "The workspace app icon could not be prepared."
+        ? "工作区应用图标无法准备就绪。"
         : null;
       try {
         updateReady = await stageOnboardingUpdate(desktopConfig);
       } catch (error) {
-        warning ??= error instanceof Error ? error.message : "The application update could not be prepared.";
+        warning ??= error instanceof Error ? error.message : "应用更新无法准备就绪。";
       }
       setBrandingRestart({ fingerprint, updateReady, warning });
     } catch (error) {
       setBrandingRestart({
         fingerprint: workspaceBrandingFingerprint(orgId, {}),
         updateReady: false,
-        warning: error instanceof Error ? error.message : "Workspace branding could not be prepared.",
+        warning: error instanceof Error ? error.message : "工作区品牌设置无法准备就绪。",
       });
     } finally {
       setPreparingBranding(false);
@@ -635,7 +635,7 @@ export function ResourceSelectionPage() {
           </PageHeader>
           <PageContent>
             <details className="mx-auto w-full max-w-md rounded-xl border border-dls-border bg-dls-surface px-4 py-3 text-sm">
-              <summary className="cursor-pointer font-medium">Why restart?</summary>
+              <summary className="cursor-pointer font-medium">为什么需要重启？</summary>
               <p className="mt-2 text-muted-foreground">
                 Restarting refreshes the workspace name and icon across your operating system and installs the prepared application update.
               </p>
@@ -676,7 +676,7 @@ export function ResourceSelectionPage() {
             <BuildingOffice2Icon className="size-7 text-foreground" />
           </div>
           <PageTitle>
-            {orgName || "Your organization"}
+            {orgName || "你的组织"}
           </PageTitle>
           {loading ? (
             null
@@ -731,8 +731,8 @@ export function ResourceSelectionPage() {
                   {providers.length > 0 ? (
                     <Section
                       icon={<CloudIcon className="size-5 text-foreground/60" />}
-                      title="AI Providers"
-                      description="Models you can use in your workspace."
+                      title="AI 提供商"
+                      description="可在工作区中使用的模型。"
                       count={`${totalModels} model${totalModels === 1 ? "" : "s"}`}
                     >
                       {providers.map((provider) => (
@@ -750,9 +750,9 @@ export function ResourceSelectionPage() {
                   {marketplaces.length > 0 ? (
                     <Section
                       icon={<Square3Stack3DIcon className="size-5 text-foreground/60" />}
-                      title="Marketplaces"
-                      description="App stores with extensions and plugins for your workspace."
-                      count={`${marketplaces.length} marketplace${marketplaces.length === 1 ? "" : "s"}`}
+                      title="市场"
+                      description="为你的工作区提供扩展和插件的应用商店。"
+                      count={`${marketplaces.length} 个市场`}
                     >
                       {marketplaces.map((mp) => (
                         <MarketplaceCard key={mp.id} marketplace={mp} />
@@ -767,7 +767,7 @@ export function ResourceSelectionPage() {
             {selectedDefault ? (
               <div className="rounded-xl border border-green-6/30 bg-green-2/30 px-4 py-3 text-center text-sm text-green-11">
                 <Check size={14} className="mr-1 inline" />
-                {selectedDefault.label} will be set as your default model.
+                {selectedDefault.label} 将被设置为你的默认模型。
               </div>
             ) : null}
           </PageContent>
@@ -777,7 +777,7 @@ export function ResourceSelectionPage() {
           {/* Footer hint */}
           {!loading && hasResources ? (
             <p className="text-center text-xs text-muted-foreground text-balance leading-relaxed tracking-wide">
-              Providers are added to your workspace automatically. Marketplaces are available from Cloud settings.
+              提供商将自动添加到你的工作区。市场可从云端设置中获取。
             </p>
           ) : null}
           <Button
@@ -788,10 +788,10 @@ export function ResourceSelectionPage() {
             disabled={loading || preparingBranding}
           >
             {preparingBranding
-              ? "Preparing workspace..."
+              ? "正在准备工作区…"
               : hasResources
-                ? "Continue to workspace"
-                : "Continue"}
+                ? "进入工作区"
+                : "继续"}
             <ArrowRight data-icon="inline-end" />
           </Button>
         </PageFooter>
@@ -1046,8 +1046,8 @@ export function OrganizationList({ orgs, value, onValueChange }: OrganizationLis
     <div className="flex flex-col gap-3">
       {orgs.length > 10 ? (
         <Input
-          aria-label="Search organizations"
-          placeholder="Search organizations..."
+          aria-label="搜索组织"
+          placeholder="搜索组织…"
           value={query}
           onChange={(event) => updateQuery(event.target.value)}
         />
@@ -1059,7 +1059,7 @@ export function OrganizationList({ orgs, value, onValueChange }: OrganizationLis
           const nextOrg = orgs.find((org) => org.id === nextOrgId);
           if (nextOrg) onValueChange(nextOrg);
         }}
-        aria-label="Organizations"
+        aria-label="组织"
       >
         {visible.map((org) => {
           const fieldId = `organization-${org.id}`;

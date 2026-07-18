@@ -134,10 +134,9 @@ export function ClaudePluginImportModal(props: ClaudePluginImportModalProps) {
     >
       <DialogContent className="flex max-h-[90vh] min-h-0 w-full max-w-lg flex-col overflow-hidden sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Install a plugin from GitHub</DialogTitle>
+          <DialogTitle>从 GitHub 安装插件</DialogTitle>
           <DialogDescription>
-            Works with Claude Code plugins: a repo with .claude-plugin/plugin.json bundling an MCP
-            server, skills, and commands.
+            支持 Claude Code 插件：包含 .claude-plugin/plugin.json 捆绑了 MCP 服务器、技能和命令的仓库。
           </DialogDescription>
         </DialogHeader>
 
@@ -145,7 +144,7 @@ export function ClaudePluginImportModal(props: ClaudePluginImportModalProps) {
           <div className="flex items-end gap-2">
             <div className="flex-1">
               <TextInput
-                label="GitHub repository"
+                label="GitHub 仓库"
                 placeholder="https://github.com/slackapi/slack-mcp-plugin"
                 value={state.url}
                 onChange={(event) =>
@@ -163,7 +162,7 @@ export function ClaudePluginImportModal(props: ClaudePluginImportModalProps) {
               ) : (
                 <Search data-icon="inline-start" />
               )}
-              Preview
+              预览
             </Button>
           </div>
 

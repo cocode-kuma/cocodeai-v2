@@ -237,7 +237,7 @@ export function ModelPickerModal(props: ModelPickerModalProps) {
               ref={searchInputRef}
               type="text"
               className="h-10 w-full rounded-xl border border-dls-border bg-dls-surface pl-9 pr-3 text-sm text-dls-text placeholder:text-dls-secondary focus:outline-none focus:ring-2 focus:ring-[rgba(var(--dls-accent-rgb),0.2)]"
-              placeholder="Search providers and models..."
+              placeholder="搜索提供商和模型…"
               value={props.query}
               onChange={(e) => props.setQuery(e.target.value)}
             />
@@ -269,7 +269,7 @@ export function ModelPickerModal(props: ModelPickerModalProps) {
                 type="button"
                 className="flex size-9 shrink-0 items-center justify-center border-l border-blue-6/60 text-blue-11 transition-colors hover:bg-blue-3/70"
                 onClick={hideOpenWorkModels}
-                aria-label="Hide CocodeAI Models"
+                aria-label="隐藏 CocodeAI 模型"
               >
                 <X className="size-3.5" />
               </button>
@@ -281,11 +281,11 @@ export function ModelPickerModal(props: ModelPickerModalProps) {
             {providerGroups.length === 0 ? (
               <div className="space-y-3 rounded-2xl border border-dls-border bg-dls-hover/30 px-4 py-6 text-center">
                 <div className="text-sm text-dls-secondary">
-                  {props.query.trim() ? "No models match your search." : "No models available. Connect a provider to get started."}
+                  {props.query.trim() ? "没有匹配你搜索的模型。" : "暂无可用模型，请先连接提供商。"}
                 </div>
                 {!props.query.trim() ? (
                   <Button variant="outline" onClick={props.onOpenSettings}>
-                    Connect a provider
+                    连接提供商
                   </Button>
                 ) : null}
               </div>
@@ -360,13 +360,13 @@ function ProviderAccordion({
           </div>
           <span className="flex shrink-0 items-center gap-1.5">
             {group.isNew ? (
-              <span className="rounded-md bg-blue-3 px-1.5 py-0.5 text-[10px] font-medium text-blue-11">New</span>
+              <span className="rounded-md bg-blue-3 px-1.5 py-0.5 text-[10px] font-medium text-blue-11">新增</span>
             ) : null}
             {group.isCloud ? (
               <span className="rounded-md bg-blue-3/50 px-1.5 py-0.5 text-[10px] font-medium text-blue-11/70">Cloud</span>
             ) : null}
             {group.hasCurrent ? (
-              <span className="rounded-md bg-green-3 px-1.5 py-0.5 text-[10px] font-medium text-green-11">Current</span>
+              <span className="rounded-md bg-green-3 px-1.5 py-0.5 text-[10px] font-medium text-green-11">当前</span>
             ) : null}
           </span>
         </button>

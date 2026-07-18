@@ -483,13 +483,13 @@ export function useDebugViewModel(options: UseDebugViewModelOptions) {
 
   const onClearDeveloperLog = useCallback(() => {
     setDeveloperLog([]);
-    setDeveloperLogStatus("Cleared developer log.");
+    setDeveloperLogStatus("已清除开发者日志。");
   }, []);
 
   const onCopyDeveloperLog = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(developerLog.join("\n"));
-      setDeveloperLogStatus("Copied developer log to clipboard.");
+      setDeveloperLogStatus("已复制开发者日志到剪贴板。");
     } catch (error) {
       setDeveloperLogStatus(error instanceof Error ? error.message : safeStringify(error));
     }
@@ -502,7 +502,7 @@ export function useDebugViewModel(options: UseDebugViewModelOptions) {
         developerLog.join("\n"),
         "text/plain",
       );
-      setDeveloperLogStatus("Exported developer log.");
+      setDeveloperLogStatus("已导出开发者日志。");
     } catch (error) {
       setDeveloperLogStatus(error instanceof Error ? error.message : safeStringify(error));
     }
@@ -538,7 +538,7 @@ export function useDebugViewModel(options: UseDebugViewModelOptions) {
 
   const onRevealElectronMigrationBackup = useCallback(async () => {
     if (!isElectronRuntime()) {
-      setElectronMigrationStatus("Migration backup reveal is available only in the desktop app.");
+      setElectronMigrationStatus("迁移备份查看仅在桌面应用中可用。");
       return;
     }
     try {
@@ -556,7 +556,7 @@ export function useDebugViewModel(options: UseDebugViewModelOptions) {
   }, []);
 
   const onPrepareElectronMigrationSnapshot = useCallback(async () => {
-    setElectronMigrationStatus("Tauri migration snapshots are no longer available because Tauri has been removed.");
+    setElectronMigrationStatus("Tauri 迁移快照不再可用，因为 Tauri 已被移除。");
   }, []);
 
   const onInstallElectronPreviewFromTauri = useCallback(async () => {
@@ -581,16 +581,16 @@ export function useDebugViewModel(options: UseDebugViewModelOptions) {
 
   const onSetElectronAlphaUpdaterChannel = useCallback(async (channel: ReleaseChannel) => {
     if (!isElectronRuntime()) {
-      setElectronAlphaUpdaterStatus("Electron updater channels are available only in the Electron desktop app.");
+      setElectronAlphaUpdaterStatus("Electron 更新渠道仅在 Electron 桌面应用中可用。");
       return;
     }
     if (channel === "alpha" && !isMacPlatform()) {
-      setElectronAlphaUpdaterStatus("Electron alpha updates are macOS-only for now.");
+      setElectronAlphaUpdaterStatus("Electron Alpha 更新目前仅支持 macOS。");
       return;
     }
     const bridge = window.__OPENWORK_ELECTRON__?.updater;
     if (!bridge?.setChannel) {
-      setElectronAlphaUpdaterStatus("Electron updater bridge is unavailable.");
+      setElectronAlphaUpdaterStatus("Electron 更新器桥接不可用。");
       return;
     }
     setElectronAlphaUpdaterBusy(true);
@@ -616,7 +616,7 @@ export function useDebugViewModel(options: UseDebugViewModelOptions) {
     }
     const bridge = window.__OPENWORK_ELECTRON__?.updater;
     if (!bridge?.check) {
-      setElectronAlphaUpdaterStatus("Electron updater bridge is unavailable.");
+      setElectronAlphaUpdaterStatus("Electron 更新器桥接不可用。");
       return;
     }
     setElectronAlphaUpdaterBusy(true);
@@ -945,7 +945,7 @@ export function useDebugViewModel(options: UseDebugViewModelOptions) {
       typeof window === "undefined"
         ? true
         : window.confirm(
-            "Delete ALL local OpenWork + OpenCode config and quit? This cannot be undone.",
+            "删除所有本地 OpenWork + OpenCode 配置并退出？此操作不可撤销。",
           );
     if (!confirmed) return;
     setNukeConfigBusy(true);

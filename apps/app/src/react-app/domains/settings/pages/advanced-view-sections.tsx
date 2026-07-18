@@ -384,7 +384,7 @@ export function AdvancedCloudMcpDiagnosticsSection(props: AdvancedCloudMcpDiagno
   const copy = async () => {
     const payload = JSON.stringify({ cloudMcpHealth: safeHealth }, null, 2);
     await navigator.clipboard.writeText(payload);
-    setCopyStatus("Copied sanitized Cloud diagnostic.");
+    setCopyStatus("已复制脱敏后的 Cloud 诊断信息。");
   };
 
   return (
@@ -440,14 +440,14 @@ export function AdvancedCloudMcpDiagnosticsSection(props: AdvancedCloudMcpDiagno
               <DiagnosticRow label="Live verification" value={props.cloudMcpHealth.checkedAt} />
             </div>
             <details className="rounded-lg bg-gray-3 p-2">
-              <summary className="cursor-pointer text-[11px] font-medium text-gray-11">Show sanitized health JSON</summary>
+              <summary className="cursor-pointer text-[11px] font-medium text-gray-11">显示脱敏后的健康 JSON</summary>
               <pre className="mt-2 max-h-72 overflow-auto font-mono text-[11px] text-gray-11">
                 {JSON.stringify(safeHealth, null, 2)}
               </pre>
             </details>
           </div>
         ) : (
-          <SettingsNotice>No Cloud MCP health has been loaded for this workspace yet.</SettingsNotice>
+          <SettingsNotice>此工作区尚未加载 Cloud MCP 健康状态。</SettingsNotice>
         )}
       </LayoutSectionItem>
     </LayoutSection>
@@ -508,15 +508,15 @@ function RuntimeConfigSummary(props: { config: Record<string, unknown> }) {
   return (
     <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
       <div className="rounded-lg border border-gray-6 bg-gray-2/60 p-2">
-        <div className="text-[10px] uppercase tracking-wide text-gray-8">Default agent</div>
+        <div className="text-[10px] uppercase tracking-wide text-gray-8">默认代理</div>
         <div className="mt-1 truncate font-mono text-[11px] text-gray-12" title={defaultAgent}>{defaultAgent}</div>
       </div>
       <div className="rounded-lg border border-gray-6 bg-gray-2/60 p-2">
-        <div className="text-[10px] uppercase tracking-wide text-gray-8">Providers / models</div>
+        <div className="text-[10px] uppercase tracking-wide text-gray-8">提供商 / 模型</div>
         <div className="mt-1 font-mono text-[11px] text-gray-12">{providers} providers, {models} models</div>
       </div>
       <div className="rounded-lg border border-gray-6 bg-gray-2/60 p-2">
-        <div className="text-[10px] uppercase tracking-wide text-gray-8">Agents / plugins</div>
+        <div className="text-[10px] uppercase tracking-wide text-gray-8">代理 / 插件</div>
         <div className="mt-1 font-mono text-[11px] text-gray-12">{agents} agents, {plugins} plugins</div>
       </div>
       <div className="rounded-lg border border-gray-6 bg-gray-2/60 p-2">
@@ -525,7 +525,7 @@ function RuntimeConfigSummary(props: { config: Record<string, unknown> }) {
       </div>
       {disabledProviders ? (
         <div className="rounded-lg border border-gray-6 bg-gray-2/60 p-2 sm:col-span-2 lg:col-span-4">
-          <div className="text-[10px] uppercase tracking-wide text-gray-8">Disabled providers</div>
+          <div className="text-[10px] uppercase tracking-wide text-gray-8">已禁用的提供商</div>
           <div className="mt-1 font-mono text-[11px] text-gray-12">{disabledProviders}</div>
         </div>
       ) : null}
@@ -548,12 +548,12 @@ function RuntimeConfigSourceBlock(props: {
         <div className="font-medium text-gray-12">{props.title}</div>
         <div className="text-[11px] text-gray-9">{props.description}</div>
         {props.path ? <div className="mt-1 break-all font-mono text-[11px] text-gray-8">{props.path}</div> : null}
-        {props.exists !== undefined ? <div className="text-[11px] text-gray-9">{props.exists ? "Found" : "Not found"}</div> : null}
-        <div className="text-[11px] text-gray-9">Keys: {formatKeys(props.keys)}</div>
+        {props.exists !== undefined ? <div className="text-[11px] text-gray-9">{props.exists ? "已找到" : "未找到"}</div> : null}
+        <div className="text-[11px] text-gray-9">键: {formatKeys(props.keys)}</div>
       </div>
       <RuntimeConfigSummary config={safeConfig} />
       <details className="rounded-lg bg-gray-3 p-2">
-        <summary className="cursor-pointer text-[11px] font-medium text-gray-11">Show raw JSON</summary>
+        <summary className="cursor-pointer text-[11px] font-medium text-gray-11">显示原始 JSON</summary>
         <pre className="mt-2 max-h-56 overflow-auto font-mono text-[11px] text-gray-11">
           {JSON.stringify(safeConfig, null, 2)}
         </pre>
@@ -570,17 +570,17 @@ export function AdvancedRuntimeMigrationSection(props: AdvancedRuntimeMigrationS
   return (
     <LayoutSection>
       <LayoutSectionHeader>
-        <LayoutSectionTitle>OpenCode config sources</LayoutSectionTitle>
+        <LayoutSectionTitle>OpenCode 配置源</LayoutSectionTitle>
         <LayoutSectionDescription>
-          Inspect what CocodeAI controls at runtime versus what belongs to your workspace config. This works through the CocodeAI server and does not require the OpenCode engine to be healthy.
+          检查 CocodeAI 在运行时控制的内容与属于你工作区配置的内容。这通过 CocodeAI 服务器工作，不需要 OpenCode 引擎处于健康状态。
         </LayoutSectionDescription>
       </LayoutSectionHeader>
 
       <LayoutSectionItem>
         <LayoutSectionItemHeader>
-          <LayoutSectionItemTitle>Move CocodeAI-managed config</LayoutSectionItemTitle>
+          <LayoutSectionItemTitle>迁移 CocodeAI 管理的配置</LayoutSectionItemTitle>
           <LayoutSectionItemDescription>
-            Moves older CocodeAI-owned runtime keys from `.opencode/openwork.json` and safe CocodeAI-managed keys from `opencode.jsonc` into the runtime database.
+            将旧的 CocodeAI 拥有的运行时密钥从 `.opencode/openwork.json` 和安全的 CocodeAI 管理的密钥从 `opencode.jsonc` 迁移到运行时数据库。
           </LayoutSectionItemDescription>
           <LayoutSectionItemHeaderActions>
             <Button
@@ -591,7 +591,7 @@ export function AdvancedRuntimeMigrationSection(props: AdvancedRuntimeMigrationS
               disabled={props.busy || props.configStatusBusy || !props.canMigrate}
             >
               <RefreshCcw size={14} className={props.configStatusBusy ? "animate-spin" : ""} />
-              Refresh
+              刷新
             </Button>
             <Button
               type="button"
@@ -601,7 +601,7 @@ export function AdvancedRuntimeMigrationSection(props: AdvancedRuntimeMigrationS
               disabled={props.busy || props.migrationBusy || !props.canMigrate}
             >
               <Database size={14} />
-              {props.migrationBusy ? "Migrating..." : "Migrate"}
+              {props.migrationBusy ? "迁移中…" : "迁移"}
             </Button>
           </LayoutSectionItemHeaderActions>
         </LayoutSectionItemHeader>
@@ -610,13 +610,13 @@ export function AdvancedRuntimeMigrationSection(props: AdvancedRuntimeMigrationS
         {props.configStatus ? (
           <div className="space-y-3 rounded-xl border border-gray-6 bg-gray-1/60 p-3 text-xs text-gray-10">
             <div className="space-y-2 rounded-xl border border-blue-6/50 bg-blue-2/40 p-3">
-              <div className="font-medium text-gray-12">Desired CocodeAI runtime config</div>
+              <div className="font-medium text-gray-12">期望的 CocodeAI 运行时配置</div>
               <div className="text-[11px] text-gray-9">
-                This is the CocodeAI-built config object requested for the runtime database and injected safely by the server. Sensitive headers are redacted here.
+                这是 CocodeAI 为运行时数据库构建的配置对象，由服务器安全注入。敏感头信息已在此处脱敏。
               </div>
               <RuntimeConfigSummary config={effectiveRuntimeConfig ?? {}} />
               <details className="rounded-lg bg-gray-3 p-2">
-                <summary className="cursor-pointer text-[11px] font-medium text-gray-11">Show desired JSON</summary>
+                <summary className="cursor-pointer text-[11px] font-medium text-gray-11">显示期望的 JSON</summary>
                 <pre className="mt-2 max-h-72 overflow-auto font-mono text-[11px] text-gray-11">
                   {JSON.stringify(effectiveRuntimeConfig, null, 2)}
                 </pre>
@@ -625,62 +625,62 @@ export function AdvancedRuntimeMigrationSection(props: AdvancedRuntimeMigrationS
             {props.configStatus.sources ? (
               <div className="space-y-3">
                 <div>
-                  <div className="font-medium text-gray-12">OpenCode source breakdown</div>
+                  <div className="font-medium text-gray-12">OpenCode 来源分析</div>
                   <div className="text-[11px] text-gray-9">
-                    OpenCode also reads its own project and global config files. CocodeAI injects the runtime config separately; for CocodeAI-managed keys, the injected config is the source to inspect.
+                    OpenCode 也读取自己的项目和全局配置文件。CocodeAI 单独注入运行时配置；对于 CocodeAI 管理的键，注入的配置是需要检查的来源。
                   </div>
                 </div>
                 <RuntimeConfigSourceBlock
-                  title="Project opencode config"
-                  description="Workspace-level OpenCode config owned by the user/project."
+                  title="项目 opencode 配置"
+                  description="由用户/项目拥有的工作区级 OpenCode 配置。"
                   path={props.configStatus.sources.projectOpencode.path}
                   exists={props.configStatus.sources.projectOpencode.exists}
                   keys={props.configStatus.sources.projectOpencode.keys}
                   config={props.configStatus.sources.projectOpencode.config}
                 />
                 <RuntimeConfigSourceBlock
-                  title="Global opencode config"
-                  description="User-level OpenCode config under ~/.config/opencode."
+                  title="全局 opencode 配置"
+                  description="位于 ~/.config/opencode 下的用户级 OpenCode 配置。"
                   path={props.configStatus.sources.globalOpencode.path}
                   exists={props.configStatus.sources.globalOpencode.exists}
                   keys={props.configStatus.sources.globalOpencode.keys}
                   config={props.configStatus.sources.globalOpencode.config}
                 />
                 <RuntimeConfigSourceBlock
-                  title="CocodeAI runtime DB"
-                  description="CocodeAI-managed runtime values stored outside workspace files."
+                  title="CocodeAI 运行时数据库"
+                  description="存储在工作区文件之外的 CocodeAI 管理的运行时值。"
                   keys={props.configStatus.sources.runtimeDatabase.keys}
                   config={props.configStatus.sources.runtimeDatabase.config}
                 />
                 <RuntimeConfigSourceBlock
-                  title="CocodeAI injected config"
-                  description="The object CocodeAI injects into OpenCode at runtime."
+                  title="CocodeAI 注入的配置"
+                  description="CocodeAI 在运行时注入 OpenCode 的对象。"
                   keys={props.configStatus.sources.injected.keys}
                   config={props.configStatus.sources.injected.config}
                 />
               </div>
             ) : null}
             <div>
-              <div className="font-medium text-gray-12">Runtime database</div>
-              <div>Stored keys: {formatKeys(props.configStatus.runtimeKeys)}</div>
+              <div className="font-medium text-gray-12">运行时数据库</div>
+              <div>存储的键: {formatKeys(props.configStatus.runtimeKeys)}</div>
             </div>
             <div>
-              <div className="font-medium text-gray-12">Legacy CocodeAI metadata</div>
+              <div className="font-medium text-gray-12">旧版 CocodeAI 元数据</div>
               <div className="break-all">{props.configStatus.legacyOpenwork.path}</div>
               {props.configStatus.legacyOpenwork.error ? (
-                <div className="text-amber-11">{props.configStatus.legacyOpenwork.error}; fix this file before moving legacy config.</div>
+                <div className="text-amber-11">{props.configStatus.legacyOpenwork.error}; 修复此文件后再迁移旧配置。</div>
               ) : null}
-              <div>Migratable keys: {formatKeys(props.configStatus.legacyOpenwork.keys)}</div>
+              <div>可迁移的键: {formatKeys(props.configStatus.legacyOpenwork.keys)}</div>
             </div>
             <div>
-              <div className="font-medium text-gray-12">User opencode.jsonc</div>
+              <div className="font-medium text-gray-12">用户 opencode.jsonc</div>
               <div className="break-all">{props.configStatus.userOpencode.path}</div>
-              <div>{props.configStatus.userOpencode.exists ? "Found" : "Not found"}</div>
-              <div>User-owned keys: {formatKeys(props.configStatus.userOpencode.keys)}</div>
-              <div>Migratable keys: {formatKeys(props.configStatus.userOpencode.migratableKeys)}</div>
+              <div>{props.configStatus.userOpencode.exists ? "已找到" : "未找到"}</div>
+              <div>用户拥有的键: {formatKeys(props.configStatus.userOpencode.keys)}</div>
+              <div>可迁移的键: {formatKeys(props.configStatus.userOpencode.migratableKeys)}</div>
             </div>
             <div>
-              <div className="font-medium text-gray-12">Runtime DB JSON</div>
+              <div className="font-medium text-gray-12">运行时数据库 JSON</div>
               <pre className="mt-1 max-h-48 overflow-auto rounded-lg bg-gray-3 p-2 font-mono text-[11px] text-gray-11">
                 {JSON.stringify(runtimeConfig, null, 2)}
               </pre>
@@ -741,19 +741,19 @@ export function AdvancedFeatureFlagsSection(props: AdvancedFeatureFlagsSectionPr
   return (
     <LayoutSection>
       <LayoutSectionHeader>
-        <LayoutSectionTitle>Feature flags</LayoutSectionTitle>
-        <LayoutSectionDescription>Experimental controls for sandbox and workspace behaviors.</LayoutSectionDescription>
+        <LayoutSectionTitle>功能开关</LayoutSectionTitle>
+        <LayoutSectionDescription>沙箱和工作区行为的实验性控制。</LayoutSectionDescription>
       </LayoutSectionHeader>
 
       <LayoutSectionItem>
         <LayoutSectionItemHeader>
-          <LayoutSectionItemTitle>Create Sandbox uses microsandbox image</LayoutSectionItemTitle>
+          <LayoutSectionItemTitle>创建沙箱使用 microsandbox 镜像</LayoutSectionItemTitle>
           <LayoutSectionItemDescription>
-            When enabled, Create Sandbox launches the detached worker with the microsandbox image flow instead of the default Docker image flow.
+            启用后，创建沙箱会使用 microsandbox 镜像流启动分离的 Worker，而非默认的 Docker 镜像流。
           </LayoutSectionItemDescription>
           <LayoutSectionItemHeaderActions>
             <Switch
-              aria-label="Create Sandbox uses microsandbox image"
+              aria-label="创建沙箱使用 microsandbox 镜像"
               checked={props.microsandboxCreateSandboxEnabled}
               disabled={props.busy || !isDesktopRuntime()}
               onCheckedChange={props.onToggleMicrosandboxCreateSandbox}

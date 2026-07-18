@@ -206,7 +206,7 @@ export function CreateWorkspaceLocalPanel(
                 )}
                 {props.hasSelectedFolder
                   ? t("dashboard.change")
-                  : "Select folder"}
+                  : "选择文件夹"}
               </button>
             </div>
           </div>
@@ -239,7 +239,7 @@ export function CreateWorkspaceLocalPanel(
                 className={pillGhostClass}
                 onClick={props.onToggleProgressDetails}
               >
-                {props.showProgressDetails ? "Hide logs" : "Show logs"}
+                {props.showProgressDetails ? "隐藏日志" : "显示日志"}
               </button>
             </div>
 

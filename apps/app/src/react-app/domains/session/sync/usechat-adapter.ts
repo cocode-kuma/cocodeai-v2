@@ -54,7 +54,7 @@ function withAttachmentRecoveryHint(text: string) {
   return `${text}\nAn attached file in this conversation uses a format the model can't read. Revert the conversation to before the attachment was sent, or start a new session.`;
 }
 
-export function describeOpencodeSessionError(error: unknown, fallback = "Session failed") {
+export function describeOpencodeSessionError(error: unknown, fallback = "会话失败") {
   if (error instanceof Error) return withAttachmentRecoveryHint(error.message || fallback);
   if (typeof error === "string") return withAttachmentRecoveryHint(error.trim() || fallback);
   if (!error || typeof error !== "object") return fallback;

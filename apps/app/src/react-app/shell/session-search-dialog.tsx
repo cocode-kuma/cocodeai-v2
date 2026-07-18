@@ -162,7 +162,7 @@ export function SessionSearchDialog(props: SessionSearchDialogProps) {
           session,
         }));
       return recent.length > 0
-        ? [{ value: "Recent sessions", kind: "recent", items: recent }]
+        ? [{ value: "最近的会话", kind: "recent", items: recent }]
         : [];
     }
 
@@ -203,7 +203,7 @@ export function SessionSearchDialog(props: SessionSearchDialogProps) {
 
     const out: ResultGroup[] = [];
     if (titleItems.length > 0) {
-      out.push({ value: "Session titles", kind: "title", items: titleItems });
+      out.push({ value: "会话标题", kind: "title", items: titleItems });
     }
     if (messageItems.length > 0) {
       out.push({ value: "Messages", kind: "message", items: messageItems });
@@ -219,18 +219,18 @@ export function SessionSearchDialog(props: SessionSearchDialogProps) {
   const trimmedQuery = query.trim();
   const searching = Boolean(deepQuery) && progress !== null && !progress.done;
   const emptyText = !trimmedQuery
-    ? "No sessions yet."
+    ? "暂无会话。"
     : trimmedQuery.length < MIN_QUERY_LENGTH
-      ? "Keep typing to search message content…"
+      ? "继续输入以搜索消息内容…"
       : searching
-        ? "Searching messages…"
-        : "No sessions or messages match your search.";
+        ? "正在搜索消息…"
+        : "没有匹配搜索的会话或消息。";
 
   const statusText = !trimmedQuery
-    ? "Recent sessions"
+    ? "最近的会话"
     : searching
-      ? `Searching messages… ${progress.scanned}/${progress.total}`
-      : `${resultCount.toLocaleString()} ${resultCount === 1 ? "result" : "results"}`;
+      ? `正在搜索消息… ${progress.scanned}/${progress.total}`
+      : `${resultCount.toLocaleString()} ${resultCount === 1 ? "个结果" : "个结果"}`;
 
   return (
     <CommandDialog
@@ -240,7 +240,7 @@ export function SessionSearchDialog(props: SessionSearchDialogProps) {
       }}
     >
       <CommandDialogPopup>
-        <CommandDialogTitle>Search sessions</CommandDialogTitle>
+        <CommandDialogTitle>搜索会话</CommandDialogTitle>
         <Command
           items={groups}
           filter={null}
@@ -250,7 +250,7 @@ export function SessionSearchDialog(props: SessionSearchDialogProps) {
           <CommandHeader>
             <CommandInput
               className="w-full"
-              placeholder="Search all sessions and messages…"
+              placeholder="搜索所有会话和消息…"
             />
           </CommandHeader>
           <CommandPanel>

@@ -1105,7 +1105,7 @@ export function SessionRoute() {
     setRenameWorkspaceBusy(true);
     try {
       if (!client) {
-        toast.error("OpenWork server is unavailable. Reconnect the server before renaming workspaces.");
+        toast.error("CocodeAI 服务器不可用。请在重命名工作区之前重新连接服务器。");
         return;
       }
       await client.updateWorkspaceDisplayName(renameWorkspaceId, trimmed);
@@ -1113,7 +1113,7 @@ export function SessionRoute() {
       setRenameWorkspaceTitle("");
       await refreshRouteState();
     } catch (error) {
-      toast.error("Workspace rename failed", {
+      toast.error("工作区重命名失败", {
         description: describeRouteError(error),
       });
     } finally {
@@ -1164,7 +1164,7 @@ export function SessionRoute() {
       if (typeof window !== "undefined") {
         const message =
           t("workspace_list.remove_confirm") ||
-          "Remove this workspace from the sidebar?";
+          "将此工作区从侧边栏中移除？";
         if (!window.confirm(message)) return;
       }
       // Remove from both stores so the next refresh can't resurrect the row
@@ -1238,11 +1238,11 @@ export function SessionRoute() {
       const message = describeTaskCreateError(error);
       setRouteError(message);
       setErrorsByWorkspaceId((current) => ({ ...current, [workspaceId]: message }));
-      toast.error("OpenCode unavailable", {
+      toast.error("OpenCode 不可用", {
         id: taskCreateUnavailableToastId(workspaceId),
         description: message,
         action: {
-          label: "Retry",
+          label: "重试",
           onClick: () => void handleCreateTaskInWorkspace(workspaceId),
         },
         duration: Infinity,
@@ -1405,8 +1405,8 @@ export function SessionRoute() {
 
   const commandPaletteControlAction = useMemo<OpenworkControlAction>(() => ({
     id: "command_palette.open",
-    label: "Open the command palette",
-    description: "Open the in-app command palette so the next choice is visible.",
+    label: "打开命令面板",
+    description: "打开应用内命令面板，显示下一步选择。",
     sideEffect: "none",
     execute: () => setCommandPaletteOpen(true),
   }), []);
@@ -1414,8 +1414,8 @@ export function SessionRoute() {
 
   const addProviderControlAction = useMemo<OpenworkControlAction>(() => ({
     id: "settings.provider.add",
-    label: "Add a model provider",
-    description: "Open the provider connection modal, optionally pre-filtered to a specific provider.",
+    label: "添加模型提供商",
+    description: "打开提供商连接弹窗，可选预先筛选特定提供商。",
     sideEffect: "mutation",
     requiresArgs: false,
     args: [
@@ -1483,8 +1483,8 @@ export function SessionRoute() {
 
   const sessionSearchPaletteItem = useMemo<PaletteItem>(() => ({
     id: "session-search.open",
-    title: "Search session messages",
-    detail: "Deep search every session, including message content",
+    title: "搜索会话消息",
+    detail: "深度搜索每个会话，包括消息内容",
     meta: "Cmd/Ctrl+Shift+F",
     searchText: "search find sessions messages history transcript content",
     action: () => {
@@ -1497,8 +1497,8 @@ export function SessionRoute() {
     if (!selectedSessionId) return null;
     return {
       id: "session-find.open",
-      title: "Find in conversation",
-      detail: "Search within the current conversation",
+      title: "在对话中查找",
+      detail: "在当前对话中搜索",
       meta: "Cmd/Ctrl+F",
       searchText: "find search current conversation session messages transcript",
       action: () => {
@@ -1511,8 +1511,8 @@ export function SessionRoute() {
   const terminalPaletteItems = useMemo<PaletteItem[]>(() => [
     {
       id: "terminal.toggle",
-      title: terminalOpen ? "Hide terminal" : "Show terminal",
-      detail: "Toggle the integrated terminal panel for this workspace",
+      title: terminalOpen ? "隐藏终端" : "显示终端",
+      detail: "切换当前工作区的集成终端面板",
       meta: "Cmd/Ctrl+J",
       searchText: "terminal shell command line console show hide toggle",
       action: () => {
@@ -1595,8 +1595,8 @@ export function SessionRoute() {
 
   const nextSessionTabPaletteItem = useMemo<PaletteItem>(() => ({
     id: "session-tab.next",
-    title: "Next session tab",
-    detail: "Switch to the next session in this workspace",
+    title: "下一个会话标签页",
+    detail: "切换到当前工作区中的下一个会话",
     meta: "Cmd/Ctrl+T",
     searchText: "next session tab switch forward",
     action: () => {
@@ -1607,8 +1607,8 @@ export function SessionRoute() {
 
   const prevSessionTabPaletteItem = useMemo<PaletteItem>(() => ({
     id: "session-tab.previous",
-    title: "Previous session tab",
-    detail: "Switch to the previous session in this workspace",
+    title: "上一个会话标签页",
+    detail: "切换到当前工作区中的上一个会话",
     meta: "Cmd/Ctrl+Shift+T",
     searchText: "previous session tab switch back",
     action: () => {
@@ -1781,8 +1781,8 @@ export function SessionRoute() {
 
   const createWorkspaceControlAction = useMemo<OpenworkControlAction>(() => ({
     id: "workspace.create",
-    label: "Create a local workspace",
-    description: "Create a workspace at the given folder path without showing the file picker dialog, optionally labeling its project for analytics.",
+    label: "创建本地工作区",
+    description: "在给定文件夹路径创建工作区，无需显示文件选择对话框，可选择为分析标记项目。",
     sideEffect: "mutation",
     requiresArgs: true,
     args: [

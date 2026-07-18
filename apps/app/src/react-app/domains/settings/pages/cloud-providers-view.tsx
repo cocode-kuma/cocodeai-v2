@@ -106,8 +106,8 @@ export function CloudProvidersView({
         if (!quiet) {
           toast.info(
             items.length > 0
-              ? `Loaded ${items.length} cloud provider${items.length === 1 ? "" : "s"} for ${activeOrg?.name ?? t("den.active_org_title")}.`
-              : `No cloud providers are available for ${activeOrg?.name ?? t("den.active_org_title")}.`,
+              ? `已为 ${activeOrg?.name ?? t("den.active_org_title")} 加载 ${items.length} 个云端提供商。`
+              : `${activeOrg?.name ?? t("den.active_org_title")} 暂无可用云端提供商。`,
           );
         }
       } catch (error) {

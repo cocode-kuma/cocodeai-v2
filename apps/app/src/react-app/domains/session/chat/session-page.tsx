@@ -677,8 +677,8 @@ export function SessionPage(props: SessionPageProps) {
   const closeVoicePanelControlAction = useMemo<OpenworkControlAction | null>(() => (
     voiceExtensionEnabled && activeSidePanel === "voice" ? {
       id: "voice.panel.close",
-      label: "Close Voice Mode",
-      description: "Close the Voice Mode right-side panel.",
+      label: "关闭语音模式",
+      description: "关闭右侧语音模式面板。",
       sideEffect: "none",
       execute: () => {
         setCurrentSidePanel(null);
@@ -794,8 +794,8 @@ export function SessionPage(props: SessionPageProps) {
   const showSelectedWorkspaceError = Boolean(selectedWorkspaceErrorMessage);
   const selectedWorkspaceErrorTitle =
     props.selectedWorkspaceDisplay.workspaceType === "remote"
-      ? "Remote workspace unavailable"
-      : "OpenCode unavailable";
+      ? "远程工作区不可用"
+      : "OpenCode 不可用";
 
   const reactSessionBaseUrl = props.opencodeBaseUrl?.trim() ?? "";
   const reactSessionToken =
@@ -1013,14 +1013,14 @@ export function SessionPage(props: SessionPageProps) {
                         variant="ghost"
                         size="icon-sm"
                         className="rounded-xl text-gray-10 transition-colors hover:bg-muted hover:text-foreground"
-                        aria-label="Find in conversation"
+                        aria-label="在对话中查找"
                         onClick={() => useSessionFindStore.getState().openFind({ sessionId: findButtonSessionId })}
                       >
                         <TextSearch size={17} />
                       </Button>
                     }
                   />
-                  <TooltipContent>Find in conversation (⌘F)</TooltipContent>
+                  <TooltipContent>在对话中查找 (⌘F)</TooltipContent>
                 </Tooltip>
               ) : null}
               <NotificationBell />
@@ -1046,9 +1046,9 @@ export function SessionPage(props: SessionPageProps) {
                       window.localStorage.removeItem("openwork.orgOnboardingSeen");
                     } catch {}
                   }}
-                  title="Clears acknowledged providers + org onboarding so they trigger again"
+                  title="清除已确认的提供商 + 组织引导，使其再次触发"
                 >
-                  Reset notifications
+                  重置通知
                 </Button>
               ) : null}
             </div>
@@ -1104,7 +1104,7 @@ export function SessionPage(props: SessionPageProps) {
                 <div className="flex h-full min-h-0 flex-col">
                   {sessionTabs.length > 0 ? (
                     <div className="flex h-10 shrink-0 items-center gap-1 border-b border-border bg-background/80 px-2 mac:backdrop-blur-xl">
-                      <div className="flex shrink-0 items-center gap-0.5 pr-1" role="group" aria-label="Conversation history controls">
+                      <div className="flex shrink-0 items-center gap-0.5 pr-1" role="group" aria-label="对话历史导航">
                         <Tooltip>
                           <TooltipTrigger
                             render={
@@ -1112,8 +1112,8 @@ export function SessionPage(props: SessionPageProps) {
                                 variant="ghost"
                                 size="icon-xs"
                                 className="rounded-lg text-dls-secondary transition-colors hover:bg-dls-hover hover:text-dls-text disabled:opacity-40"
-                                aria-label="Back in conversation history"
-                                title="Back in conversation history"
+                                aria-label="返回对话历史"
+                                title="返回对话历史"
                                 data-conversation-history-control="back"
                                 disabled={!canGoBackInConversationHistory}
                                 onClick={() => navigateConversationHistory("back")}
@@ -1122,7 +1122,7 @@ export function SessionPage(props: SessionPageProps) {
                               </Button>
                             }
                           />
-                          <TooltipContent>Back in conversation history</TooltipContent>
+                          <TooltipContent>返回对话历史</TooltipContent>
                         </Tooltip>
                         <Tooltip>
                           <TooltipTrigger
@@ -1131,8 +1131,8 @@ export function SessionPage(props: SessionPageProps) {
                                 variant="ghost"
                                 size="icon-xs"
                                 className="rounded-lg text-dls-secondary transition-colors hover:bg-dls-hover hover:text-dls-text disabled:opacity-40"
-                                aria-label="Forward in conversation history"
-                                title="Forward in conversation history"
+                                aria-label="前进对话历史"
+                                title="前进对话历史"
                                 data-conversation-history-control="forward"
                                 disabled={!canGoForwardInConversationHistory}
                                 onClick={() => navigateConversationHistory("forward")}
@@ -1141,7 +1141,7 @@ export function SessionPage(props: SessionPageProps) {
                               </Button>
                             }
                           />
-                          <TooltipContent>Forward in conversation history</TooltipContent>
+                          <TooltipContent>前进对话历史</TooltipContent>
                         </Tooltip>
                       </div>
                       <div className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto">
@@ -1175,8 +1175,8 @@ export function SessionPage(props: SessionPageProps) {
                                 className="rounded p-0.5 text-dls-secondary hover:bg-dls-hover hover:text-dls-text disabled:pointer-events-none disabled:opacity-40"
                                 onClick={() => setSplitSessionId(split ? null : tab.sessionId)}
                                 disabled={active}
-                                title={split ? "Close split" : "Open in split view"}
-                                aria-label={split ? "Close split" : "Open in split view"}
+                                title={split ? "关闭分屏" : "分屏打开"}
+                                aria-label={split ? "关闭分屏" : "分屏打开"}
                               >
                                 <Columns2 size={13} />
                               </button>
@@ -1184,8 +1184,8 @@ export function SessionPage(props: SessionPageProps) {
                                 type="button"
                                 className="rounded p-0.5 text-dls-secondary opacity-80 hover:bg-dls-hover hover:text-dls-text group-hover:opacity-100"
                                 onClick={() => closeSessionTab(tab.sessionId)}
-                                title="Close tab"
-                                aria-label="Close tab"
+                                title="关闭标签页"
+                                aria-label="关闭标签页"
                               >
                                 <X size={13} />
                               </button>
@@ -1246,7 +1246,7 @@ export function SessionPage(props: SessionPageProps) {
                   {props.notFoundMessage ? (
                     <div className="px-6 py-16 text-center">
                       <div className="mx-auto max-w-md rounded-2xl border border-dls-border bg-dls-card px-5 py-6 shadow-[var(--dls-card-shadow)]">
-                        <h3 className="text-base font-medium text-dls-text">Workspace or session not found</h3>
+                        <h3 className="text-base font-medium text-dls-text">工作区或会话未找到</h3>
                         <p className="mt-2 text-sm leading-6 text-dls-secondary">{props.notFoundMessage}</p>
                       </div>
                     </div>
@@ -1321,8 +1321,8 @@ export function SessionPage(props: SessionPageProps) {
                           </h2>
                           <p className="text-xs text-dls-secondary">
                             {providerCount === 0
-                              ? "Add an AI model provider so your tasks can run."
-                              : "Try one of these to get started:"}
+                              ? "添加 AI 模型提供商，让任务能够正常运行。"
+                              : "试试下面的示例来开始："}
                           </p>
                         </div>
                         <div className="space-y-2">
@@ -1334,9 +1334,9 @@ export function SessionPage(props: SessionPageProps) {
                             >
                               <Zap className="mt-0.5 size-5 shrink-0 text-blue-10" />
                               <div>
-                                <div className="text-[13px] font-medium text-dls-text">Connect a model provider</div>
+                                <div className="text-[13px] font-medium text-dls-text">连接模型提供商</div>
                                 <div className="mt-0.5 text-[11px] text-dls-secondary">
-                                  Add an API key for Anthropic, OpenAI, Google, or other providers
+                                  添加 Anthropic、OpenAI、Google 或其他提供商的 API 密钥
                                 </div>
                               </div>
                             </button>
@@ -1347,14 +1347,14 @@ export function SessionPage(props: SessionPageProps) {
                             onClick={() => {
                               props.sidebar.onCreateTaskWithPrompt?.(
                                 props.selectedWorkspaceId,
-                                "Create a sample CSV file with 20 rows of fake customer data (name, email, company, revenue). Then show me a summary of the data.",
+                                "创建一个包含 20 行虚假客户数据的示例 CSV 文件（姓名、邮箱、公司、收入），然后给我展示数据摘要。",
                               );
                             }}
                           >
                             <img src="https://cdn.simpleicons.org/googlesheets" alt="" width={20} height={20} className="mt-0.5 shrink-0" />
                             <div>
-                              <div className="text-[13px] font-medium text-dls-text">Edit a CSV</div>
-                              <div className="mt-0.5 text-[11px] text-dls-secondary">Create a sample spreadsheet with customer data</div>
+                              <div className="text-[13px] font-medium text-dls-text">编辑 CSV 文件</div>
+                              <div className="mt-0.5 text-[11px] text-dls-secondary">创建带有客户数据的示例电子表格</div>
                             </div>
                           </button>
                           <button
@@ -1363,14 +1363,14 @@ export function SessionPage(props: SessionPageProps) {
                             onClick={() => {
                               props.sidebar.onCreateTaskWithPrompt?.(
                                 props.selectedWorkspaceId,
-                                "Open craigslist.org in the browser and search for couches for sale. Show me the top 5 results with prices.",
+                                "在浏览器中打开淘宝搜索沙发待售，展示前 5 个结果和价格。",
                               );
                             }}
                           >
                             <img src={resolveExtensionIconSrc("/openwork-mark.svg")} alt="" width={20} height={20} className="mt-0.5 shrink-0" />
                             <div>
-                              <div className="text-[13px] font-medium text-dls-text">Browse the web</div>
-                              <div className="mt-0.5 text-[11px] text-dls-secondary">Search Craigslist for couches and list the results</div>
+                              <div className="text-[13px] font-medium text-dls-text">浏览网页</div>
+                              <div className="mt-0.5 text-[11px] text-dls-secondary">搜索 Craigslist 上的家具并列出结果</div>
                             </div>
                           </button>
                           <button
@@ -1382,8 +1382,8 @@ export function SessionPage(props: SessionPageProps) {
                           >
                             <img src="https://cdn.simpleicons.org/hackthebox" alt="" width={20} height={20} className="mt-0.5 shrink-0" />
                             <div>
-                              <div className="text-[13px] font-medium text-dls-text">Connect an extension</div>
-                              <div className="mt-0.5 text-[11px] text-dls-secondary">Add MCP servers, plugins, and integrations</div>
+                              <div className="text-[13px] font-medium text-dls-text">连接扩展</div>
+                              <div className="mt-0.5 text-[11px] text-dls-secondary">添加 MCP 服务器、插件和集成</div>
                             </div>
                           </button>
                         </div>
@@ -1472,8 +1472,8 @@ export function SessionPage(props: SessionPageProps) {
                   panelRailActive && "bg-primary/10 text-primary hover:bg-primary/15 hover:text-primary",
                 )}
                 onClick={openBrowserRailPane}
-                title="Browser"
-                aria-label="Browser"
+                title="浏览器"
+                aria-label="浏览器"
                 aria-pressed={panelRailActive}
               >
                 <Globe size={17} />
@@ -1488,8 +1488,8 @@ export function SessionPage(props: SessionPageProps) {
                   voiceRailActive && "bg-primary/10 text-primary hover:bg-primary/15 hover:text-primary",
                 )}
                 onClick={openVoiceRailPane}
-                title="Voice Mode"
-                aria-label="Voice Mode"
+                title="语音模式"
+                aria-label="语音模式"
                 aria-pressed={voiceRailActive}
               >
                 <Mic2 size={17} />
@@ -1503,8 +1503,8 @@ export function SessionPage(props: SessionPageProps) {
                 panelRailActive && "bg-primary/10 text-primary hover:bg-primary/15 hover:text-primary",
               )}
               onClick={openArtifactRailPane}
-              title={hasArtifactTargets ? `Artifacts (${artifactTargetCount})` : "No artifacts yet"}
-              aria-label={hasArtifactTargets ? `Artifacts (${artifactTargetCount})` : "No artifacts yet"}
+              title={hasArtifactTargets ? `产出物 (${artifactTargetCount})` : "暂无产出物"}
+              aria-label={hasArtifactTargets ? `产出物 (${artifactTargetCount})` : "暂无产出物"}
               aria-pressed={panelRailActive}
               disabled={!hasArtifactTargets}
             >
@@ -1523,8 +1523,8 @@ export function SessionPage(props: SessionPageProps) {
                 extensionsRailActive && "bg-primary/10 text-primary hover:bg-primary/15 hover:text-primary",
               )}
               onClick={props.settingsSlot ? openExtensionsRailPane : props.onOpenSettings}
-              title="Extensions"
-              aria-label="Extensions"
+              title="扩展"
+              aria-label="扩展"
               aria-pressed={extensionsRailActive}
             >
               <Settings2 size={17} />

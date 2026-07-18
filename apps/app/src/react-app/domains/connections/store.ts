@@ -439,8 +439,8 @@ export function createConnectionsStore(options: {
           mcpLastUpdatedAt: Date.now(),
           mcpStatuses: serverResult.nextStatuses,
           mcpStatus: failedNames
-            ? `Some MCPs could not be registered with the engine: ${failedNames}. They may appear disconnected — try reloading the engine.`
-            : serverResult.next.length ? null : "No MCP servers configured yet.",
+            ? `部分 MCP 无法注册到引擎：${failedNames}。它们可能显示为已断开连接——请尝试重新加载引擎。`
+            : serverResult.next.length ? null : "暂未配置 MCP 服务器。",
         }));
         void healUnhealthyMcpEntries(serverResult.next, serverResult.nextStatuses);
         return;
@@ -537,7 +537,7 @@ export function createConnectionsStore(options: {
           ...current,
           mcpServers: [],
           mcpStatuses: {},
-          mcpStatus: "No opencode.json found yet. Create one by connecting an MCP.",
+          mcpStatus: "未找到 opencode.json。请通过连接 MCP 来创建。",
         }));
         return;
       }
@@ -558,7 +558,7 @@ export function createConnectionsStore(options: {
         mcpServers: next,
         mcpLastUpdatedAt: Date.now(),
         mcpStatuses: nextStatuses,
-        mcpStatus: next.length ? null : "No MCP servers configured yet.",
+        mcpStatus: next.length ? null : "暂未配置 MCP 服务器。",
       }));
       void healUnhealthyMcpEntries(next, nextStatuses);
     } catch (error) {

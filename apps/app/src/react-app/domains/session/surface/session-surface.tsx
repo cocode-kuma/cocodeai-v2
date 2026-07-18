@@ -100,7 +100,7 @@ import {
 
 const EMPTY_TRANSCRIPT: UIMessage[] = [];
 const IDLE_STATUS: SessionStatus = { type: "idle" };
-const DEFAULT_COMPOSER_CONTROL_TEXT = "Help me outline the next CocodeAI task.";
+const DEFAULT_COMPOSER_CONTROL_TEXT = "帮我规划下一个 CocodeAI 任务。";
 const SESSION_SURFACE_SELECTOR = "[data-session-surface-id]";
 
 type SessionError = {
@@ -167,7 +167,7 @@ export type SessionSurfaceProps = {
 };
 
 function messageToReadableText(message: UIMessage) {
-  const header = message.role === "user" ? "You" : message.role === "assistant" ? "CocodeAI" : message.role;
+  const header = message.role === "user" ? "你" : message.role === "assistant" ? "CocodeAI" : message.role;
   const body = message.parts
     .flatMap((part) => {
       if (part.type === "text") return [part.text];
@@ -217,10 +217,10 @@ function resolveFindOwnerSessionId() {
 }
 
 function statusLabel(snapshot: OpenworkSessionSnapshot | undefined, busy: boolean) {
-  if (busy) return "Running...";
-  if (snapshot?.status.type === "busy") return "Running...";
-  if (snapshot?.status.type === "retry") return `Retrying: ${snapshot.status.message}`;
-  return "Ready";
+  if (busy) return "运行中…";
+  if (snapshot?.status.type === "busy") return "运行中…";
+  if (snapshot?.status.type === "retry") return `重试中: ${snapshot.status.message}`;
+  return "就绪";
 }
 
 function controlTextArgument(args: unknown) {
@@ -339,7 +339,7 @@ function parseSessionError(thrown: unknown): SessionError {
     if (parsed?.name === "ProviderModelNotFoundError" && parsed?.data) {
       const { providerID, modelID, suggestions } = parsed.data;
       return {
-        message: `Model ${providerID}/${modelID} is not available.`,
+        message: `模型 ${providerID}/${modelID} 不可用。`,
         kind: "model-not-found",
         failedModel: { providerID, modelID },
         suggestions: Array.isArray(suggestions) ? suggestions : [],
@@ -352,7 +352,7 @@ function parseSessionError(thrown: unknown): SessionError {
   if (/ProviderModelNotFoundError/i.test(raw) || /model.*not found/i.test(raw)) {
     return { message: raw, kind: "model-not-found" };
   }
-  return { message: raw || "Failed to send prompt." };
+  return { message: raw || "发送提示失败。" };
 }
 
 function SessionErrorCard({ error, onDismiss, onChangeModel, onOpenModelPicker }: {
@@ -380,7 +380,7 @@ function SessionErrorCard({ error, onDismiss, onChangeModel, onOpenModelPicker }
                         onDismiss();
                       }}
                     >
-                      Use {s.providerID}/{s.modelID}
+                      使用 {s.providerID}/{s.modelID}
                     </button>
                   ))
                 ) : null}
@@ -392,7 +392,7 @@ function SessionErrorCard({ error, onDismiss, onChangeModel, onOpenModelPicker }
                     onDismiss();
                   }}
                 >
-                  Change model
+                  切换模型
                 </button>
               </div>
             ) : null}
@@ -401,7 +401,7 @@ function SessionErrorCard({ error, onDismiss, onChangeModel, onOpenModelPicker }
             type="button"
             className="shrink-0 rounded-full p-1 text-red-10 transition-colors hover:bg-red-3 hover:text-red-11"
             onClick={onDismiss}
-            aria-label="Dismiss error"
+            aria-label="关闭错误提示"
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3.5 3.5l7 7M10.5 3.5l-7 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
           </button>
@@ -793,7 +793,7 @@ export function SessionSurface(props: SessionSurfaceProps) {
     try {
       await navigator.clipboard.writeText(transcriptToText(renderedMessages));
     } catch (nextError) {
-      setError({ message: nextError instanceof Error ? nextError.message : "Failed to copy transcript." });
+      setError({ message: nextError instanceof Error ? nextError.message : "复制记录失败。" });
     }
   };
 
@@ -963,15 +963,15 @@ export function SessionSurface(props: SessionSurfaceProps) {
 
   const handleAttachFiles = (files: File[]) => {
     if (!props.attachmentsEnabled) {
-      toast.warning(props.attachmentsDisabledReason ?? "Attachments are unavailable.");
+      toast.warning(props.attachmentsDisabledReason ?? "附件不可用。");
       return;
     }
     const oversized = files.filter((file) => file.size > 25 * 1024 * 1024);
     const sized = files.filter((file) => file.size <= 25 * 1024 * 1024);
     if (oversized.length) {
       toast.warning(
-        oversized.length === 1 ? `${oversized[0]?.name ?? "File"} is too large` : `${oversized.length} files are too large`,
-        { description: "Files over 25 MB were skipped." },
+        oversized.length === 1 ? `${oversized[0]?.name ?? "文件"} 太大了` : `${oversized.length} 个文件太大了`,
+        { description: "超过 25 MB 的文件已被跳过。" },
       );
     }
     const unreadable = sized.filter((file) => !isAttachmentFileReadable(file));
@@ -979,7 +979,7 @@ export function SessionSurface(props: SessionSurfaceProps) {
     if (unreadable.length) {
       toast.warning(
         unreadable.length === 1
-          ? `${unreadable[0]?.name ?? "File"} has a format the model can't read`
+          ? `${unreadable[0]?.name ?? "文件"} 的格式模型无法读取`
           : `${unreadable.length} files have formats the model can't read`,
         { description: t("composer.any_file_type_supported") },
       );
@@ -1168,7 +1168,7 @@ export function SessionSurface(props: SessionSurfaceProps) {
       statuses = {};
     }
 
-    const status = servers.length ? null : "No MCP servers loaded.";
+    const status = servers.length ? null : "未加载 MCP 服务器。";
     setToolMcpServers(servers);
     setToolMcpStatuses(statuses);
     setToolMcpStatus(status);
@@ -1208,7 +1208,7 @@ export function SessionSurface(props: SessionSurfaceProps) {
       const results = await Promise.all(input.map((file) => props.client.uploadInbox(props.workspaceId, file)));
       return results;
     } catch (nextError) {
-      toast.warning(nextError instanceof Error ? nextError.message : "Shared folder upload failed");
+      toast.warning(nextError instanceof Error ? nextError.message : "共享文件夹上传失败");
       throw nextError;
     }
   };
@@ -1290,7 +1290,7 @@ export function SessionSurface(props: SessionSurfaceProps) {
     const organizationId = settings.activeOrgId?.trim() ?? "";
     if (!token || !organizationId) {
       props.onOpenConnect();
-      throw new Error("Sign in to CocodeAI Cloud, then try reconnecting again.");
+      throw new Error("请登录 CocodeAI Cloud，然后重新尝试连接。");
     }
 
     const scope: ChatMcpReconnectScope = {
@@ -1409,7 +1409,7 @@ export function SessionSurface(props: SessionSurfaceProps) {
     sideEffect: "none",
     execute: () => {
       const container = scrollRef.current;
-      if (!container) return { ok: false, error: "Session transcript is not mounted" };
+      if (!container) return { ok: false, error: "会话记录未挂载" };
       container.scrollTo({ top: 0, behavior: "smooth" });
       return { ok: true, position: "top" };
     },
@@ -1459,7 +1459,7 @@ export function SessionSurface(props: SessionSurfaceProps) {
         : 10;
       const total = renderedMessages.length;
       const slice = renderedMessages.slice(-count);
-      if (!slice.length) return { ok: false, error: "No messages in this session" };
+      if (!slice.length) return { ok: false, error: "此会话中没有消息" };
       return {
         ok: true,
         sessionId: props.sessionId,
@@ -1486,7 +1486,7 @@ export function SessionSurface(props: SessionSurfaceProps) {
       {model.transitionState === "switching" && showDelayedLoading ? (
         <div className="flex justify-center px-6 pt-4">
           <div className="rounded-full border border-dls-border bg-dls-hover/80 px-3 py-1 text-xs text-dls-secondary">
-            {model.renderSource === "cache" ? "Switching session from cache..." : "Switching session..."}
+            {model.renderSource === "cache" ? "正在从缓存切换会话…" : "正在切换会话…"}
           </div>
         </div>
       ) : null}
@@ -1518,7 +1518,7 @@ export function SessionSurface(props: SessionSurfaceProps) {
             {showDelayedLoading && pendingSessionLoad ? (
               <div className="px-6 py-16">
                 <div className="mx-auto max-w-sm rounded-3xl border border-dls-border bg-dls-hover/60 px-8 py-10 text-center">
-                  <div className="text-sm text-dls-secondary">Opening session…</div>
+                  <div className="text-sm text-dls-secondary">正在打开会话…</div>
                 </div>
               </div>
             ) : (snapshotQuery.isError || error) && !snapshot && renderedMessages.length === 0 ? (
@@ -1532,7 +1532,7 @@ export function SessionSurface(props: SessionSurfaceProps) {
                   />
                 ) : (
                   <div className="mx-auto max-w-xl rounded-3xl border border-red-6/40 bg-red-3/20 px-6 py-5 text-sm text-red-11">
-                    {snapshotQuery.error instanceof Error ? snapshotQuery.error.message : "Failed to load session."}
+                    {snapshotQuery.error instanceof Error ? snapshotQuery.error.message : "加载会话失败。"}
                   </div>
                 )}
               </div>
@@ -1607,8 +1607,8 @@ export function SessionSurface(props: SessionSurfaceProps) {
             className="mx-3 mb-2 flex w-[calc(100%-1.5rem)] items-center gap-2 rounded-lg border border-amber-7/40 bg-amber-2/30 px-3 py-2 text-left text-xs text-amber-11 transition-colors hover:bg-amber-3/40"
             onClick={() => props.onOpenSettingsSection?.("providers")}
           >
-            <span className="font-medium">No AI model connected.</span>
-            <span className="text-amber-11/70">Add a provider to run tasks.</span>
+            <span className="font-medium">未连接 AI 模型。</span>
+            <span className="text-amber-11/70">请添加提供商以运行任务。</span>
           </button>
         ) : null}
         <DevProfiler id="SessionComposer">
@@ -1619,15 +1619,15 @@ export function SessionSurface(props: SessionSurfaceProps) {
           >
             <span className="min-w-0 flex-1">
               {[
-                props.cloudMcpSubmissionState.issue?.message ?? "Connected service tools could not be prepared.",
+                props.cloudMcpSubmissionState.issue?.message ?? "连接的服务工具无法准备就绪。",
                 props.cloudMcpSubmissionState.issue?.recommendedAction,
               ].filter(Boolean).join(" ")}
             </span>
             <button type="button" className="font-medium hover:underline" onClick={handleRetryCloudSubmission}>
-              Retry
+              重试
             </button>
             <button type="button" className="font-medium hover:underline" onClick={props.onOpenConnect}>
-              Open Connect
+              打开 Connect
             </button>
           </div>
         ) : null}

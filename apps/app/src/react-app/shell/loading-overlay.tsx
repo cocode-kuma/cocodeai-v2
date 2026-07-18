@@ -29,7 +29,7 @@ export function LoadingOverlay() {
       <div className="flex w-full max-w-[320px] flex-col items-center gap-4 px-6 text-center">
         <OwDotTicker size="md" />
         <div className="text-[12px] leading-5 text-dls-secondary">
-          {message || "Preparing workspace"}
+          {message || "正在准备工作区"}
         </div>
         {error ? (
           <div className="flex flex-col gap-2 text-[12px] leading-5 text-red-11">

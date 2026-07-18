@@ -689,18 +689,18 @@ export function createExtensionsStore(options: {
           notifyEvent({
             kind: "cloud",
             severity: "info",
-            title: "Extension update available",
-            body: `${pluginLabel} has been updated`,
+            title: "有可用的扩展更新",
+            body: `${pluginLabel} 已更新`,
             dedupeKey: `plugin-update:${pluginId}`,
             action: { type: "open-extensions-marketplace" },
-            actionLabel: "View updates",
+            actionLabel: "查看更新",
           });
         } else if (change === "removed") {
           notifyEvent({
             kind: "cloud",
             severity: "warning",
-            title: "Extension removed by admin",
-            body: `${pluginLabel} is no longer available`,
+            title: "扩展已被管理员移除",
+            body: `${pluginLabel} 已不再可用`,
             dedupeKey: `plugin-removed:${pluginId}`,
             action: { type: "open-extensions-marketplace" },
           });
@@ -1388,7 +1388,7 @@ export function createExtensionsStore(options: {
         mutateState((current) => ({
           ...current,
           hubSkills: [],
-          hubSkillsStatus: "No hub repo selected. Add a GitHub repo to browse skills.",
+          hubSkillsStatus: "未选择 Hub 仓库。请添加 GitHub 仓库以浏览技能。",
         }));
         hubSkillsLoaded = true;
         hubSkillsLoadKey = loadKey;
@@ -1415,7 +1415,7 @@ export function createExtensionsStore(options: {
         mutateState((current) => ({
           ...current,
           hubSkills: next,
-          hubSkillsStatus: next.length ? null : "No hub skills found.",
+          hubSkillsStatus: next.length ? null : "未找到 Hub 技能。",
           hubSkillsContextKey: getWorkspaceContextKey(),
         }));
         hubSkillsLoaded = true;
@@ -1613,11 +1613,11 @@ export function createExtensionsStore(options: {
               notifyEvent({
                 kind: "cloud",
                 severity: "info",
-                title: "New extension available",
+                title: "有新的扩展可用",
                 body: `${plugin.name ?? plugin.id} was added to ${marketplaceName}`,
                 dedupeKey: `new-marketplace-plugin:${plugin.id}`,
                 action: { type: "open-extensions-marketplace", pluginName: plugin.name ?? plugin.id },
-                actionLabel: "View in Marketplace",
+                actionLabel: "在市场中查看",
               });
             }
           }
@@ -2130,7 +2130,7 @@ export function createExtensionsStore(options: {
           ...current,
           pluginList: list,
           sidebarPluginList: list.map((entry) => entry.name),
-          pluginStatus: list.length ? null : "No plugins configured yet.",
+          pluginStatus: list.length ? null : "暂未配置插件。",
           sidebarPluginStatus: null,
           pluginsContextKey: getWorkspaceContextKey(),
         }));
@@ -2825,7 +2825,7 @@ export function createExtensionsStore(options: {
         ...current,
         hubRepo: nextRepos[0] ?? null,
         hubSkills: nextRepos.length ? current.hubSkills : [],
-        hubSkillsStatus: nextRepos.length ? current.hubSkillsStatus : "No hub repo selected. Add a GitHub repo to browse skills.",
+        hubSkillsStatus: nextRepos.length ? current.hubSkillsStatus : "未选择 Hub 仓库。请添加 GitHub 仓库以浏览技能。",
       }));
       hubSkillsLoaded = false;
       if (!nextRepos.length) {

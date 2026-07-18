@@ -23,12 +23,8 @@ export const OPENWORK_MODELS_PROMO_VISIBLE_MS = 14_000;
 export const OPENWORK_MODELS_PROMO_REPEAT_MS = 6 * 60 * 60 * 1000;
 
 export function areOpenWorkModelsPromosDisabled() {
-  if (/^(1|true|yes|on)$/i.test(String(import.meta.env.VITE_DISABLE_OPENWORK_MODELS ?? "").trim())) {
-    return true;
-  }
-  // OpenWork Models are a hosted OpenWork Cloud offering; self-hosted
-  // deployments should never see the upsell surfaces.
-  return isSelfHostedControlPlane();
+  // CocodeAI does not provide hosted models — always disabled.
+  return true;
 }
 
 export function isOpenWorkModelsPromoEligibleForDenBaseUrl(baseUrl: string) {
@@ -64,7 +60,7 @@ export const OPENWORK_MODEL_PREVIEWS: OpenWorkModelPreview[] = Object.entries(
   .map(([id, model]) => ({
     id,
     title: model.displayName.replace(/^OpenWork:\s*/, ""),
-    subtitle: "CocodeAI hosted",
+    subtitle: "CocodeAI 托管",
   }));
 
 export function hasOpenWorkModelsProvider(providerIds: readonly string[]) {

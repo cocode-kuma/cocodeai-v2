@@ -79,12 +79,12 @@ function BrandIcon({ slug, size = 18 }: { slug: string; size?: number }) {
 /* ------------------------------------------------------------------ */
 
 const capabilities = [
-  { slug: "googlesheets", title: "Edit spreadsheets", desc: "Create, clean, and transform CSV and Excel files." },
-  { slug: "semanticweb", title: "Control your browser", desc: "Automate the built-in browser for repetitive web tasks." },
-  { slug: "apple", title: "Organize files", desc: "Read, write, and manage files and folders." },
-  { slug: "zapier", title: "Automate tasks", desc: "Build reusable workflows with skills and commands." },
-  { slug: "medium", title: "Generate content", desc: "Draft documents, emails, and reports." },
-  { slug: "stripe", title: "Connect to APIs", desc: "Plug into external services and tools via MCP." },
+  { slug: "googlesheets", title: "编辑电子表格", desc: "创建、清理和转换 CSV 与 Excel 文件。" },
+  { slug: "semanticweb", title: "控制浏览器", desc: "为重复性网页任务自动化内置浏览器。" },
+  { slug: "apple", title: "整理文件", desc: "读取、写入和管理文件与文件夹。" },
+  { slug: "zapier", title: "自动化任务", desc: "使用技能和命令构建可复用的工作流。" },
+  { slug: "medium", title: "生成内容", desc: "起草文档、邮件和报告。" },
+  { slug: "stripe", title: "连接 API", desc: "通过 MCP 接入外部服务和工具。" },
 ];
 
 function ShowcasePanel() {

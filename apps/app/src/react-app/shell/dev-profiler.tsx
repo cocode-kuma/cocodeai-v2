@@ -332,7 +332,7 @@ function DevProfilerOverlayVisible({ onHide }: { onHide: () => void }) {
               state.recent.length = 0;
               emit();
             }}
-            title="Reset counters"
+            title="重置计数器"
           >
             reset
           </button>
@@ -348,7 +348,7 @@ function DevProfilerOverlayVisible({ onHide }: { onHide: () => void }) {
             type="button"
             className="rounded px-1.5 py-0.5 text-[10px] text-dls-secondary hover:bg-dls-hover"
             onClick={onHide}
-            title="Hide (Cmd+Shift+P to toggle)"
+            title="隐藏 (Cmd+Shift+P 切换)"
           >
             ×
           </button>

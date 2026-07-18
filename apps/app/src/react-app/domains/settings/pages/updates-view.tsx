@@ -255,7 +255,7 @@ export function UpdatesView(props: UpdatesViewProps) {
                     }}
                     disabled={!props.onReleaseChannelChange}
                   >
-                    <SelectTrigger aria-label="Release channel" className="w-48">
+                    <SelectTrigger aria-label="发布渠道" className="w-48">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>

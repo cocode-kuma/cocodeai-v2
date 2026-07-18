@@ -19,22 +19,22 @@ export function TerminalDock({ workspaceRoot, isRemoteWorkspace, onClose }: Term
   const terminalIdRef = useRef<string | null>(null);
   const terminalRef = useRef<Terminal | null>(null);
   const fitRef = useRef<FitAddon | null>(null);
-  const [status, setStatus] = useState("Starting terminal...");
+  const [status, setStatus] = useState("正在启动终端…");
 
   useEffect(() => {
     if (!containerRef.current) return;
     if (!isElectronRuntime()) {
-      setStatus("Terminal is available in the desktop app.");
+      setStatus("终端仅在桌面应用中可用。");
       return;
     }
     if (isRemoteWorkspace) {
-      setStatus("Remote workspace terminals are not wired yet.");
+      setStatus("远程工作区终端暂不可用。");
       return;
     }
 
     const bridge = window.__OPENWORK_ELECTRON__?.terminal;
     if (!bridge?.create || !bridge.write || !bridge.resize || !bridge.kill || !bridge.onData || !bridge.onExit) {
-      setStatus("Terminal bridge is unavailable.");
+      setStatus("终端桥接不可用。");
       return;
     }
     const createTerminal = bridge.create;
@@ -98,7 +98,7 @@ export function TerminalDock({ workspaceRoot, isRemoteWorkspace, onClose }: Term
       setStatus(workspaceRoot);
       fitAndResize();
     }).catch((error) => {
-      setStatus(error instanceof Error ? error.message : "Could not start terminal.");
+      setStatus(error instanceof Error ? error.message : "无法启动终端。");
     });
 
     return () => {
@@ -117,12 +117,12 @@ export function TerminalDock({ workspaceRoot, isRemoteWorkspace, onClose }: Term
   }, [isRemoteWorkspace, workspaceRoot]);
 
   return (
-    <section className="flex h-full min-h-0 flex-col border-t border-border bg-[#0b0d12] text-white" aria-label="Terminal">
+    <section className="flex h-full min-h-0 flex-col border-t border-border bg-[#0b0d12] text-white" aria-label="终端">
       <header className="flex h-9 shrink-0 items-center justify-between border-b border-white/10 bg-black/35 px-3 text-xs">
-        <div className="min-w-0 truncate text-white/75">Terminal · {status}</div>
+        <div className="min-w-0 truncate text-white/75">终端 · {status}</div>
         <Button variant="ghost" size="icon-sm" className="text-white/70 hover:bg-white/10 hover:text-white" onClick={onClose}>
           <X className="size-4" />
-          <span className="sr-only">Hide terminal</span>
+          <span className="sr-only">隐藏终端</span>
         </Button>
       </header>
       <div ref={containerRef} className="min-h-0 flex-1 px-2 py-1 [&_.xterm]:h-full" />

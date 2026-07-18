@@ -9,14 +9,14 @@ interface ApplyPatchToolProps {
 
 function getApplyPatchToolTitle(part: ApplyPatchToolPart): string | null {
   if (part.state === "output-error") {
-    return "Apply patch attempted"
+    return "尝试应用补丁"
   }
 
   if (part.state !== "output-available") {
     return null
   }
 
-  return "Apply patch"
+  return "应用补丁"
 }
 
 export function ApplyPatchTool({ part }: ApplyPatchToolProps) {

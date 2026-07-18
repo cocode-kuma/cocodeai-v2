@@ -106,11 +106,11 @@ export function ArtifactSpreadsheetEditor(props: ArtifactSpreadsheetEditorProps)
   return (
     <div className={cn("flex h-full min-h-0 flex-col", props.className)}>
       <div className="flex shrink-0 items-center gap-2 px-3 py-2 border-b border-border">
-        <Button variant="ghost" size="xs" onClick={addRow}><Plus className="size-3" /> Row</Button>
-        <Button variant="ghost" size="xs" onClick={addColumn}><Plus className="size-3" /> Column</Button>
+        <Button variant="ghost" size="xs" onClick={addRow}><Plus className="size-3" /> 行</Button>
+        <Button variant="ghost" size="xs" onClick={addColumn}><Plus className="size-3" /> 列</Button>
         <div className="min-w-0 flex-1" />
-        <Button variant="ghost" size="xs" onClick={discard} disabled={!isDirty || saving}>Discard</Button>
-        <Button variant="default" size="xs" onClick={() => save()} disabled={!isDirty || saving}>{saving ? "Saving" : "Save"}</Button>
+        <Button variant="ghost" size="xs" onClick={discard} disabled={!isDirty || saving}>放弃</Button>
+        <Button variant="default" size="xs" onClick={() => save()} disabled={!isDirty || saving}>{saving ? "保存中" : "保存"}</Button>
       </div>
       <div className="min-h-0 flex-1 overflow-auto">
         <table className="w-full border-collapse text-xs">

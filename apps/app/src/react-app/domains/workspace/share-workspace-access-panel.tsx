@@ -64,7 +64,7 @@ function CredentialField(props: CredentialFieldProps) {
             onClick={() => props.onToggleReveal(props.fieldKey)}
             disabled={!props.field.value}
             className={pillSecondaryClass}
-            title={revealed ? "Hide password" : "Reveal password"}
+            title={revealed ? "隐藏密码" : "显示密码"}
           >
             {revealed ? <EyeOff size={14} /> : <Eye size={14} />}
           </button>
@@ -74,7 +74,7 @@ function CredentialField(props: CredentialFieldProps) {
           onClick={() => props.onCopy(props.field.value, props.fieldKey)}
           disabled={!props.field.value}
           className={pillSecondaryClass}
-          title="Copy"
+          title="复制"
         >
           {props.copiedKey === props.fieldKey ? (
             <Check size={14} className="text-emerald-600" />
@@ -131,20 +131,20 @@ export function ShareWorkspaceAccessPanel(
         props.remoteAccessEnabled === props.remoteAccess.enabled)
     : true;
   const remoteSaveLabel = props.remoteAccess?.busy
-    ? "Saving…"
+    ? "保存中…"
     : remoteAccessNeedsEnable
-      ? "Enable remote access"
+      ? "启用远程访问"
       : props.remoteAccess?.enabled === false && props.remoteAccessEnabled
-        ? "Save & restart worker"
-        : "Save";
+        ? "保存并重启 Worker"
+        : "保存";
 
   return (
     <div className="space-y-5 pt-2 animate-in fade-in slide-in-from-right-4 duration-300">
       <div className={warningBannerClass}>
         <span className="leading-relaxed">
           {props.remoteAccess
-            ? "These credentials grant live access to this workspace. Sharing this workspace remotely may allow anyone with access to your network to control your worker."
-            : "Share with trusted people only. These credentials grant live access to this workspace."}
+            ? "这些凭据授予对此工作区的实时访问权限。远程分享此工作区可能允许任何能访问你网络的人控制你的 Worker。"
+            : "仅分享给可信任的人。这些凭据授予对此工作区的实时访问权限。"}
         </span>
       </div>
 

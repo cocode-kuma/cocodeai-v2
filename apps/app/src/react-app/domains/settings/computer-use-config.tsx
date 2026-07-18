@@ -145,9 +145,9 @@ export function ComputerUseConfig({
   return (
     <Card variant="outline" size="sm">
       <CardHeader>
-        <CardTitle>Computer Use setup (Mac only)</CardTitle>
+        <CardTitle>Computer Use 设置（仅限 Mac）</CardTitle>
         <CardDescription>
-          Computer Use only works on Mac. Connect the local MCP server and grant the macOS permissions it needs to control apps.
+          Computer Use 仅在 Mac 上可用。连接本地 MCP 服务器并授予它控制应用所需的 macOS 权限。
         </CardDescription>
         <CardAction>
           <Button variant="ghost" size="icon-sm" onClick={() => void verify()} disabled={isBusy}>
@@ -166,8 +166,8 @@ export function ComputerUseConfig({
 
         {/* Step 1 — MCP */}
         <SetupRow
-          title="1. Connect Computer Use MCP"
-          description="Adds the local Computer Use server to this workspace so Composer can use the computer-control tools."
+          title="1. 连接 Computer Use MCP"
+          description="将本地 Computer Use 服务器添加到此工作区，以便编辑器可以使用计算机控制工具。"
           complete={connected}
         >
           <Button
@@ -177,15 +177,15 @@ export function ComputerUseConfig({
           >
             {connecting ? <Loader2 className="size-4 shrink-0 animate-spin" /> : null}
             <span className="min-w-0 break-words">
-              {connected ? "Configured" : connecting ? "Connecting…" : "Connect MCP"}
+              {connected ? "已配置" : connecting ? "连接中…" : "连接 MCP"}
             </span>
           </Button>
         </SetupRow>
 
         {/* Step 2 — Permissions */}
         <SetupRow
-          title="2. Grant macOS permissions"
-          description="Opens the CocodeAI Computer Use helper. Grant both permissions there, then click Verify below."
+          title="2. 授予 macOS 权限"
+          description="打开 CocodeAI Computer Use 辅助程序。在那里授予两个权限，然后点击下面的验证。"
           complete={allGranted}
         >
           <div className="flex w-full min-w-0 flex-col gap-3">
@@ -205,7 +205,7 @@ export function ComputerUseConfig({
                 <Settings2 className="size-4 shrink-0" />
               )}
               <span className="min-w-0 wrap-break-word">
-                {isBusy ? "Opening…" : allGranted ? "Reopen helper" : "Grant permissions"}
+                {isBusy ? "打开中…" : allGranted ? "重新打开辅助程序" : "授权权限"}
               </span>
             </Button>
           </div>
@@ -216,8 +216,8 @@ export function ComputerUseConfig({
         <div className="flex w-full flex-col gap-3">
           <p className="text-xs text-muted-foreground">
             {allGranted
-              ? "Permissions verified. Try a Composer prompt that uses Computer Use."
-              : "After granting permissions in the helper, click Verify."}
+              ? "权限已验证。尝试在编辑器中使用 Computer Use 提示。"
+              : "在辅助程序中授予权限后，点击验证。"}
           </p>
           <div className="flex w-full justify-end gap-2">
             {onRefresh ? (
@@ -225,7 +225,7 @@ export function ComputerUseConfig({
                 variant="outline"
                 onClick={() => void onRefresh?.()}
               >
-                Refresh
+                刷新
               </Button>
             ) : null}
             <Button
@@ -233,7 +233,7 @@ export function ComputerUseConfig({
               disabled={isBusy}
             >
               {isBusy ? <Loader2 className="size-4 shrink-0 animate-spin" /> : null}
-              Verify permissions
+              验证权限
             </Button>
           </div>
         </div>

@@ -1546,8 +1546,8 @@ function SettingsRouteContent(props: SettingsSurfaceProps = {}) {
 
   const refreshMarketplaceAction = useMemo<OpenworkControlAction>(() => ({
     id: "extensions.refresh-marketplace",
-    label: "Refresh marketplace extensions",
-    description: "Force a fresh sync of organization marketplace plugins from the cloud.",
+    label: "刷新市场扩展",
+    description: "从云端强制同步组织市场插件。",
     sideEffect: "mutation",
     execute: async () => {
       await extensionsStore.refreshCloudOrgMarketplaces({ force: true });
@@ -1928,7 +1928,7 @@ function SettingsRouteContent(props: SettingsSurfaceProps = {}) {
     setRenameWorkspaceBusy(true);
     try {
       if (!openworkClient) {
-        toast.error("CocodeAI server is unavailable. Reconnect the server before renaming workspaces.");
+        toast.error("CocodeAI 服务器不可用。请在重命名工作区之前重新连接服务器。");
         return;
       }
       await openworkClient.updateWorkspaceDisplayName(renameWorkspaceId, trimmed);
@@ -1936,7 +1936,7 @@ function SettingsRouteContent(props: SettingsSurfaceProps = {}) {
       setRenameWorkspaceTitle("");
       await refreshRouteState();
     } catch (error) {
-      toast.error("Workspace rename failed", {
+      toast.error("工作区重命名失败", {
         description: describeRouteError(error),
       });
     } finally {
@@ -1965,12 +1965,12 @@ function SettingsRouteContent(props: SettingsSurfaceProps = {}) {
       }
       return;
     }
-    throw new Error("CocodeAI server is unavailable. Reconnect the server before exporting workspace config.");
+    throw new Error("CocodeAI 服务器不可用。请在导出工作区配置之前重新连接服务器。");
   }, [baseUrl, token, workspaces]);
 
   const handleForgetWorkspace = useCallback(async (workspaceId: string) => {
     if (typeof window !== "undefined") {
-      const message = t("workspace_list.remove_confirm") || "Remove this workspace from the sidebar?";
+      const message = t("workspace_list.remove_confirm") || "将此工作区从侧边栏中移除？";
       if (!window.confirm(message)) return;
     }
     if (openworkClient) {
@@ -2003,7 +2003,7 @@ function SettingsRouteContent(props: SettingsSurfaceProps = {}) {
           .catch(() => null);
       }
       if (!list) {
-        throw new Error("CocodeAI server is unavailable. Start or reconnect the server before creating a workspace.");
+        throw new Error("CocodeAI 服务器不可用。请在创建工作区之前启动或重新连接服务器。");
       }
       const createdId = resolveWorkspaceListSelectedId(list) || list.workspaces[list.workspaces.length - 1]?.id || "";
       if (createdId) {
@@ -2046,7 +2046,7 @@ function SettingsRouteContent(props: SettingsSurfaceProps = {}) {
         list = await openworkClient.createRemoteWorkspace(payload).catch(() => null);
       }
       if (!list) {
-        throw new Error("CocodeAI server is unavailable. Start or reconnect the server before connecting a remote workspace.");
+        throw new Error("CocodeAI 服务器不可用。请在连接远程工作区之前启动或重新连接服务器。");
       }
       const createdId = resolveWorkspaceListSelectedId(list) || list.workspaces[list.workspaces.length - 1]?.id || "";
       if (createdId) {
@@ -2139,10 +2139,6 @@ function SettingsRouteContent(props: SettingsSurfaceProps = {}) {
             cloudProviderIds={new Set(
               Object.values(providerAuthSnapshot.importedCloudProviders ?? {}).map((p) => p.providerId)
             )}
-            showOpenWorkModelsSubscribe={showOpenWorkModelsSubscribe}
-            showOpenWorkModelsConnect={showOpenWorkModelsConnect}
-            onSubscribeOpenWorkModels={subscribeToOpenWorkModels}
-            onDismissOpenWorkModels={dismissOpenWorkModelsPromo}
             cloudProvidersView={
               <CloudProvidersView
                 embedded
@@ -2499,8 +2495,6 @@ function SettingsRouteContent(props: SettingsSurfaceProps = {}) {
         onConnectCloudProvider={providerAuthStore.connectCloudProvider}
         onSubmitOAuth={providerAuthStore.completeProviderAuthOAuth}
         onRefreshProviders={providerAuthStore.refreshProviders}
-        showOpenWorkModelsSubscribe={showOpenWorkModelsSubscribe}
-        onSubscribeOpenWorkModels={subscribeToOpenWorkModels}
         onClose={() => providerAuthStore.closeProviderAuthModal()}
       />
       <CreateWorkspaceModal

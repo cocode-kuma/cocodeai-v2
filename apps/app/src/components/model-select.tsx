@@ -301,19 +301,19 @@ export function ModelSelect({
             <PopoverTrigger
               type="button"
               disabled={disabled}
-              aria-label="Change model"
+              aria-label="切换模型"
               aria-keyshortcuts="Meta+Alt+/"
               className="flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm text-gray-10 transition-colors hover:bg-gray-3 hover:text-gray-12 disabled:pointer-events-none disabled:opacity-60"
             />
           }
         >
           <span className="max-w-48 truncate">
-            {selectedOption?.title ?? value.modelID ?? "Select model"}
+            {selectedOption?.title ?? value.modelID ?? "选择模型"}
           </span>
           <ChevronDown className="h-3 w-3" />
         </TooltipTrigger>
         <TooltipContent>
-          Change model
+          切换模型
         </TooltipContent>
       </Tooltip>
       <PopoverContent
@@ -325,10 +325,10 @@ export function ModelSelect({
           <CommandHeader>
             <CommandInput
               ref={searchInputRef}
-              placeholder="Search models..."
+              placeholder="搜索模型…"
             />
           </CommandHeader>
-          <CommandEmpty>No models found.</CommandEmpty>
+          <CommandEmpty>未找到模型。</CommandEmpty>
           <CommandList>
             {(group: ModelSelectGroup) => (
               <CommandGroup
@@ -364,7 +364,7 @@ export function ModelSelect({
                             </span>
                           </span>
                           <span className="shrink-0 rounded-full border border-blue-6 bg-blue-3 px-1.5 py-0.5 text-[10px] font-medium text-blue-11">
-                            {denAuth.isSignedIn ? "Subscribe" : "Sign in"}
+                            {denAuth.isSignedIn ? "订阅" : "登录"}
                           </span>
                           <ChevronRight className="size-3.5 text-blue-11" />
                         </CommandItem>

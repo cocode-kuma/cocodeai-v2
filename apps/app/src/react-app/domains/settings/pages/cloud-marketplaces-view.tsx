@@ -306,7 +306,7 @@ export function CloudMarketplacesView({
       return [{
         source: "org-mcp",
         marketplaceId: "org-mcp-connections",
-        marketplaceName: "Organization MCP Connections",
+        marketplaceName: "组织 MCP 连接",
         item,
         connection,
         status: item.installState,
@@ -343,7 +343,7 @@ export function CloudMarketplacesView({
     () => canShowRows ? [
       ...(builtInRows.length > 0 ? [{ id: "openwork-builtins", name: "OpenWork Built-ins" }] : []),
       ...(includeCloudMarketplaceRows ? marketplaces.map((marketplace) => ({ id: marketplace.marketplace.id, name: marketplace.marketplace.name })) : []),
-      ...(orgMcpRows.length > 0 ? [{ id: "org-mcp-connections", name: "Organization MCP Connections" }] : []),
+      ...(orgMcpRows.length > 0 ? [{ id: "org-mcp-connections", name: "组织 MCP 连接" }] : []),
     ] : [],
     [builtInRows.length, canShowRows, includeCloudMarketplaceRows, marketplaces, orgMcpRows.length],
   );
@@ -379,7 +379,7 @@ export function CloudMarketplacesView({
         }
       } catch (error) {
         if (!quiet) {
-          setActionError(error instanceof Error ? error.message : "Failed to load marketplace extensions.");
+          setActionError(error instanceof Error ? error.message : "加载市场扩展失败。");
         }
       } finally {
         setBusy(false);
@@ -414,7 +414,7 @@ export function CloudMarketplacesView({
       })
       .catch((error) => {
         if (cancelled) return;
-        setDetailError(error instanceof Error ? error.message : "Failed to load extension composition.");
+        setDetailError(error instanceof Error ? error.message : "加载扩展组成信息失败。");
       })
       .finally(() => {
         if (!cancelled) setDetailLoadingId(null);
@@ -509,7 +509,7 @@ export function CloudMarketplacesView({
         <SettingsListSearchInput
           value={search}
           onChange={(event) => setSearch(event.currentTarget.value)}
-          placeholder="Search marketplace extensions..."
+          placeholder="搜索市场扩展…"
         />
         <div className="flex flex-wrap items-center gap-2">
           {(["all", "available", "installed", "update_available"] as const).map((filter) => (
@@ -534,7 +534,7 @@ export function CloudMarketplacesView({
                   value={marketplaceFilter}
                   onChange={(event) => setMarketplaceFilter(event.currentTarget.value)}
                 >
-                  <option value="all">All marketplaces</option>
+                  <option value="all">全部市场</option>
                   {marketplaceOptions.map((marketplace) => (
                     <option key={marketplace.id} value={marketplace.id}>{marketplace.name}</option>
                   ))}
@@ -547,7 +547,7 @@ export function CloudMarketplacesView({
 
       {!busy && displayRows.length === 0 ? (
         <SettingsListEmptyState>
-          {!isSignedIn ? "Sign in to view marketplace extensions." : activeOrgId ? "No marketplace extensions are available yet." : "Choose an organization to view marketplace extensions."}
+          {!isSignedIn ? "请登录以查看市场扩展。" : activeOrgId ? "暂无可用市场扩展。" : "请选择组织以查看市场扩展。"}
         </SettingsListEmptyState>
       ) : null}
 
@@ -665,11 +665,11 @@ function MarketplaceCard(props: {
           kind={row.entry.kind ?? "extension"}
           preview={row.entry.preview}
           connected={row.active}
-          connectedLabel={row.entry.defaultEnabled ? "Ready" : "Active"}
+          connectedLabel={row.entry.defaultEnabled ? "就绪" : "已激活"}
           connecting={actionBusy}
           disabled={props.builtInDisabled}
-          disabledReason={props.builtInDisabled ? "Disabled by organization" : null}
-          actionLabel={row.active ? "Manage" : "View setup"}
+          disabledReason={props.builtInDisabled ? "已被组织禁用" : null}
+          actionLabel={row.active ? "管理" : "查看设置"}
           onClick={() => onOpenDetail(row)}
         />
       </div>
@@ -685,14 +685,14 @@ function MarketplaceCard(props: {
       <div ref={highlightRef} className={`space-y-2 ${highlightClass}`}>
         <ExtensionCard
           name={row.item.name}
-          description={row.item.description ?? "Available from your organization."}
+          description={row.item.description ?? "可从你的组织获取。"}
           kind="mcp"
           url={row.connection.url}
           connected={ready}
           connectedLabel={orgMcpConnectionActionLabel(row.connection)}
           beta
           connecting={actionBusy}
-          actionLabel={actionBusy ? "Waiting for browser..." : disconnecting ? t("mcp.org_connection_disconnecting_action") : ready ? "View details" : orgMcpConnectionActionLabel(row.connection)}
+          actionLabel={actionBusy ? "等待浏览器…" : disconnecting ? t("mcp.org_connection_disconnecting_action") : ready ? "查看详情" : orgMcpConnectionActionLabel(row.connection)}
           onClick={() => onOpenDetail(row)}
         />
         {canDisconnect ? (
@@ -758,8 +758,8 @@ function BuiltInMarketplaceDetailModal(props: {
       url={typeof entry.url === "string" ? entry.url : undefined}
       kind={entry.kind ?? "extension"}
       connected={row.active}
-      connectedLabel={entry.defaultEnabled ? "Ready" : "Active"}
-      disconnectedLabel="Needs setup"
+      connectedLabel={entry.defaultEnabled ? "就绪" : "已激活"}
+      disconnectedLabel="需要设置"
       connecting={connecting}
       preview={entry.preview}
       disabledReason={disabled ? "Disabled by organization" : null}
@@ -800,7 +800,7 @@ function OrgMcpConnectionDetailModal(props: {
       beta
       connecting={connecting || props.disconnecting}
       connectLabel={orgMcpConnectionActionLabel(row.connection)}
-      connectingLabel="Waiting for browser..."
+      connectingLabel="等待浏览器…"
       uninstallLabel={t("mcp.org_connection_disconnect_action")}
       url={row.connection.url}
       oauth={row.connection.authType === "oauth"}
@@ -810,8 +810,8 @@ function OrgMcpConnectionDetailModal(props: {
       configSlot={(
         <div className="space-y-4">
           <div className="flex flex-wrap gap-2">
-            <SettingsPill>Shared by your organization</SettingsPill>
-            <SettingsPill>{row.connection.credentialMode === "shared" ? "Org account" : "Your account"}</SettingsPill>
+            <SettingsPill>由你的组织共享</SettingsPill>
+            <SettingsPill>{row.connection.credentialMode === "shared" ? "组织账号" : "你的账号"}</SettingsPill>
             <SettingsPill>MCP</SettingsPill>
           </div>
           <SettingsNotice>
@@ -866,7 +866,7 @@ function MarketplacePackageDetailModal(props: {
       open
       onClose={onClose}
       name={row.plugin.name}
-      description={row.plugin.description || "No description provided."}
+      description={row.plugin.description || "暂无描述。"}
       iconSlug={manifest?.icon?.simpleIconSlug}
       iconSrc={manifest?.icon?.src}
       kind="extension"
@@ -912,12 +912,12 @@ function MarketplacePackageDetailModal(props: {
           ) : null}
           {missingImportedConnectionCount > 0 ? (
             <SettingsNotice tone="error">
-              You do not have access to {missingImportedConnectionCount === 1 ? "one required MCP connection" : `${missingImportedConnectionCount} required MCP connections`}. Ask an admin to update the connection sharing settings.
+              你没有权限访问 {missingImportedConnectionCount === 1 ? "一个必需的 MCP 连接" : `${missingImportedConnectionCount} 个必需的 MCP 连接`}。请联系管理员更新连接分享设置。
             </SettingsNotice>
           ) : null}
           {importedConnections.length > 0 ? (
             <div className="rounded-xl border border-dls-border bg-dls-hover px-3 py-3">
-              <div className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">Cloud MCP connections</div>
+              <div className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">Cloud MCP 连接</div>
               <div className="mt-3 grid gap-2">
                 {importedConnections.map((connection) => {
                   const ready = isOrgMcpConnectionReady(connection);
@@ -930,7 +930,7 @@ function MarketplacePackageDetailModal(props: {
                         <div className="truncate text-xs text-muted-foreground">{connection.url}</div>
                       </div>
                       <div className="flex items-center gap-2">
-                        <SettingsPill>{ready ? "Ready" : needsMemberConnect ? "Needs setup" : "Waiting for admin"}</SettingsPill>
+                        <SettingsPill>{ready ? "就绪" : needsMemberConnect ? "需要设置" : "等待管理员"}</SettingsPill>
                         {needsMemberConnect && onConnectOrgMcp ? (
                           <Button
                             size="xs"
@@ -938,7 +938,7 @@ function MarketplacePackageDetailModal(props: {
                             disabled={connecting}
                             onClick={() => onConnectOrgMcp(connection.id)}
                           >
-                            {connecting ? "Waiting for browser..." : "Connect account"}
+                            {connecting ? "等待浏览器…" : "连接账号"}
                           </Button>
                         ) : null}
                       </div>
@@ -950,7 +950,7 @@ function MarketplacePackageDetailModal(props: {
           ) : null}
           {resolved ? (
             <div className="space-y-2">
-              <div className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">Extension contents</div>
+              <div className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">扩展内容</div>
               {resolved.memberships.length > 0 ? resolved.memberships.map((membership) => {
                 const object = membership.configObject;
                 const version = object?.latestVersion ?? null;

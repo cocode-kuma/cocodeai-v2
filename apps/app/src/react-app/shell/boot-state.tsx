@@ -47,12 +47,12 @@ const DEFAULT_STATE: BootStateSnapshot = {
 
 const PHASE_MESSAGES: Record<BootPhaseId, string> = {
   idle: "",
-  "bootstrapping-workspaces": "Loading your workspaces",
-  "starting-openwork-server": "Starting the CocodeAI server",
-  "starting-engine": "Preparing workspace",
-  "activating-workspace": "Activating your workspace",
-  ready: "Ready",
-  error: "Something went wrong",
+  "bootstrapping-workspaces": "正在加载工作区",
+  "starting-openwork-server": "正在启动 CocodeAI 服务器",
+  "starting-engine": "正在准备工作区",
+  "activating-workspace": "正在激活工作区",
+  ready: "就绪",
+  error: "出了点问题",
 };
 
 const BootStateContext = createContext<BootStateContextValue | null>(null);

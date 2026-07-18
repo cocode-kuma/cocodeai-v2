@@ -106,15 +106,15 @@ export function AdvancedView(props: AdvancedViewProps) {
   })();
 
   const clientDetailLines = props.clientConnected
-    ? ["Chat and task creation can use the OpenCode engine for this workspace."]
+    ? ["聊天和任务创建可以使用此工作区的 OpenCode 引擎。"]
     : [
-        "Chat and task creation may fail until OpenCode restarts.",
-        "CocodeAI server config sources below can still be inspected.",
+        "聊天和任务创建可能会失败，直到 OpenCode 重启。",
+        "下方的 CocodeAI 服务器配置来源仍可以检查。",
       ];
 
   const openworkDetailLines = props.openworkServerStatus === "connected"
-    ? ["Runtime DB, workspace config, and migration diagnostics are available."]
-    : ["Runtime config diagnostics need the CocodeAI server connection."];
+    ? ["运行时数据库、工作区配置和迁移诊断均可用。"]
+    : ["运行时配置诊断需要 CocodeAI 服务器连接。"];
 
   const submitDebugDeepLink = async () => {
     const rawUrl = debugDeepLinkInput.trim();
@@ -147,7 +147,7 @@ export function AdvancedView(props: AdvancedViewProps) {
     try {
       setConfigStatus(await props.getRuntimeConfigStatus());
     } catch (error) {
-      setConfigStatusError(error instanceof Error ? error.message : "Failed to load runtime config status.");
+      setConfigStatusError(error instanceof Error ? error.message : "加载运行时配置状态失败。");
     } finally {
       setConfigStatusBusy(false);
     }
@@ -167,12 +167,12 @@ export function AdvancedView(props: AdvancedViewProps) {
         type: "migrationStatus",
         status: result.migrated
           ? `Migrated legacy runtime config: ${result.keys.join(", ")}.`
-          : "No legacy runtime config found for this workspace.",
+          : "此工作区中未找到旧的运行时配置。",
       });
     } catch (error) {
       dispatchLocal({
         type: "migrationStatus",
-        status: error instanceof Error ? error.message : "Failed to migrate legacy runtime config.",
+        status: error instanceof Error ? error.message : "迁移旧版运行时配置失败。",
       });
     } finally {
       dispatchLocal({ type: "migrationDone" });

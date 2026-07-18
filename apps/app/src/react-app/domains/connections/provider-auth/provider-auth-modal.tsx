@@ -404,7 +404,7 @@ export default function ProviderAuthModal(props: ProviderAuthModalProps) {
     const code = oauthDisplayCode.trim();
     if (!code) return;
     if (typeof navigator === "undefined" || !navigator.clipboard?.writeText) {
-      setLocalError("Clipboard is unavailable in this environment.");
+      setLocalError("此环境中剪贴板不可用。");
       return;
     }
     await navigator.clipboard.writeText(code);
@@ -425,7 +425,7 @@ export default function ProviderAuthModal(props: ProviderAuthModalProps) {
     try {
       return await props.onSubmitOAuth(providerId, methodIndex, trimmedCode || undefined);
     } catch (error) {
-      const message = error instanceof Error ? error.message : "Failed to complete OAuth";
+      const message = error instanceof Error ? error.message : "完成 OAuth 失败";
       setLocalError(message);
       throw error instanceof Error ? error : new Error(message);
     }
@@ -499,7 +499,7 @@ export default function ProviderAuthModal(props: ProviderAuthModalProps) {
 
       setView("oauth-auto");
     } catch (error) {
-      const message = error instanceof Error ? error.message : "Failed to start OAuth";
+      const message = error instanceof Error ? error.message : "启动 OAuth 失败";
       setLocalError(message);
     }
   };
@@ -561,7 +561,7 @@ export default function ProviderAuthModal(props: ProviderAuthModalProps) {
       // Close the modal after a successful save
       props.onClose();
     } catch (error) {
-      const message = error instanceof Error ? error.message : "Failed to save API key";
+      const message = error instanceof Error ? error.message : "保存 API 密钥失败";
       setLocalError(message);
     }
   };
@@ -574,7 +574,7 @@ export default function ProviderAuthModal(props: ProviderAuthModalProps) {
       await props.onConnectCloudProvider(selectedCloudMethod.cloudProviderId);
       props.onClose();
     } catch (error) {
-      const message = error instanceof Error ? error.message : "Failed to connect organization provider";
+      const message = error instanceof Error ? error.message : "连接组织提供商失败";
       setLocalError(message);
     }
   };
@@ -584,7 +584,7 @@ export default function ProviderAuthModal(props: ProviderAuthModalProps) {
 
     const trimmed = oauthCodeInput.trim();
     if (!trimmed) {
-      setLocalError("Authorization code is required.");
+      setLocalError("请输入授权码。");
       return;
     }
 
@@ -629,11 +629,11 @@ export default function ProviderAuthModal(props: ProviderAuthModalProps) {
 
   const submittingLabel = () => {
     if (!props.submitting) return null;
-    if (resolvedView === "api") return "Saving API key...";
-    if (resolvedView === "cloud") return "Connecting organization provider...";
-    if (resolvedView === "oauth-code") return "Verifying authorization code...";
-    if (resolvedView === "oauth-auto") return "Waiting for OAuth confirmation...";
-    return "Opening authentication...";
+    if (resolvedView === "api") return "正在保存 API 密钥…";
+    if (resolvedView === "cloud") return "正在连接组织提供商…";
+    if (resolvedView === "oauth-code") return "正在验证授权码…";
+    if (resolvedView === "oauth-auto") return "等待 OAuth 确认…";
+    return "正在打开认证…";
   };
 
   const stepEntryIndex = (delta: number) => {
@@ -681,19 +681,19 @@ export default function ProviderAuthModal(props: ProviderAuthModalProps) {
     const label = methodLabel(method).toLowerCase();
     if (isOpenAiProvider(entry.id, entry.name) && (label.includes("headless") || label.includes("device"))) {
       return isRemoteWorker
-        ? "Use OpenAI's device flow for remote workers, where the browser callback may not resolve on your local machine."
-        : "Use OpenAI's device flow when the local browser callback is unreliable.";
+        ? "使用 OpenAI 的设备流，适用于远程 Worker 场景，浏览器回调可能无法在本地机器上返回。"
+        : "使用 OpenAI 的设备流，适用于浏览器回调可能无法在本地机器上返回的情况。";
     }
     if (method.type === "oauth") {
-      return "Continue in the browser and let OpenWork finish the connection automatically.";
+      return "在浏览器中继续操作，让 CocodeAI 自动完成连接。";
     }
     if (method.type === "cloud") {
-      return method.description ?? "Use the provider and credential managed by your organization.";
+      return method.description ?? "使用由你的组织管理的提供商和凭据。";
     }
     if (isOpencodeZenProvider(entry.id)) {
-      return "Sign in to OpenCode Zen with an API key to unlock paid models alongside the free tier.";
+      return "使用 API 密钥登录 OpenCode Zen 以解锁付费模型和免费套餐。";
     }
-    return "Paste a secret key that OpenWork stores locally on this device.";
+    return "粘贴 CocodeAI 本地存储在此设备上的密钥。";
   };
 
   return (
@@ -705,9 +705,9 @@ export default function ProviderAuthModal(props: ProviderAuthModalProps) {
     >
       <DialogContent className="flex max-h-[calc(100vh-2rem)] min-h-0 w-full max-w-lg flex-col overflow-hidden sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Connect providers</DialogTitle>
+          <DialogTitle>连接提供商</DialogTitle>
           <DialogDescription>
-            Sign in to services or use providers managed by your organization.
+            登录服务或使用由组织管理的提供商。
           </DialogDescription>
         </DialogHeader>
 
@@ -731,7 +731,7 @@ export default function ProviderAuthModal(props: ProviderAuthModalProps) {
                     <input
                       ref={searchInputRef}
                       type="text"
-                      placeholder="Filter providers by name or ID"
+                      placeholder="按名称或 ID 筛选提供商"
                       value={searchQuery}
                       onChange={(event) => {
                         setSearchQuery(event.currentTarget.value);
@@ -807,7 +807,7 @@ export default function ProviderAuthModal(props: ProviderAuthModalProps) {
                     ))
                   ) : (
                     <div className="text-sm text-gray-10 pt-2">
-                      {entries.length ? "No providers match your search." : "No providers available."}
+                      {entries.length ? "没有匹配你搜索的提供商。" : "暂无可用提供商。"}
                     </div>
                   )}
 
@@ -823,7 +823,7 @@ export default function ProviderAuthModal(props: ProviderAuthModalProps) {
                       <div className="text-xs text-gray-10 mt-1">Choose how you'd like to connect.</div>
                     </div>
                     <Button variant="outline" onClick={handleBack} disabled={actionDisabled}>
-                      Back
+                      返回
                     </Button>
                   </div>
                   <div className="grid gap-2">
@@ -854,12 +854,12 @@ export default function ProviderAuthModal(props: ProviderAuthModalProps) {
                       <div className="text-sm font-medium text-gray-12">{selectedEntry.name}</div>
                       <div className="text-xs text-gray-10 mt-1">
                         {isOpencodeZenProvider(selectedEntry.id)
-                          ? "Sign in to OpenCode Zen with an API key from opencode.ai/auth."
-                          : "Paste your API key to connect."}
+                          ? "使用 opencode.ai/auth 上的 API 密钥登录 OpenCode Zen。"
+                          : "粘贴你的 API 密钥进行连接。"}
                       </div>
                     </div>
                     <Button variant="outline" onClick={handleBack} disabled={actionDisabled}>
-                      Back
+                      返回
                     </Button>
                   </div>
                   {isOpencodeZenProvider(selectedEntry.id) ? (
@@ -877,7 +877,7 @@ export default function ProviderAuthModal(props: ProviderAuthModalProps) {
                     </div>
                   ) : null}
                   <TextInput
-                    label="API key"
+                    label="API 密钥"
                     type="password"
                     placeholder={isOpencodeZenProvider(selectedEntry.id) ? "ock_..." : "sk-..."}
                     value={apiKeyInput}
@@ -896,12 +896,12 @@ export default function ProviderAuthModal(props: ProviderAuthModalProps) {
                     </div>
                   ) : null}
                   <div className="flex items-center justify-between gap-3">
-                    <div className="text-[11px] text-gray-9">Keys are stored locally by OpenCode.</div>
+                    <div className="text-[11px] text-gray-9">密钥由 OpenCode 本地存储。</div>
                     <Button
                       onClick={handleApiSubmit}
                       disabled={actionDisabled || !apiKeyInput.trim()}
                     >
-                      {props.submitting ? "Saving…" : "Save key"}
+                      {props.submitting ? "保存中…" : "保存密钥"}
                     </Button>
                   </div>
                 </div>
@@ -915,11 +915,11 @@ export default function ProviderAuthModal(props: ProviderAuthModalProps) {
                       <div className="text-xs text-gray-10 mt-1">Connect with the provider managed by your organization.</div>
                     </div>
                     <Button variant="outline" onClick={handleBack} disabled={actionDisabled}>
-                      Back
+                      返回
                     </Button>
                   </div>
                   <div className="text-xs text-gray-9">
-                    {selectedCloudMethod.description ?? "Use the provider and credential managed by your organization."}
+                    {selectedCloudMethod.description ?? "使用由你的组织管理的提供商和凭据。"}
                   </div>
                   {(selectedCloudMethod.modelCount ?? 0) > 0 ? (
                     <div className="rounded-lg border border-gray-6/60 bg-gray-1/60 px-3 py-2 text-[11px] text-gray-9">
@@ -933,10 +933,10 @@ export default function ProviderAuthModal(props: ProviderAuthModalProps) {
                   ) : null}
                   <div className="flex items-center justify-between gap-3">
                     <div className="text-[11px] text-gray-9">
-                      OpenWork will install the provider config and use the credential stored for your org.
+                      CocodeAI 将安装提供商配置并使用存储在您组织中的凭据。
                     </div>
                     <Button onClick={handleCloudSubmit} disabled={actionDisabled}>
-                      {props.submitting ? "Connecting..." : "Connect provider"}
+                      {props.submitting ? "连接中…" : "连接提供商"}
                     </Button>
                   </div>
                 </div>
@@ -968,10 +968,10 @@ export default function ProviderAuthModal(props: ProviderAuthModalProps) {
                   <div className="flex items-center justify-between gap-4">
                     <div>
                       <div className="text-sm font-medium text-gray-12">{selectedEntry.name}</div>
-                      <div className="text-xs text-gray-10 mt-1">Finish OAuth by pasting the authorization code.</div>
+                      <div className="text-xs text-gray-10 mt-1">粘贴授权码以完成 OAuth。</div>
                     </div>
                     <Button variant="outline" onClick={handleBack} disabled={actionDisabled}>
-                      Back
+                      返回
                     </Button>
                   </div>
                   <div className="text-xs text-gray-9">
@@ -983,9 +983,9 @@ export default function ProviderAuthModal(props: ProviderAuthModalProps) {
                     </div>
                   ) : null}
                   <TextInput
-                    label="Authorization code"
+                    label="授权码"
                     type="text"
-                    placeholder="Paste code"
+                    placeholder="粘贴验证码"
                     value={oauthCodeInput}
                     onChange={(event) => {
                       setOauthCodeInput(event.currentTarget.value);
@@ -1014,7 +1014,7 @@ export default function ProviderAuthModal(props: ProviderAuthModalProps) {
                       onClick={() => void handleOauthCodeSubmit()}
                       disabled={actionDisabled || !oauthCodeInput.trim()}
                     >
-                      {props.submitting ? "Verifying..." : "Complete connection"}
+                      {props.submitting ? "验证中…" : "完成连接"}
                     </Button>
                   </div>
                 </div>
@@ -1028,7 +1028,7 @@ export default function ProviderAuthModal(props: ProviderAuthModalProps) {
                       <div className="text-xs text-gray-10 mt-1">Waiting for browser confirmation.</div>
                     </div>
                     <Button variant="outline" onClick={handleBack} disabled={actionDisabled}>
-                      Back
+                      返回
                     </Button>
                   </div>
                   {isOpenAiHeadlessSession ? (
@@ -1046,11 +1046,11 @@ export default function ProviderAuthModal(props: ProviderAuthModalProps) {
                   {oauthDisplayCode ? (
                     <div className="rounded-xl border border-gray-6/70 bg-gray-2/40 p-3 flex items-center gap-3">
                       <div className="flex-1 min-w-0">
-                        <div className="text-[10px] uppercase tracking-wide text-gray-8">Confirmation code</div>
+                        <div className="text-[10px] uppercase tracking-wide text-gray-8">确认码</div>
                         <div className="text-sm text-gray-12 font-mono break-all">{oauthDisplayCode}</div>
                       </div>
                       <Button variant="outline" size="sm" className="shrink-0" onClick={() => void copyOauthDisplayCode()}>
-                        {oauthCodeCopied ? "Copied" : "Copy"}
+                        {oauthCodeCopied ? "已复制" : "复制"}
                       </Button>
                     </div>
                   ) : null}
@@ -1073,12 +1073,12 @@ export default function ProviderAuthModal(props: ProviderAuthModalProps) {
                     >
                       {isOpenAiHeadlessSession
                         ? oauthBrowserOpened
-                          ? "Reopen Browser"
-                          : "Open Browser"
-                        : "Open browser again"}
+                          ? "重新打开浏览器"
+                          : "打开浏览器"
+                        : "重新打开浏览器"}
                     </Button>
                     <div className="text-[11px] text-gray-9 text-right">
-                      This window will close once the provider is connected.
+                      提供商连接后此窗口将自动关闭。
                     </div>
                   </div>
                 </div>

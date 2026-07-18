@@ -56,26 +56,26 @@ function copyForEvent(event: DesktopNotificationEvent): NotificationCopy {
   switch (event.type) {
     case "task.completed":
       return {
-        title: "Task completed",
-        body: "The session finished running.",
+        title: "任务已完成",
+        body: "会话已运行完成。",
         importance: "routine",
       };
     case "task.failed":
       return {
-        title: "Task failed",
-        body: event.errorText?.trim() || "The session stopped with an error.",
+        title: "任务失败",
+        body: event.errorText?.trim() || "会话因错误而停止。",
         importance: "important",
       };
     case "permission.asked":
       return {
-        title: "Permission needed",
-        body: event.detail?.trim() || "A session is waiting for permission before it can continue.",
+        title: "需要授权",
+        body: event.detail?.trim() || "有一个会话正在等待授权才能继续。",
         importance: "important",
       };
     case "question.asked":
       return {
-        title: "Question needs your answer",
-        body: event.question?.trim() || "A session is waiting for your answer.",
+        title: "问题需要你回答",
+        body: event.question?.trim() || "有一个会话正在等待你的回答。",
         importance: "important",
       };
   }

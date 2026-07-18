@@ -325,11 +325,11 @@ function CopyMessageButton({ messages }: CopyMessageButtonProps) {
   }
 
   return (
-    <MessageAction tooltip={copied ? "Copied!" : "Copy"}>
+    <MessageAction tooltip={copied ? "已复制！" : "复制"}>
       <Button
         variant="ghost"
         size="icon"
-        aria-label="Copy message"
+        aria-label="复制消息"
         onClick={() => void onCopy()}
       >
         {copied ? <Check /> : <Copy />}
@@ -505,32 +505,32 @@ const UserMessage = React.memo(
                     <MessageTimestamp message={message} className="mr-1.5" />
                     <CopyMessageButton messages={[message]} />
                     {messageText ? (
-                      <MessageAction tooltip="Edit message">
+                      <MessageAction tooltip="编辑消息">
                         <Button
                           variant="ghost"
                           size="icon"
-                          aria-label="Edit message"
+                          aria-label="编辑消息"
                           onClick={() => onEditUserMessage(message.id, messageText)}
                         >
                           <Pencil />
                         </Button>
                       </MessageAction>
                     ) : null}
-                    <MessageAction tooltip="Branch in new chat">
+                    <MessageAction tooltip="在新聊天中分支">
                       <Button
                         variant="ghost"
                         size="icon"
-                        aria-label="Branch in new chat"
+                        aria-label="在新聊天中分支"
                         onClick={() => onForkAtMessage(message.id)}
                       >
                         <Split className="rotate-90" />
                       </Button>
                     </MessageAction>
-                    <MessageAction tooltip="Revert">
+                    <MessageAction tooltip="撤回">
                       <Button
                         variant="ghost"
                         size="icon"
-                        aria-label="Revert"
+                        aria-label="撤回"
                         onClick={() => onRevertToUserMessage(message.id)}
                       >
                         <Undo2 />
@@ -545,22 +545,22 @@ const UserMessage = React.memo(
             {messageText ? (
               <ContextMenuItem onClick={() => onEditUserMessage(message.id, messageText)}>
                 <Pencil className="size-4" />
-                Edit message
+                编辑消息
               </ContextMenuItem>
             ) : null}
             {messageText ? (
               <ContextMenuItem onClick={() => void navigator.clipboard.writeText(messageText)}>
                 <Copy className="size-4" />
-                Copy
+                复制
               </ContextMenuItem>
             ) : null}
             <ContextMenuItem onClick={() => onForkAtMessage(message.id)}>
               <Split className="size-4 rotate-90" />
-              Branch in new chat
+              在新聊天中分支
             </ContextMenuItem>
             <ContextMenuItem onClick={() => onRevertToUserMessage(message.id)}>
               <Undo2 className="size-4" />
-              Revert
+              撤回
             </ContextMenuItem>
           </ContextMenuContent>
         </ContextMenu>
@@ -581,7 +581,7 @@ type MessageComponentProps = {
 const MessageComponent = React.memo(
   ({ message, isLastMessage, isStreaming, isLastStep }: MessageComponentProps) => {
     if (isSessionErrorMessage(message)) {
-      return <ErrorMessage error={getMessagesText([message]) || "Session failed"} />
+      return <ErrorMessage error={getMessagesText([message]) || "会话失败"} />
     }
 
     if (isEmptyMessage(message) && !isStreaming) {
@@ -815,21 +815,21 @@ function MessageGroup({
             <CopyMessageButton messages={renderableItems.map((item) => item.message)} />
             {lastRealItem ? (
               <>
-                <MessageAction tooltip="Branch in new chat">
+                <MessageAction tooltip="在新聊天中分支">
                   <Button
                     variant="ghost"
                     size="icon"
-                    aria-label="Branch in new chat"
+                    aria-label="在新聊天中分支"
                     onClick={() => onForkAtMessage(lastRealItem.message.id)}
                   >
                     <Split className="rotate-90" />
                   </Button>
                 </MessageAction>
-                <MessageAction tooltip="Revert">
+                <MessageAction tooltip="撤回">
                   <Button
                     variant="ghost"
                     size="icon"
-                    aria-label="Revert"
+                    aria-label="撤回"
                     onClick={() => onRevertToUserMessage(lastRealItem.message.id)}
                   >
                     <Undo2 />

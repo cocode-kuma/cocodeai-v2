@@ -541,7 +541,7 @@ export function McpView(props: McpViewProps) {
           <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-dls-secondary" />
           <input
             className="w-full rounded-lg border border-dls-border bg-dls-surface py-2 pl-9 pr-3 text-xs text-dls-text placeholder:text-dls-secondary focus:outline-none focus:ring-2 focus:ring-[rgba(var(--dls-accent-rgb),0.2)]"
-            placeholder="Search extensions..."
+            placeholder="搜索扩展…"
             value={search}
             onChange={(e) => setSearch(e.currentTarget.value)}
           />
@@ -562,7 +562,7 @@ export function McpView(props: McpViewProps) {
             size="xs"
             onClick={() => setShowHidden((current) => !current)}
           >
-            {showHidden ? "Showing hidden" : hiddenOrPolicyCount > 0 ? `Show hidden (${hiddenOrPolicyCount})` : "Show hidden"}
+            {showHidden ? "已显示隐藏项" : hiddenOrPolicyCount > 0 ? `显示隐藏项 (${hiddenOrPolicyCount})` : "显示隐藏项"}
           </Button>
         </div>
       </div>
@@ -801,7 +801,7 @@ export function McpView(props: McpViewProps) {
             open={!!detailSkill}
             onClose={() => { setDetailSkill(null); setDetailSkillContent(null); }}
             name={detailSkill.name}
-            description={detailSkill.description ?? "Installed skill"}
+            description={detailSkill.description ?? "已安装的技能"}
             kind="skill"
             connected={true}
             hidden={hidden}
@@ -862,8 +862,8 @@ export function McpView(props: McpViewProps) {
             showEnablementCard={false}
             configSlot={(
               <div className="flex flex-wrap gap-2">
-                <span className="rounded-full border border-dls-border bg-dls-hover px-2 py-1 text-xs text-dls-secondary">Shared by your organization</span>
-                <span className="rounded-full border border-dls-border bg-dls-hover px-2 py-1 text-xs text-dls-secondary">{connection.credentialMode === "shared" ? "Org account" : "Your account"}</span>
+                <span className="rounded-full border border-dls-border bg-dls-hover px-2 py-1 text-xs text-dls-secondary">由你的组织共享</span>
+                <span className="rounded-full border border-dls-border bg-dls-hover px-2 py-1 text-xs text-dls-secondary">{connection.credentialMode === "shared" ? "组织账号" : "你的账号"}</span>
               </div>
             )}
           />
@@ -972,7 +972,7 @@ function McpQuickConnectSection(props: {
               preview={entry.preview}
               disabledReason={disabledReason}
               disabled={props.busy}
-              actionLabel={configured ? "View details" : t("mcp.tap_to_connect")}
+              actionLabel={configured ? "查看详情" : t("mcp.tap_to_connect")}
               onClick={() => props.onDetail(entry)}
             />
           );
@@ -985,11 +985,11 @@ function McpQuickConnectSection(props: {
             <ExtensionCard
               key={`skill:${skill.name}`}
               name={skill.name}
-              description={skill.description ?? "Installed skill"}
+              description={skill.description ?? "已安装的技能"}
               kind="skill"
               connected={true}
               hidden={hidden}
-              actionLabel="View details"
+              actionLabel="查看详情"
               onClick={() => props.onSkillDetail?.(skill)}
             />
           );
@@ -1006,7 +1006,7 @@ function McpQuickConnectSection(props: {
               kind="extension"
               connected={true}
               hidden={hidden}
-              actionLabel="View details"
+              actionLabel="查看详情"
               onClick={() => props.onPluginDetail?.(plugin)}
             />
           );
@@ -1047,8 +1047,8 @@ function McpQuickConnectSection(props: {
         {props.entries.length === 0 && (props.installedSkills ?? []).length === 0 && (props.installedPlugins ?? []).length === 0 && (props.installedOrgMcpItems ?? []).length === 0 ? (
           <div className="col-span-full rounded-xl border border-dashed border-dls-border px-5 py-10 text-center">
             <Unplug size={24} className="mx-auto mb-3 text-dls-secondary/30" />
-            <div className="text-sm font-medium text-dls-secondary">No extensions found</div>
-            <div className="mt-1 text-xs text-dls-secondary/60">Try a different search, filter, or open Marketplace to add one.</div>
+            <div className="text-sm font-medium text-dls-secondary">未找到扩展</div>
+            <div className="mt-1 text-xs text-dls-secondary/60">尝试不同的搜索、筛选，或打开市场添加一个。</div>
           </div>
         ) : null}
       </div>

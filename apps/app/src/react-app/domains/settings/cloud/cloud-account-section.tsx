@@ -168,8 +168,8 @@ function OrgPicker({
       </div>
       {orgs.length > 10 ? (
         <Input
-          aria-label="Search organizations"
-          placeholder="Search organizations..."
+          aria-label="搜索组织"
+          placeholder="搜索组织…"
           value={query}
           className="h-auto rounded-xl border-dls-border bg-dls-surface px-4 py-2.5 text-sm text-dls-text shadow-none placeholder:text-dls-secondary focus-visible:border-dls-text/30 focus-visible:ring-0 dark:bg-dls-surface"
           onChange={(event) => updateQuery(event.target.value)}

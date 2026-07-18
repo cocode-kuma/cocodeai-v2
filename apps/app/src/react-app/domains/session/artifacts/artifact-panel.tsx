@@ -281,25 +281,25 @@ function ArtifactPanelView({ client, workspaceId, workspaceRoot, isRemoteWorkspa
                       </Button>
                     )}
                   />
-                  <TooltipContent>Discard changes</TooltipContent>
+                  <TooltipContent>放弃更改</TooltipContent>
                 </Tooltip>
                 <Tooltip>
                   <TooltipTrigger
                     render={(
-                      <Button variant="default" size="sm" onClick={() => void save()} disabled={isSaving || draft === data.data}>{isSaving ? "Saving" : "Save"}</Button>
+                      <Button variant="default" size="sm" onClick={() => void save()} disabled={isSaving || draft === data.data}>{isSaving ? "保存中" : "保存"}</Button>
                     )}
                   />
-                  <TooltipContent>Save changes</TooltipContent>
+                  <TooltipContent>保存更改</TooltipContent>
                 </Tooltip>
               </>
             ) : (
               <Tooltip>
                 <TooltipTrigger
                   render={(
-                    <Button variant="ghost" size="sm" onClick={() => setEditing(true)}>Edit</Button>
+                    <Button variant="ghost" size="sm" onClick={() => setEditing(true)}>编辑</Button>
                   )}
                 />
-                <TooltipContent>Edit artifact</TooltipContent>
+                <TooltipContent>编辑产出物</TooltipContent>
               </Tooltip>
             )
           ) : null}
@@ -307,45 +307,45 @@ function ArtifactPanelView({ client, workspaceId, workspaceRoot, isRemoteWorkspa
             <Tooltip>
               <TooltipTrigger
                 render={(
-                  <Button variant="ghost" size="icon-sm" onClick={() => void download()} aria-label="Download artifact">
+                  <Button variant="ghost" size="icon-sm" onClick={() => void download()} aria-label="下载产出物">
                     <Download />
                   </Button>
                 )}
               />
-              <TooltipContent>Download artifact</TooltipContent>
+              <TooltipContent>下载产出物</TooltipContent>
             </Tooltip>
           ) : null}
           {target.kind === "file" && !isRemoteWorkspace ? (
             <Tooltip>
               <TooltipTrigger
                 render={(
-                  <Button variant="ghost" size="icon-sm" onClick={() => void revealExternal()} aria-label="Show in folder">
+                  <Button variant="ghost" size="icon-sm" onClick={() => void revealExternal()} aria-label="在文件夹中显示">
                     <FolderOpen />
                   </Button>
                 )}
               />
-              <TooltipContent>Show in folder</TooltipContent>
+              <TooltipContent>在文件夹中显示</TooltipContent>
             </Tooltip>
           ) : null}
           <Tooltip>
             <TooltipTrigger
               render={(
-                <Button variant="ghost" size="icon-sm" onClick={() => void openExternal()} aria-label={isRemoteWorkspace ? "Download artifact" : "Open externally"}>
+                <Button variant="ghost" size="icon-sm" onClick={() => void openExternal()} aria-label={isRemoteWorkspace ? "下载产出物" : "外部打开"}>
                   <ExternalLink />
                 </Button>
               )}
             />
-            <TooltipContent>{isRemoteWorkspace ? "Download artifact" : "Open externally"}</TooltipContent>
+            <TooltipContent>{isRemoteWorkspace ? "下载产出物" : "外部打开"}</TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger
               render={(
-                <Button variant="ghost" size="icon-sm" onClick={onClose} aria-label="Close artifact">
+                <Button variant="ghost" size="icon-sm" onClick={onClose} aria-label="关闭产出物">
                   <X />
                 </Button>
               )}
             />
-            <TooltipContent>Close artifact</TooltipContent>
+            <TooltipContent>关闭产出物</TooltipContent>
           </Tooltip>
           </div>
         </div>

@@ -9,15 +9,15 @@ interface LspToolProps {
 }
 
 const LSP_OPERATION_LABELS: Record<LspInput["operation"], string> = {
-  goToDefinition: "Go to definition",
-  findReferences: "Find references",
-  hover: "Hover",
-  documentSymbol: "Document symbols",
-  workspaceSymbol: "Workspace symbols",
-  goToImplementation: "Go to implementation",
-  prepareCallHierarchy: "Prepare call hierarchy",
-  incomingCalls: "Incoming calls",
-  outgoingCalls: "Outgoing calls",
+  goToDefinition: "转到定义",
+  findReferences: "查找引用",
+  hover: "悬停",
+  documentSymbol: "文档符号",
+  workspaceSymbol: "工作区符号",
+  goToImplementation: "转到实现",
+  prepareCallHierarchy: "准备调用层次",
+  incomingCalls: "传入调用",
+  outgoingCalls: "传出调用",
 }
 
 function getLspToolTitle(part: LspToolPart): string | null {

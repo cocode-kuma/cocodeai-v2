@@ -56,26 +56,26 @@ function ShellWireframe({ config }: { config: ShellConfig }) {
 
           {/* Workspace header */}
           <circle cx="16" cy="44" r="5" fill="var(--dls-accent)" opacity="0.3" />
-          <text x="26" y="47" fontSize="6.5" fontWeight="600" fill="var(--dls-text-primary)" opacity="0.7">Workspace</text>
+          <text x="26" y="47" fontSize="6.5" fontWeight="600" fill="var(--dls-text-primary)" opacity="0.7">工作区</text>
 
           {/* Session list */}
           <rect x="8" y="58" width="85" height="16" rx="4" fill="var(--dls-surface)" opacity="0.6" />
-          <text x="14" y="68" fontSize="5.5" fill="var(--dls-text-primary)" opacity="0.5">Meeting brief</text>
+          <text x="14" y="68" fontSize="5.5" fill="var(--dls-text-primary)" opacity="0.5">会议简报</text>
 
           <rect x="8" y="78" width="85" height="16" rx="4" fill="transparent" />
-          <text x="14" y="88" fontSize="5.5" fill="var(--dls-text-secondary)" opacity="0.4">Contract review</text>
+          <text x="14" y="88" fontSize="5.5" fill="var(--dls-text-secondary)" opacity="0.4">合同审查</text>
 
           <rect x="8" y="98" width="85" height="16" rx="4" fill="transparent" />
-          <text x="14" y="108" fontSize="5.5" fill="var(--dls-text-secondary)" opacity="0.4">Outreach CRM</text>
+          <text x="14" y="108" fontSize="5.5" fill="var(--dls-text-secondary)" opacity="0.4">客户关系</text>
 
           {/* New session button */}
-          <text x="14" y="130" fontSize="5" fill="var(--dls-text-secondary)" opacity="0.3">+ New session</text>
+          <text x="14" y="130" fontSize="5" fill="var(--dls-text-secondary)" opacity="0.3">+ 新建会话</text>
 
           {/* Add workspace */}
           {config.addWorkspace ? (
             <g>
               <rect x="8" y="200" width="85" height="16" rx="8" fill="var(--dls-accent)" opacity="0.15" />
-              <text x="50" y="210" textAnchor="middle" fontSize="5.5" fontWeight="500" fill="var(--dls-accent)" opacity="0.6">Add workspace</text>
+              <text x="50" y="210" textAnchor="middle" fontSize="5.5" fontWeight="500" fill="var(--dls-accent)" opacity="0.6">添加工作区</text>
             </g>
           ) : null}
         </g>
@@ -86,9 +86,9 @@ function ShellWireframe({ config }: { config: ShellConfig }) {
         {/* Starter cards */}
         <g className="transition-all duration-300" style={{ opacity: config.starterCards ? 1 : 0 }}>
           {[
-            { x: cx + 12, icon: "\u{1F4CA}", label: "Edit a CSV" },
-            { x: cx + 12 + (cw - 36) / 3 + 6, icon: "\u{1F310}", label: "Browse web" },
-            { x: cx + 12 + ((cw - 36) / 3 + 6) * 2, icon: "\u{1F50C}", label: "Extensions" },
+            { x: cx + 12, icon: "\u{1F4CA}", label: "编辑 CSV" },
+            { x: cx + 12 + (cw - 36) / 3 + 6, icon: "\u{1F310}", label: "浏览网页" },
+            { x: cx + 12 + ((cw - 36) / 3 + 6) * 2, icon: "\u{1F50C}", label: "扩展" },
           ].map((card, i) => {
             const w = (cw - 36) / 3;
             return (
@@ -104,10 +104,10 @@ function ShellWireframe({ config }: { config: ShellConfig }) {
 
         {/* Composer */}
         <rect x={cx + 10} y="196" width={cw - 20} height="22" rx="11" fill="none" stroke="var(--dls-border)" strokeWidth="0.75" />
-        <text x={cx + 24} y="210" fontSize="5.5" fill="var(--dls-text-secondary)" opacity="0.3">Describe your task...</text>
+        <text x={cx + 24} y={210} fontSize="5.5" fill="var(--dls-text-secondary)" opacity="0.3">描述你的任务…</text>
         {/* Send button */}
         <rect x={cx + cw - 42} y="200" width="24" height="14" rx="7" fill="var(--dls-accent)" opacity="0.2" />
-        <text x={cx + cw - 30} y="210" textAnchor="middle" fontSize="4.5" fontWeight="500" fill="var(--dls-accent)" opacity="0.5">Run</text>
+        <text x={cx + cw - 30} y="210" textAnchor="middle" fontSize="4.5" fontWeight="500" fill="var(--dls-accent)" opacity="0.5">运行</text>
 
         {/* Model picker */}
         {config.modelPicker ? (
@@ -123,24 +123,24 @@ function ShellWireframe({ config }: { config: ShellConfig }) {
 
           {/* Status dot + label */}
           <circle cx="14" cy="242" r="2.5" fill="#28c840" opacity="0.5" />
-          <text x="22" y="245" fontSize="5.5" fontWeight="500" fill="var(--dls-text-primary)" opacity="0.5">Ready</text>
+          <text x="22" y="245" fontSize="5.5" fontWeight="500" fill="var(--dls-text-primary)" opacity="0.5">就绪</text>
 
           {/* Cloud sign-in */}
           {config.cloudSignin ? (
             <g>
               <rect x="280" y="236" width="32" height="12" rx="6" fill="var(--dls-accent)" opacity="0.2" />
-              <text x="296" y="244" textAnchor="middle" fontSize="4.5" fontWeight="500" fill="var(--dls-accent)" opacity="0.5">Sign in</text>
+              <text x="296" y="244" textAnchor="middle" fontSize="4.5" fontWeight="500" fill="var(--dls-accent)" opacity="0.5">登录</text>
             </g>
           ) : null}
 
           {/* Docs */}
           {config.docsButton ? (
-            <text x="326" y="244" fontSize="5" fill="var(--dls-text-secondary)" opacity="0.35">Docs</text>
+            <text x="326" y="244" fontSize="5" fill="var(--dls-text-secondary)" opacity="0.35">文档</text>
           ) : null}
 
           {/* Feedback */}
           {config.feedbackButton ? (
-            <text x="350" y="244" fontSize="5" fill="var(--dls-text-secondary)" opacity="0.35">Feedback</text>
+            <text x="350" y="244" fontSize="5" fill="var(--dls-text-secondary)" opacity="0.35">反馈</text>
           ) : null}
 
           {/* Settings gear */}
@@ -185,7 +185,7 @@ type ToggleRowProps = {
 
 function CloudOnlyBadge() {
   return (
-    <span className="inline-flex items-center gap-1 rounded-md bg-dls-hover size-5 justify-center text-xs font-medium text-dls-secondary" aria-label="Cloud only">
+    <span className="inline-flex items-center gap-1 rounded-md bg-dls-hover size-5 justify-center text-xs font-medium text-dls-secondary" aria-label="仅限云端">
       <Lock className="size-3" />
     </span>
   );
@@ -280,7 +280,7 @@ export function ShellCustomizationView() {
           <Alert>
             <Info />
             <AlertDescription>
-              {brandAppName === "CocodeAI" ? "Your organization has not set a custom application name." : "This application name is managed by your organization."}
+              {brandAppName === "CocodeAI" ? "你的组织尚未设置自定义应用名称。" : "此应用名称由你的组织管理。"}
             </AlertDescription>
           </Alert>
         </LayoutSectionItem>
@@ -291,15 +291,15 @@ export function ShellCustomizationView() {
       {/* ---- Visibility ---- */}
       <LayoutSection>
         <LayoutSectionHeader>
-          <LayoutSectionTitle>Layout</LayoutSectionTitle>
+          <LayoutSectionTitle>布局</LayoutSectionTitle>
           <LayoutSectionDescription>
-            Customize what's visible in the interface.
+            自定义界面中可见的内容。
           </LayoutSectionDescription>
         </LayoutSectionHeader>
 
         <Alert>
           <AlertDescription>
-            Anything you hide is still available via the command palette (Cmd+K).
+            任何隐藏的内容仍可通过命令面板 (Cmd+K) 使用。
           </AlertDescription>
         </Alert>
 
@@ -308,37 +308,37 @@ export function ShellCustomizationView() {
         </LayoutSectionItem>
 
         <ToggleRow
-          label="Display sidebar"
-          description="Browse workspaces and past sessions from a side panel."
+          label="显示侧边栏"
+          description="从侧边面板浏览工作区和过往会话。"
           checked={config.sidebar}
           onChange={(v) => update({ sidebar: v })}
         />
 
         <ToggleRow
-          label="Display status bar"
-          description="Quick access to status, settings, and actions along the bottom edge."
+          label="显示状态栏"
+          description="沿底部边缘快速访问状态、设置和操作。"
           checked={config.statusBar}
           onChange={(v) => update({ statusBar: v })}
-          warning="When hidden, the only way to access settings is via Cmd+K."
+          warning="隐藏后，只能通过 Cmd+K 访问设置。"
         />
 
         {config.statusBar ? (
           <div className="ml-6 flex flex-col gap-3 border border-dls-border px-4 py-4 rounded-2xl -mr-4">
             <ToggleRow
-              label="Display documentation link"
-              description="Show a link to your documentation."
+              label="显示文档链接"
+              description="在状态栏显示文档链接。"
               checked={config.docsButton}
               onChange={(value) => update({ docsButton: value })}
             />
             <ToggleRow
-              label="Display feedback button"
-              description="Show a button for submitting feedback."
+              label="显示反馈按钮"
+              description="显示提交反馈的按钮。"
               checked={config.feedbackButton}
               onChange={(value) => update({ feedbackButton: value })}
             />
             <ToggleRow
-              label="Display cloud sign-in"
-              description="Show a sign-in prompt for users who aren't logged in."
+              label="显示云端登录"
+              description="为未登录用户显示登录入口。"
               checked={config.cloudSignin}
               onChange={(value) => update({ cloudSignin: value })}
             />
@@ -346,52 +346,52 @@ export function ShellCustomizationView() {
         ) : null}
 
         <ToggleRow
-          label="Display notifications"
-          description="A bell in the header collecting updates from CocodeAI Cloud and your workspaces."
+          label="显示通知"
+          description="在顶部栏显示通知铃铛，收集来自 CocodeAI Cloud 和工作区的更新。"
           checked={config.notifications}
           onChange={(v) => update({ notifications: v })}
         />
 
         <ToggleRow
-          label="Display task suggestions"
-          description="Show task suggestions to help users get started."
+          label="显示任务建议"
+          description="显示任务建议以帮助用户上手。"
           checked={config.starterCards}
           onChange={(v) => update({ starterCards: v })}
         />
 
         <ToggleRow
-          label="Display model picker"
-          description="Let users choose which AI model to use."
+          label="显示模型选择器"
+          description="让用户选择使用哪个 AI 模型。"
           checked={config.modelPicker}
           onChange={(v) => update({ modelPicker: v })}
           disabled
-          unavailable="The model picker display control is not available yet."
+          unavailable="模型选择器显示控制暂不可用。"
         />
 
         <ToggleRow
-          label="Display browser panel"
-          description="A built-in browser for viewing web content alongside sessions."
+          label="显示浏览器面板"
+          description="内置浏览器，可在会话旁查看网页内容。"
           checked={config.browser}
           onChange={(v) => update({ browser: v })}
           disabled
-          unavailable="The browser panel display control is not available yet."
+          unavailable="浏览器面板显示控制暂不可用。"
         />
 
         <ToggleRow
-          label="Display menu bar"
-          description="Show the native desktop menu bar."
+          label="显示菜单栏"
+          description="显示原生桌面菜单栏。"
           checked={applicationMenuVisible}
           onChange={setApplicationMenuVisible}
           className="hidden windows:flex linux:flex"
         />
 
         <ToggleRow
-          label="Display new workspace button"
-          description="Let users create or join additional workspaces."
+          label="显示新建工作区按钮"
+          description="让用户创建或加入其他工作区。"
           checked={config.addWorkspace}
           onChange={(v) => update({ addWorkspace: v })}
           disabled
-          unavailable="The new workspace button display control is not available yet."
+          unavailable="新建工作区按钮显示控制暂不可用。"
         />
       </LayoutSection>
 
@@ -400,46 +400,46 @@ export function ShellCustomizationView() {
       {/* ---- Cloud-managed (grayed out) ---- */}
       <LayoutSection>
         <LayoutSectionHeader>
-          <LayoutSectionTitle>Organization-wide settings</LayoutSectionTitle>
+          <LayoutSectionTitle>组织级设置</LayoutSectionTitle>
           <LayoutSectionDescription>
-            These settings are managed by your organization via CocodeAI Cloud.
+            这些设置由你的组织通过 CocodeAI Cloud 管理。
           </LayoutSectionDescription>
         </LayoutSectionHeader>
 
         <Alert variant="warning">
           <Lock />
           <AlertDescription>
-            These settings can only be changed by your organization admin. Contact your admin to make changes.
+            这些设置只能由组织管理员更改。请联系管理员以进行修改。
           </AlertDescription>
         </Alert>
 
         <ToggleRow
-          label="Settings access"
-          description="Let users open the settings panel."
+          label="设置访问权限"
+          description="让用户打开设置面板。"
           checked={true}
           onChange={() => {}}
           cloudOnly
         />
 
         <ToggleRow
-          label="Model restrictions"
-          description="Limit which AI models and providers users can choose from."
+          label="模型限制"
+          description="限制用户可选择的 AI 模型和提供商。"
           checked={false}
           onChange={() => {}}
           cloudOnly
         />
 
         <ToggleRow
-          label="Extension restrictions"
-          description="Limit which extensions, plugins, and skills users can install."
+          label="扩展限制"
+          description="限制用户可以安装的扩展、插件和技能。"
           checked={false}
           onChange={() => {}}
           cloudOnly
         />
 
         <ToggleRow
-          label="Enable welcome page"
-          description="A getting-started screen for first-time users."
+          label="启用欢迎页面"
+          description="首次用户的入门引导页面。"
           checked={config.welcomePage}
           onChange={(v) => update({ welcomePage: v })}
           cloudOnly
@@ -452,7 +452,7 @@ export function ShellCustomizationView() {
       {/* ---- Reset ---- */}
       <div className="flex items-center justify-between">
         <div className="text-sm text-dls-secondary">
-          {isDefault ? "All settings are at their defaults." : "Some settings have been customized."}
+          {isDefault ? "所有设置均为默认值。" : "部分设置已自定义。"}
         </div>
         <Button
           variant="outline"
@@ -461,7 +461,7 @@ export function ShellCustomizationView() {
           disabled={isDefault}
         >
           <RotateCcw size={12} />
-          Reset to defaults
+          恢复默认设置
         </Button>
       </div>
     </LayoutStack>

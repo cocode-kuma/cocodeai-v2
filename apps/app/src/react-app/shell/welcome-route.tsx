@@ -153,7 +153,7 @@ export function WelcomeRoute() {
           list = null;
         }
         if (!list) {
-          throw new Error("CocodeAI server is unavailable. Start or reconnect the server before creating a workspace.");
+          throw new Error("CocodeAI 服务器不可用。请在创建工作区之前启动或重新连接服务器。");
         }
         const createdId =
           resolveWorkspaceListSelectedId(list) ||
@@ -209,7 +209,7 @@ export function WelcomeRoute() {
       } catch (error) {
         dispatch({
           type: "create:error",
-          error: error instanceof Error ? error.message : "Failed to create workspace.",
+          error: error instanceof Error ? error.message : "创建工作区失败。",
         });
       } finally {
         dispatch({ type: "create:finish" });
@@ -257,7 +257,7 @@ export function WelcomeRoute() {
           }
         }
         if (!list) {
-          throw new Error("CocodeAI server is unavailable. Start or reconnect the server before connecting a remote workspace.");
+          throw new Error("CocodeAI 服务器不可用。请在连接远程工作区之前启动或重新连接服务器。");
         }
         const createdId =
           resolveWorkspaceListSelectedId(list) ||
@@ -275,7 +275,7 @@ export function WelcomeRoute() {
       } catch (error) {
         dispatch({
           type: "remote:error",
-          error: error instanceof Error ? error.message : "Connection failed.",
+          error: error instanceof Error ? error.message : "连接失败。",
         });
         return false;
       } finally {

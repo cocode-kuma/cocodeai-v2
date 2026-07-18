@@ -25,7 +25,7 @@ function getQuestionToolTitle(part: QuestionToolPart): string | null {
   const count = part.input?.questions?.length ?? 0
 
   if (part.state === "output-error") {
-    return label ?? "Asked a question"
+    return label ?? "已提问"
   }
 
   if (part.state !== "output-available") {
@@ -36,7 +36,7 @@ function getQuestionToolTitle(part: QuestionToolPart): string | null {
     return label
   }
 
-  return count > 1 ? `Asked ${count} questions` : "Asked a question"
+  return count > 1 ? `已提问 ${count} 个问题` : "已提问"
 }
 
 function getQuestionToolDetail(part: QuestionToolPart): string | undefined {

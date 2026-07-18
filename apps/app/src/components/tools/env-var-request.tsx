@@ -27,7 +27,7 @@ function clean(value: string | undefined) {
 
 export function EnvVarRequestTool({ part }: EnvVarRequestToolProps) {
   const key = clean(part.input?.key)
-  const label = clean(part.input?.label) || key || "environment variable"
+  const label = clean(part.input?.label) || key || "环境变量"
   const description = clean(part.input?.description)
   const placeholder = clean(part.input?.placeholder)
   const helpUrl = clean(part.input?.helpUrl)
@@ -50,7 +50,7 @@ export function EnvVarRequestTool({ part }: EnvVarRequestToolProps) {
   }, [key])
 
   if (!key) {
-    return <Tool toolPart={part} title="Requested environment variable" />
+    return <Tool toolPart={part} title="已请求环境变量" />
   }
 
   const save = () => {
@@ -77,16 +77,16 @@ export function EnvVarRequestTool({ part }: EnvVarRequestToolProps) {
         <div className="min-w-0 flex-1 space-y-3">
           <div className="space-y-1">
             <div className="flex flex-wrap items-center gap-2">
-              <h3 className="text-sm font-semibold text-dls-primary">Add {label}</h3>
+              <h3 className="text-sm font-semibold text-dls-primary">添加 {label}</h3>
               {saved ? (
                 <span className="inline-flex items-center gap-1 rounded-full border border-green-6/40 bg-green-3/30 px-2 py-0.5 text-[11px] font-medium text-green-11">
                   <Check className="size-3" />
-                  Saved
+                  已保存
                 </span>
               ) : null}
             </div>
             <p className="text-xs leading-5 text-dls-secondary">
-              {description || "Paste the token here. CocodeAI stores it locally and does not send the secret back into chat."}
+              {description || "请将令牌粘贴到此处。CocodeAI 会本地存储，不会将密钥发送回聊天中。"}
             </p>
           </div>
 
@@ -101,7 +101,7 @@ export function EnvVarRequestTool({ part }: EnvVarRequestToolProps) {
 
           {!canModify ? (
             <p className="rounded-lg border border-amber-6/40 bg-amber-3/20 px-3 py-2 text-xs text-amber-11">
-              Environment variables can only be edited from a local desktop workspace.
+              环境变量只能在本地桌面工作区中编辑。
             </p>
           ) : null}
           {applyError ? (
@@ -113,31 +113,31 @@ export function EnvVarRequestTool({ part }: EnvVarRequestToolProps) {
           <div className="flex flex-wrap items-center gap-2">
             <Button size="sm" onClick={save} disabled={!canModify || isModifying || !editor.value}>
               {isModifying ? <LoaderCircle className="size-4 animate-spin" /> : null}
-              {saved ? "Update token" : "Save token"}
+              {saved ? "更新令牌" : "保存令牌"}
             </Button>
             {canApplyChanges && pendingChanges ? (
               <Button size="sm" variant="outline" onClick={apply} disabled={isApplying}>
                 {isApplying ? <LoaderCircle className="size-4 animate-spin" /> : <RefreshCw className="size-4" />}
-                Apply changes
+                应用更改
               </Button>
             ) : null}
             {helpUrl ? (
               <Button size="sm" variant="ghost" render={<a href={helpUrl} target="_blank" rel="noreferrer" />}>
-                Open setup guide
+                打开设置指南
                 <ExternalLink className="size-3.5" />
               </Button>
             ) : null}
             {followUpPrompt && saved ? (
               <Button size="sm" variant="ghost" onClick={() => setPrompt(followUpPrompt)}>
-                Continue setup
+                继续设置
               </Button>
             ) : null}
           </div>
 
           <p className={cn("text-[11px] leading-4 text-dls-tertiary", saved && pendingChanges ? "text-amber-11" : "")}>
             {saved && pendingChanges
-              ? "Saved locally. Apply changes so local agents can read the latest value."
-              : "The token is written through the same local Environment Variables store used by Settings."}
+              ? "已本地保存。应用更改以便本地代理可以读取最新值。"
+              : "令牌通过设置中使用的同一个本地环境变量存储写入。"}
           </p>
         </div>
       </div>

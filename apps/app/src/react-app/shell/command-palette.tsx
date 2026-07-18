@@ -181,8 +181,8 @@ export function CommandPalette(props: CommandPaletteProps) {
     ...(props.onOpenModelPicker
       ? [{
           id: "models",
-          title: "Switch model",
-          detail: "Choose the LLM that runs your next prompts",
+          title: "切换模型",
+          detail: "选择运行下一条提示的 LLM",
           meta: props.selectedModelLabel ?? t("session.default_model"),
           icon: <BrainCircuit className="size-4 text-primary" />,
           searchText: "model models llm provider openai anthropic claude gpt gemini switch pick select default",
@@ -209,11 +209,11 @@ export function CommandPalette(props: CommandPaletteProps) {
     ...(canMoveCurrentSessionToGroup
       ? [{
           id: "move-to-group",
-          title: "Move to Group",
+          title: "移动到分组",
           detail: props.currentSessionForGroupMove
-            ? `Add ${props.currentSessionForGroupMove.title} to an existing group`
-            : "Add the selected task to an existing group",
-          meta: sessionGroupCount > 0 ? `${sessionGroupCount.toLocaleString()} groups` : "No groups",
+            ? `将 ${props.currentSessionForGroupMove.title} 添加到已有分组`
+            : "将选中的任务添加到已有分组",
+          meta: sessionGroupCount > 0 ? `${sessionGroupCount.toLocaleString()} 个分组` : "暂无分组",
           icon: <FolderInput className="size-4 text-primary" />,
           searchText: "move to group add task session folder organize",
           action: () => {
@@ -223,11 +223,11 @@ export function CommandPalette(props: CommandPaletteProps) {
       : []),
     {
       id: "accessible-items",
-      title: "Accessible items",
+      title: "可访问项",
       detail: accessibleTargetCount > 0
-        ? `Open ${accessibleTargetCount.toLocaleString()} servers and artifacts detected in this session`
-        : "No servers or artifacts detected in this session yet",
-      meta: "Session",
+        ? `打开此会话中检测到的 ${accessibleTargetCount.toLocaleString()} 个服务器和产出物`
+        : "此会话中暂未检测到服务器或产出物",
+      meta: "会话",
       action: () => {
         setMode("accessible-items");
       },
@@ -253,7 +253,7 @@ export function CommandPalette(props: CommandPaletteProps) {
       meta: t("session.cmd_settings_meta"),
       action: () => {
         props.onClose();
-        openUrl("https://openwork.dev/docs");
+        openUrl("");
       },
     },
     {
@@ -262,7 +262,7 @@ export function CommandPalette(props: CommandPaletteProps) {
       meta: t("session.cmd_settings_meta"),
       action: () => {
         props.onClose();
-        openUrl("https://openwork.dev/feedback");
+        openUrl("");
       },
     },
     {
@@ -352,9 +352,9 @@ export function CommandPalette(props: CommandPaletteProps) {
       })),
       ...targets.map((target) => ({
         id: `accessible-hide:${target.id}`,
-        title: `Stop tracking ${target.name || target.value}`,
+        title: `停止追踪 ${target.name || target.value}`,
         detail: target.value,
-        meta: "Hide",
+        meta: "隐藏",
         icon: targetIcon(target),
         searchText: `stop tracking hide ${target.name} ${target.value} ${target.preview}`.toLowerCase(),
         action: () => {
@@ -457,7 +457,7 @@ export function CommandPalette(props: CommandPaletteProps) {
           {mode === "sessions"
             ? t("session.palette_title_sessions")
             : mode === "accessible-items"
-              ? "Accessible items"
+              ? "可访问项"
               : mode === "agents"
                 ? t("session.cmd_agents_title")
                 : mode === "groups"
@@ -479,18 +479,18 @@ export function CommandPalette(props: CommandPaletteProps) {
                 mode === "sessions"
                   ? t("session.palette_placeholder_sessions")
                   : mode === "accessible-items"
-                    ? "Search servers and artifacts..."
+                    ? "搜索服务器和产出物…"
                     : mode === "agents"
                       ? t("session.palette_placeholder_agents")
                       : mode === "groups"
-                        ? "Search groups..."
+                        ? "搜索分组…"
                         : t("session.palette_placeholder_actions")
               }
               onKeyDown={handleBackspace}
             />
           </CommandHeader>
           <CommandPanel>
-            <CommandEmpty>{mode === "accessible-items" ? "No accessible items found for this session." : mode === "groups" ? "No groups found for this workspace." : t("session.palette_no_matches")}</CommandEmpty>
+            <CommandEmpty>{mode === "accessible-items" ? "此会话中未找到可访问项。" : mode === "groups" ? "此工作区中未找到分组。" : t("session.palette_no_matches")}</CommandEmpty>
             <CommandList>
               {(item: PaletteItem) => (
                 <CommandItem

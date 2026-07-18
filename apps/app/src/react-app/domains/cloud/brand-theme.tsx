@@ -113,7 +113,7 @@ function DesktopPolicyNotificationEffect() {
     addNotification({
       kind: "cloud",
       severity: "info",
-      title: "Organization policies active",
+      title: "组织策略已启用",
       body: "Some features and appearance settings are managed by your administrator.",
       dedupeKey: POLICY_NOTIFICATION_DEDUPE,
     });

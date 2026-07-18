@@ -163,7 +163,7 @@ export const MCP_QUICK_CONNECT: McpDirectoryInfo[] = [
       try {
         return `${getDenMcpUrl()}/agent`;
       } catch {
-        return "https://app.cocodeai.com/api/den/mcp/agent";
+        return "";
       }
     },
     type: "remote",

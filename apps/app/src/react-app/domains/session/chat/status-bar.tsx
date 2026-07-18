@@ -40,7 +40,7 @@ import {
   shouldShowOpenWorkModelsPromo,
 } from "../../cloud/openwork-models-promo";
 
-const DOCS_URL = "https://cocodeai.com/docs";
+const DOCS_URL = "";
 const STATUS_BAR_BOOT_STARTED_AT = Date.now();
 const STATUS_BAR_INITIALIZING_MS = 15_000;
 
@@ -113,10 +113,10 @@ function OpenWorkConnectIndicator(props: {
       </PopoverTrigger>
       <PopoverContent side="top" align="start" className="w-80 gap-3 rounded-xl">
         <PopoverHeader>
-          <PopoverTitle>CocodeAI Connect needs attention</PopoverTitle>
+          <PopoverTitle>CocodeAI Connect 需要注意</PopoverTitle>
           <PopoverDescription>{props.status.description}</PopoverDescription>
         </PopoverHeader>
-        <Button size="sm" onClick={props.onRunDiagnostics}>Run diagnostics</Button>
+        <Button size="sm" onClick={props.onRunDiagnostics}>运行诊断</Button>
       </PopoverContent>
     </Popover>
   );
@@ -335,8 +335,8 @@ export function StatusBar(props: StatusBarProps) {
 
   const docsControlAction = useMemo<OpenworkControlAction>(() => ({
     id: "status.docs.open",
-    label: "Open CocodeAI docs",
-    description: "Open the documentation from the status bar.",
+    label: "打开 CocodeAI 文档",
+    description: "从状态栏打开文档。",
     sideEffect: "external",
     targetRef: docsButtonRef,
     execute: () => platform.openLink(DOCS_URL),
@@ -345,8 +345,8 @@ export function StatusBar(props: StatusBarProps) {
 
   const feedbackControlAction = useMemo<OpenworkControlAction>(() => ({
     id: "status.feedback.open",
-    label: "Send feedback",
-    description: "Open the CocodeAI feedback surface from the status bar.",
+    label: "发送反馈",
+    description: "从状态栏打开 CocodeAI 反馈界面。",
     sideEffect: "external",
     targetRef: feedbackButtonRef,
     execute: props.onSendFeedback,
@@ -355,8 +355,8 @@ export function StatusBar(props: StatusBarProps) {
 
   const settingsControlAction = useMemo<OpenworkControlAction>(() => ({
     id: "status.settings.open",
-    label: props.settingsOpen ? "Go back from settings" : "Open settings from the status bar",
-    description: "Use the visible settings button in the status bar.",
+    label: props.settingsOpen ? "从设置返回" : "从状态栏打开设置",
+    description: "使用状态栏中可见的设置按钮。",
     sideEffect: "navigation",
     disabled: props.showSettingsButton === false,
     targetRef: settingsButtonRef,
