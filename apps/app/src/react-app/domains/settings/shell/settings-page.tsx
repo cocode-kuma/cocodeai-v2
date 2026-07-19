@@ -58,9 +58,14 @@ import {
   SettingsPanelToolbarStatus,
 } from "./panel";
 import { WorkspaceIcon } from "../../../design-system/workspace-icon";
-import { useFeatureFlagsPreferences } from "../state/feature-flags-preferences";
 
-export function getSettingsTabIcon(tab: SettingsTab) {
+// CocodeAI: Cloud/MCP/Skills 标签页已隐藏，这里返回不渲染任何内容的占位组件，
+// 保证 getSettingsTabIcon 的返回类型始终是合法的 React 组件。
+const HiddenSettingsTabIcon: React.FC<{ className?: string }> = () => null;
+
+export function getSettingsTabIcon(
+  tab: SettingsTab,
+): React.ComponentType<{ className?: string }> {
   switch (tab) {
     case "about":
       return Info;
@@ -78,7 +83,7 @@ export function getSettingsTabIcon(tab: SettingsTab) {
     case "cloud-providers":
     case "memory":
     case "skills":
-      return "hidden"; // CocodeAI: Cloud/MCP/Skills 功能已隐藏
+      return HiddenSettingsTabIcon; // CocodeAI: Cloud/MCP/Skills 功能已隐藏
     case "extensions":
       return Puzzle;
     case "environment":
@@ -221,12 +226,11 @@ function SettingsSidebarTabLabel({ tab }: { tab: SettingsTab }) {
 }
 
 /**
- * Cloud settings tabs, gated by client-only preview flags. The Memory tab is
- * surfaced only when `featureFlags.memory` is on (C-4). Both settings nav
- * surfaces (sidebar + compact section menu) must use this so they can't drift.
+ * CocodeAI: Cloud/MCP/Skills 功能已隐藏，云设置标签页始终为空。两个设置入口
+ * （侧边栏 + 紧凑菜单）都走这里，避免漂移。
  */
-export function getCloudSettingsTabs(memoryEnabled: boolean): SettingsTab[] {
-  return memoryEnabled ? ["cloud-account", "memory", "connect"] : CLOUD_SETTINGS_TABS;
+export function getCloudSettingsTabs(): SettingsTab[] {
+  return CLOUD_SETTINGS_TABS;
 }
 
 type SettingsPageProps = {
@@ -255,10 +259,9 @@ type SettingsSidebarProps = Pick<SettingsPageProps, "activeTab" | "onSelectTab" 
 };
 
 export function SettingsSidebar(props: SettingsSidebarProps) {
-  const { memoryEnabled } = useFeatureFlagsPreferences();
   const workspaceTabs = getWorkspaceSettingsTabs();
   const globalTabs = getGlobalSettingsTabs(props.developerMode);
-  const cloudTabs = getCloudSettingsTabs(memoryEnabled);
+  const cloudTabs = getCloudSettingsTabs();
 
   return (
     <Sidebar className="mac:**:data-[sidebar=sidebar]:bg-transparent">
@@ -363,28 +366,30 @@ export function SettingsSidebar(props: SettingsSidebarProps) {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        <SidebarGroup>
-          <SidebarGroupLabel>{t("settings.group_cloud")}</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {cloudTabs.map((tab) => {
-                const Icon = getSettingsTabIcon(tab);
-                return (
-                  <SidebarMenuItem key={tab}>
-                    <SidebarMenuButton
-                      type="button"
-                      isActive={props.activeTab === tab}
-                      onClick={() => props.onSelectTab(tab)}
-                    >
-                      <Icon />
-                      <SettingsSidebarTabLabel tab={tab} />
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                );
-              })}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+        {cloudTabs.length > 0 ? (
+          <SidebarGroup>
+            <SidebarGroupLabel>{t("settings.group_cloud")}</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {cloudTabs.map((tab) => {
+                  const Icon = getSettingsTabIcon(tab);
+                  return (
+                    <SidebarMenuItem key={tab}>
+                      <SidebarMenuButton
+                        type="button"
+                        isActive={props.activeTab === tab}
+                        onClick={() => props.onSelectTab(tab)}
+                      >
+                        <Icon />
+                        <SettingsSidebarTabLabel tab={tab} />
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  );
+                })}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        ) : null}
       </SidebarContent>
     </Sidebar>
   );

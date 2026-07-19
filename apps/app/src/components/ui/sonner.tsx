@@ -14,6 +14,16 @@ function useTheme() {
   )
 }
 
+const toasterVars: React.CSSProperties & Record<
+  "--normal-bg" | "--normal-text" | "--normal-border" | "--border-radius",
+  string
+> = {
+  "--normal-bg": "var(--popover)",
+  "--normal-text": "var(--popover-foreground)",
+  "--normal-border": "var(--border)",
+  "--border-radius": "var(--radius)",
+}
+
 const Toaster = ({ ...props }: ToasterProps) => {
   const theme = useTheme()
 
@@ -38,12 +48,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
           <Loader2Icon className="size-4 animate-spin" />
         ),
       }}
-      style={{
-        "--normal-bg": "var(--popover)",
-        "--normal-text": "var(--popover-foreground)",
-        "--normal-border": "var(--border)",
-        "--border-radius": "var(--radius)",
-      }}
+      style={toasterVars}
       toastOptions={{
         classNames: {
           toast: "cn-toast",

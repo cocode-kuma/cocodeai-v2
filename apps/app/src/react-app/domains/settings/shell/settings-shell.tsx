@@ -32,7 +32,6 @@ import {
   isSettingsTabBeta,
 } from "./settings-page";
 import { WorkspaceIcon } from "../../../design-system/workspace-icon";
-import { useFeatureFlagsPreferences } from "../state/feature-flags-preferences";
 
 type SettingsPageFrameProps = Omit<React.ComponentProps<typeof SettingsPage>, "children">;
 
@@ -164,13 +163,13 @@ export function SettingsShell(props: SettingsShellProps) {
 }
 
 function SettingsSectionMenu(props: Pick<SettingsPageFrameProps, "activeTab" | "developerMode" | "onSelectTab">) {
-  const { memoryEnabled } = useFeatureFlagsPreferences();
-  const sections: Array<{ label: string | null; tabs: SettingsTab[] }> = [
+  const allSections: Array<{ label: string | null; tabs: SettingsTab[] }> = [
     { label: null, tabs: ["general"] },
     { label: t("settings.group_workspace"), tabs: getWorkspaceSettingsTabs() },
     { label: t("settings.group_global"), tabs: getGlobalSettingsTabs(props.developerMode) },
-    { label: t("settings.group_cloud"), tabs: getCloudSettingsTabs(memoryEnabled) },
+    { label: t("settings.group_cloud"), tabs: getCloudSettingsTabs() },
   ];
+  const sections = allSections.filter((section) => section.tabs.length > 0);
   const ActiveIcon = getSettingsTabIcon(props.activeTab);
 
   return (
