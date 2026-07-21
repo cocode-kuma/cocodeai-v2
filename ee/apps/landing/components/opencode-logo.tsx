@@ -11,7 +11,7 @@ export function OpenCodeLogo(props: Props) {
       alt=""
       aria-hidden="true"
       className={props.className}
-      width={234}
+      width={174}
       height={42}
       unoptimized
     />
