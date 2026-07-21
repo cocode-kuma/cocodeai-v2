@@ -92,6 +92,18 @@ Tailwind CSS 4 + TypeScript + React 19 + Vite + shadcn/ui (Base UI) + TanStack Q
 - 如果工作量大，分步推进，每步验证
 - 代码改动在独立的 worktree/branch 上进行
 
+## Git 推送（GitHub 需代理）
+
+本机直连 `github.com` 不通，需走 Clash Verge 代理（混合端口 `127.0.0.1:7897`）。**不要修改 git config**，用环境变量一次性代理推送：
+
+```bash
+HTTPS_PROXY=http://127.0.0.1:7897 HTTP_PROXY=http://127.0.0.1:7897 git push origin master
+```
+
+- 远端：`origin` -> `https://github.com/cocode-kuma/cocodeai-v2.git`
+- 分支：`master`
+- 若 7897 未监听，用 `netstat -ano -p tcp | grep 127.0.0.1:` 找当前 Clash 端口再替换
+
 ## 体验验证
 
 每个改动都可能影响外部世界（文件系统、数据库、API、会话等），所以默认不是"写代码碰运气"，而是**提出流程，然后作为终端用户驱动它并对照现实验证**。
