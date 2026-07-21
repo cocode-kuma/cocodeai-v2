@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowLeft, FileText, Plug, Puzzle, Server, Store, Terminal, Users, Webhook } from "lucide-react";
-import { PaperMeshGradient } from "@openwork/ui/react";
+import { PaperMeshGradient } from "@cocodeai/ui/react";
 
 import { buttonVariants } from "../../_components/ui/button";
 import { getMarketplaceRoute, getOrgAccessFlags, getPluginsRoute, getYourConnectionsRoute } from "../../_lib/den-org";

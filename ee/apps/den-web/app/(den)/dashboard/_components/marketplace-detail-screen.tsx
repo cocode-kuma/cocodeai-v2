@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useMemo, useRef, useState, useEffect } from "react";
 import { ArrowLeft, Check, ChevronDown, GitBranch, Github, Globe, Loader2, Plug, Plus, Puzzle, Users, X } from "lucide-react";
-import { PaperMeshGradient, StaticSeededGradient } from "@openwork/ui/react";
+import { PaperMeshGradient, StaticSeededGradient } from "@cocodeai/ui/react";
 import { buttonVariants, DenButton } from "../../_components/ui/button";
 import { DenInput } from "../../_components/ui/input";
 import { DenSelect } from "../../_components/ui/select";

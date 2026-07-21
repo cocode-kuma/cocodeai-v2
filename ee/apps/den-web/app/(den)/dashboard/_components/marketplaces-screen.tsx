@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Cable, Search, Store } from "lucide-react";
-import { StaticSeededGradient } from "@openwork/ui/react";
+import { StaticSeededGradient } from "@cocodeai/ui/react";
 import { DashboardPageTemplate } from "../../_components/ui/dashboard-page-template";
 import { DenInput } from "../../_components/ui/input";
 import { buttonVariants } from "../../_components/ui/button";

@@ -7,7 +7,7 @@ import {
   type DesktopPolicyDefinition,
   type DesktopPolicyDocument,
   type DesktopPolicyDocumentWrite,
-} from "@openwork/types/den/desktop-policies";
+} from "@cocodeai/types/den/desktop-policies";
 import { getErrorMessage, getRequestError, requestJson } from "../../_lib/den-flow";
 
 export type DenDesktopPolicyAssignment = {

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Check, Sparkles } from "lucide-react";
-import { INFERENCE_MODEL_ALIASES } from "@openwork/types/den/inference";
+import { INFERENCE_MODEL_ALIASES } from "@cocodeai/types/den/inference";
 import { DashboardPageTemplate } from "../../_components/ui/dashboard-page-template";
 import { DenButton } from "../../_components/ui/button";
 import { getErrorMessage, getRequestError, requestJson } from "../../_lib/den-flow";
