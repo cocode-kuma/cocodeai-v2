@@ -2157,6 +2157,11 @@ async function createMainWindow() {
       vibrancy: macosVibrancyForCurrentTheme(),
       visualEffectState: "active",
     });
+  } else if (process.platform === "win32") {
+    Object.assign(windowAppearanceOptions, {
+      backgroundColor: "#00000000",
+      backgroundMaterial: "acrylic",
+    });
   }
 
   const bootSidecar = await readBrandIconSidecar();

@@ -537,3 +537,96 @@ select:disabled {
     @apply font-sans;
   }
 }
+
+/* ──────────────────────────────────────────────────────────────
+   Apple Liquid Glass — Windows desktop only
+   - Sidebar: pure transparent (native acrylic shows through, matching the title bar)
+   - Content area: solid surface (bg-dls-surface)
+   - Floating components (popups, menus, dialogs, composer): frosted glass
+   ────────────────────────────────────────────────────────────── */
+
+/* Body & root transparent → native acrylic is the deep background layer behind the sidebar */
+html.openwork-electron.openwork-platform-windows,
+html.openwork-electron.openwork-platform-windows #root,
+html.openwork-electron.openwork-platform-windows body {
+  background-color: transparent;
+}
+
+/* Sidebar token → transparent so acrylic shows through (like the OS title bar) */
+html.openwork-electron.openwork-platform-windows {
+  --sidebar: transparent;
+}
+
+/* ── Frosted glass: floating panels ── */
+html.openwork-electron.openwork-platform-windows [data-slot="popover-content"],
+html.openwork-electron.openwork-platform-windows [data-slot="select-content"],
+html.openwork-electron.openwork-platform-windows [data-slot="dropdown-menu-content"],
+html.openwork-electron.openwork-platform-windows [data-slot="dropdown-menu-sub-content"],
+html.openwork-electron.openwork-platform-windows [data-slot="context-menu-content"],
+html.openwork-electron.openwork-platform-windows [data-slot="context-menu-sub-content"],
+html.openwork-electron.openwork-platform-windows [data-slot="hover-card-content"],
+html.openwork-electron.openwork-platform-windows [data-slot="dialog-content"],
+html.openwork-electron.openwork-platform-windows [data-slot="alert-dialog-content"],
+html.openwork-electron.openwork-platform-windows [data-slot="sheet-content"],
+html.openwork-electron.openwork-platform-windows .ow-glass {
+  background-color: rgba(255, 255, 255, 0.72);
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(255, 255, 255, 0.12) 45%,
+    rgba(255, 255, 255, 0) 78%
+  );
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.08),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.08),
+    0 16px 48px -12px rgba(0, 0, 0, 0.28),
+    0 4px 12px -4px rgba(0, 0, 0, 0.18) !important;
+}
+
+/* Dark mode: white-tinted bg → visibly lighter than solid content (#1c1c1e) */
+html.openwork-electron.openwork-platform-windows[data-theme="dark"] [data-slot="popover-content"],
+html.openwork-electron.openwork-platform-windows[data-theme="dark"] [data-slot="select-content"],
+html.openwork-electron.openwork-platform-windows[data-theme="dark"] [data-slot="dropdown-menu-content"],
+html.openwork-electron.openwork-platform-windows[data-theme="dark"] [data-slot="dropdown-menu-sub-content"],
+html.openwork-electron.openwork-platform-windows[data-theme="dark"] [data-slot="context-menu-content"],
+html.openwork-electron.openwork-platform-windows[data-theme="dark"] [data-slot="context-menu-sub-content"],
+html.openwork-electron.openwork-platform-windows[data-theme="dark"] [data-slot="hover-card-content"],
+html.openwork-electron.openwork-platform-windows[data-theme="dark"] [data-slot="dialog-content"],
+html.openwork-electron.openwork-platform-windows[data-theme="dark"] [data-slot="alert-dialog-content"],
+html.openwork-electron.openwork-platform-windows[data-theme="dark"] [data-slot="sheet-content"],
+html.openwork-electron.openwork-platform-windows[data-theme="dark"] .ow-glass {
+  background-color: rgba(255, 255, 255, 0.11);
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0.03) 45%,
+    rgba(255, 255, 255, 0) 78%
+  );
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 16px 48px -12px rgba(0, 0, 0, 0.6),
+    0 4px 12px -4px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* ── Light-mode content surface shadow + rounded corners ── */
+html.openwork-electron.openwork-platform-windows:not([data-theme="dark"]) [data-slot="sidebar-inset"] {
+  border-radius: 12px 0 0 12px;
+  box-shadow:
+    -6px 0 24px -8px rgba(0, 0, 0, 0.12),
+    -2px 0 8px -2px rgba(0, 0, 0, 0.06);
+}
+
+/* ── Dialog overlay: blur sidebar content so text doesn't stand out ── */
+html.openwork-electron.openwork-platform-windows [data-slot="dialog-overlay"],
+html.openwork-electron.openwork-platform-windows [data-slot="alert-dialog-overlay"],
+html.openwork-electron.openwork-platform-windows [data-slot="sheet-overlay"] {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}

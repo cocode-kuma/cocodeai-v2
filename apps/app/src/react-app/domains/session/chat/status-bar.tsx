@@ -365,7 +365,7 @@ export function StatusBar(props: StatusBarProps) {
   useControlAction(settingsControlAction);
 
   return (
-    <div className="border-t border-border bg-background">
+    <div className="border-t border-border bg-background windows:bg-dls-surface">
       <div className="flex h-8 items-center justify-between gap-3 px-4 md:px-6">
         <div className="flex min-w-0 items-center gap-3">
           <StatusIndicator
