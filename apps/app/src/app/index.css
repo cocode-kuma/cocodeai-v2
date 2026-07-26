@@ -571,10 +571,10 @@ html.openwork-electron.openwork-platform-windows [data-slot="sheet-content"],
 html.openwork-electron.openwork-platform-windows [data-slot="autocomplete-popup"],
 html.openwork-electron.openwork-platform-windows [data-slot="command-dialog-popup"],
 html.openwork-electron.openwork-platform-windows .ow-glass {
-  background-color: color-mix(in srgb, var(--dls-surface) 93%, transparent) !important;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid color-mix(in srgb, var(--dls-border) 70%, transparent) !important;
+  background-color: color-mix(in srgb, var(--dls-surface) 82%, transparent) !important;
+  backdrop-filter: blur(32px) saturate(140%);
+  -webkit-backdrop-filter: blur(32px) saturate(140%);
+  border: 1px solid color-mix(in srgb, var(--dls-border) 55%, transparent) !important;
   box-shadow:
     0 16px 32px -12px rgba(0, 0, 0, 0.28),
     0 4px 10px -4px rgba(0, 0, 0, 0.16) !important;
