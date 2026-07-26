@@ -542,7 +542,7 @@ select:disabled {
    Apple Liquid Glass — Windows desktop only
    - Sidebar: pure transparent (native acrylic shows through, matching the title bar)
    - Content area: solid surface (bg-dls-surface)
-   - Floating components (popups, menus, dialogs, composer): frosted glass
+   - Floating components (popups, menus, dialogs, composer): translucent
    ────────────────────────────────────────────────────────────── */
 
 /* Body & root transparent → native acrylic is the deep background layer behind the sidebar */
@@ -557,7 +557,7 @@ html.openwork-electron.openwork-platform-windows {
   --sidebar: transparent;
 }
 
-/* ── Frosted glass: floating panels ── */
+/* ── Translucent: floating panels (all themes) ── */
 html.openwork-electron.openwork-platform-windows [data-slot="popover-content"],
 html.openwork-electron.openwork-platform-windows [data-slot="select-content"],
 html.openwork-electron.openwork-platform-windows [data-slot="dropdown-menu-content"],
@@ -571,52 +571,11 @@ html.openwork-electron.openwork-platform-windows [data-slot="sheet-content"],
 html.openwork-electron.openwork-platform-windows [data-slot="autocomplete-popup"],
 html.openwork-electron.openwork-platform-windows [data-slot="command-dialog-popup"],
 html.openwork-electron.openwork-platform-windows .ow-glass {
-  background-color: rgba(255, 255, 255, 0.72);
-  background-image: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.55) 0%,
-    rgba(255, 255, 255, 0.12) 45%,
-    rgba(255, 255, 255, 0) 78%
-  );
-  backdrop-filter: blur(28px) saturate(190%);
-  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  background-color: rgba(var(--dls-secondary-rgb), 0.12) !important;
+  border: 1px solid rgba(var(--dls-secondary-rgb), 0.2);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.08),
-    inset 0 0 0 1px rgba(0, 0, 0, 0.08),
-    0 16px 48px -12px rgba(0, 0, 0, 0.28),
-    0 4px 12px -4px rgba(0, 0, 0, 0.18) !important;
-}
-
-/* Dark mode: white-tinted bg → visibly lighter than solid content (#1c1c1e) */
-html.openwork-electron.openwork-platform-windows[data-theme="dark"] [data-slot="popover-content"],
-html.openwork-electron.openwork-platform-windows[data-theme="dark"] [data-slot="select-content"],
-html.openwork-electron.openwork-platform-windows[data-theme="dark"] [data-slot="dropdown-menu-content"],
-html.openwork-electron.openwork-platform-windows[data-theme="dark"] [data-slot="dropdown-menu-sub-content"],
-html.openwork-electron.openwork-platform-windows[data-theme="dark"] [data-slot="context-menu-content"],
-html.openwork-electron.openwork-platform-windows[data-theme="dark"] [data-slot="context-menu-sub-content"],
-html.openwork-electron.openwork-platform-windows[data-theme="dark"] [data-slot="hover-card-content"],
-html.openwork-electron.openwork-platform-windows[data-theme="dark"] [data-slot="dialog-content"],
-html.openwork-electron.openwork-platform-windows[data-theme="dark"] [data-slot="alert-dialog-content"],
-html.openwork-electron.openwork-platform-windows[data-theme="dark"] [data-slot="sheet-content"],
-html.openwork-electron.openwork-platform-windows[data-theme="dark"] [data-slot="autocomplete-popup"],
-html.openwork-electron.openwork-platform-windows[data-theme="dark"] [data-slot="command-dialog-popup"],
-html.openwork-electron.openwork-platform-windows[data-theme="dark"] .ow-glass {
-  background-color: rgba(255, 255, 255, 0.11);
-  background-image: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.2) 0%,
-    rgba(255, 255, 255, 0.03) 45%,
-    rgba(255, 255, 255, 0) 78%
-  );
-  backdrop-filter: blur(28px) saturate(160%);
-  -webkit-backdrop-filter: blur(28px) saturate(160%);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.35),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.5),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.1),
-    0 16px 48px -12px rgba(0, 0, 0, 0.6),
-    0 4px 12px -4px rgba(0, 0, 0, 0.45) !important;
+    0 16px 32px -12px rgba(0, 0, 0, 0.24),
+    0 4px 10px -4px rgba(0, 0, 0, 0.14) !important;
 }
 
 /* ── Content surface shadow + rounded corners (all themes) ── */
