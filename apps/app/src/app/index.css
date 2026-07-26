@@ -568,6 +568,8 @@ html.openwork-electron.openwork-platform-windows [data-slot="hover-card-content"
 html.openwork-electron.openwork-platform-windows [data-slot="dialog-content"],
 html.openwork-electron.openwork-platform-windows [data-slot="alert-dialog-content"],
 html.openwork-electron.openwork-platform-windows [data-slot="sheet-content"],
+html.openwork-electron.openwork-platform-windows [data-slot="autocomplete-popup"],
+html.openwork-electron.openwork-platform-windows [data-slot="command-dialog-popup"],
 html.openwork-electron.openwork-platform-windows .ow-glass {
   background-color: rgba(255, 255, 255, 0.72);
   background-image: linear-gradient(
@@ -597,6 +599,8 @@ html.openwork-electron.openwork-platform-windows[data-theme="dark"] [data-slot="
 html.openwork-electron.openwork-platform-windows[data-theme="dark"] [data-slot="dialog-content"],
 html.openwork-electron.openwork-platform-windows[data-theme="dark"] [data-slot="alert-dialog-content"],
 html.openwork-electron.openwork-platform-windows[data-theme="dark"] [data-slot="sheet-content"],
+html.openwork-electron.openwork-platform-windows[data-theme="dark"] [data-slot="autocomplete-popup"],
+html.openwork-electron.openwork-platform-windows[data-theme="dark"] [data-slot="command-dialog-popup"],
 html.openwork-electron.openwork-platform-windows[data-theme="dark"] .ow-glass {
   background-color: rgba(255, 255, 255, 0.11);
   background-image: linear-gradient(
