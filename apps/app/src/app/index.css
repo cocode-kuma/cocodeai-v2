@@ -615,12 +615,12 @@ html.openwork-electron.openwork-platform-windows[data-theme="dark"] .ow-glass {
     0 4px 12px -4px rgba(0, 0, 0, 0.45) !important;
 }
 
-/* ── Light-mode content surface shadow + rounded corners ── */
-html.openwork-electron.openwork-platform-windows:not([data-theme="dark"]) [data-slot="sidebar-inset"] {
+/* ── Content surface shadow + rounded corners (all themes) ── */
+html.openwork-electron.openwork-platform-windows [data-slot="sidebar-inset"] {
   border-radius: 12px 0 0 12px;
   box-shadow:
-    -6px 0 24px -8px rgba(0, 0, 0, 0.12),
-    -2px 0 8px -2px rgba(0, 0, 0, 0.06);
+    -6px 0 24px -8px rgba(0, 0, 0, 0.18),
+    -2px 0 8px -2px rgba(0, 0, 0, 0.1);
 }
 
 /* ── Dialog overlay: blur sidebar content so text doesn't stand out ── */
